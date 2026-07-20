@@ -326,6 +326,30 @@ main{max-width:800px;margin:0 auto;padding:2.2rem 1.4rem 2rem;position:relative;
   border:1px solid var(--panel-border);border-radius:7px;padding:.4rem .65rem;cursor:pointer;transition:border-color .15s ease,color .15s ease;
 }
 .sticky-icon-btn:hover,.sticky-menu-btn:hover{border-color:var(--ink-dim);color:var(--ink)}
+.lang-picker{position:relative;display:inline-block}
+.lang-picker-btn{position:relative;padding-right:1.8rem!important}
+.lang-picker-btn::after{
+  content:'';position:absolute;right:.85rem;top:50%;margin-top:-2px;
+  width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--ink-dimmer);
+  pointer-events:none;transition:transform .15s ease;
+}
+.lang-picker-btn[aria-expanded="true"]::after{transform:rotate(180deg)}
+.lang-picker-list{
+  position:fixed;z-index:9999;
+  background:#07080d;border:1px solid var(--panel-border);border-radius:10px;
+  padding:.35rem;min-width:9.5rem;list-style:none;margin:0;
+  box-shadow:0 10px 28px rgba(0,0,0,.55);max-height:60vh;overflow-y:auto;
+}
+.lang-picker-list[hidden]{display:none}
+.lang-picker-list li{
+  padding:.5rem .75rem;border-radius:6px;cursor:pointer;font-size:.85rem;color:var(--ink-dim);
+  font-family:var(--sans);transition:background .12s ease,color .12s ease;
+}
+.lang-picker-list li:hover,.lang-picker-list li.option-focused{background:var(--accent);color:#0b0c12}
+.lang-picker-list li[aria-selected="true"]{color:var(--ink);font-weight:700}
+.lang-picker-list li[aria-selected="true"]::after{content:' \2713';float:right;opacity:.8}
+body.light-mode .lang-picker-list{background:#fffdf8}
+body.light-mode .lang-picker-list li:hover,body.light-mode .lang-picker-list li.option-focused{color:#fff}
 .sticky-menu-btn{display:none}
 
 @media(max-width:1399px){
@@ -455,6 +479,43 @@ footer{max-width:800px;margin:0 auto;padding:2.6rem 1.4rem 4rem;position:relativ
 footer p{color:var(--ink-dimmer);font-size:.82rem;max-width:600px;margin-bottom:.7rem}
 footer p:last-child{margin-bottom:0}
 footer a{color:var(--ink-dim)}
+.footer-credit{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.footer-credit-line{font-size:.85rem;color:var(--ink-dim);margin-bottom:.7rem!important}
+.footer-credit-line strong{color:var(--ink)}
+.footer-credit-links{display:flex;flex-wrap:wrap;gap:.6rem}
+.credit-link{
+  display:inline-flex;align-items:center;gap:.4rem;font-family:var(--sans);font-size:.78rem;font-weight:600;
+  color:var(--ink-dim);background:var(--panel);border:1px solid var(--panel-border);border-radius:999px;
+  padding:.45rem 1rem;text-decoration:none;transition:border-color .15s ease,color .15s ease,background .15s ease;
+}
+.credit-link:hover{border-color:var(--accent);color:var(--ink);background:var(--panel-hover,var(--panel))}
+.support-widget{position:fixed;right:1.4rem;bottom:1.4rem;z-index:9998}
+.support-trigger{
+  width:2.8rem;height:2.8rem;border-radius:50%;
+  background:var(--panel);border:1px solid var(--panel-border);color:var(--accent);
+  font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.35);transition:transform .15s ease,border-color .15s ease;
+}
+.support-trigger:hover{transform:scale(1.08);border-color:var(--accent)}
+.support-panel{
+  position:absolute;right:0;bottom:calc(100% + .7rem);
+  background:#07080d;border:1px solid var(--panel-border);border-radius:14px;
+  padding:1.1rem 1.2rem;min-width:13rem;box-shadow:0 12px 32px rgba(0,0,0,.5);
+}
+.support-panel[hidden]{display:none}
+.support-close{
+  position:absolute;top:.55rem;right:.6rem;background:none;border:none;color:var(--ink-dimmer);
+  cursor:pointer;font-size:.85rem;padding:.25rem;line-height:1;
+}
+.support-close:hover{color:var(--ink)}
+.support-made-by{font-size:.85rem;color:var(--ink-dim);margin:0 0 .5rem;padding-right:1rem}
+.support-made-by strong{color:var(--ink)}
+.support-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dimmer);margin:0 0 .5rem;font-family:var(--mono)}
+.support-links{display:flex;flex-direction:column;gap:.5rem}
+.support-links .credit-link{justify-content:center}
+body.light-mode .support-panel{background:#fffdf8}
+body.light-mode .support-trigger{background:#fff}
+@media(max-width:520px){ .support-widget{right:1rem;bottom:1rem} }
 
 @media(max-width:520px){
   .hero{padding:.9rem 1.2rem 2.4rem}
@@ -495,7 +556,18 @@ footer a{color:var(--ink-dim)}
   <nav class="sticky-links" id="sticky-links" aria-label="Section navigation"></nav>
   <div class="sticky-tools">
     <button class="sticky-icon-btn" id="sticky-progress" aria-label="Exploration progress" aria-expanded="false">0%</button>
-    <button class="sticky-icon-btn" id="sticky-lang" aria-label="Switch language">RO</button>
+    <div class="lang-picker" id="lang-picker-sticky">
+    <button class="sticky-icon-btn lang-picker-btn" id="sticky-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Switch language">English</button>
+    <ul class="lang-picker-list" id="lang-list-sticky" role="listbox" aria-label="Choose a language" hidden>
+      <li role="option" data-lang="en" aria-selected="true">English</li>
+      <li role="option" data-lang="ro" aria-selected="false">Română</li>
+      <li role="option" data-lang="fr" aria-selected="false">Français</li>
+      <li role="option" data-lang="it" aria-selected="false">Italiano</li>
+      <li role="option" data-lang="es" aria-selected="false">Español</li>
+      <li role="option" data-lang="pt" aria-selected="false">Português</li>
+      <li role="option" data-lang="de" aria-selected="false">Deutsch</li>
+    </ul>
+    </div>
     <button class="sticky-icon-btn" id="sticky-theme" aria-label="Switch to light theme">☀</button>
     <button class="sticky-menu-btn" id="sticky-menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
@@ -512,7 +584,18 @@ footer a{color:var(--ink-dim)}
   <div class="hero-actions">
     <button class="btn-primary" id="random-btn" data-i18n="randomBtn">🎲 Show me a random future</button>
     <button class="btn-ghost" id="scroll-btn" data-i18n="scrollBtn">Explore the map ↓</button>
-    <button class="btn-ghost" id="lang-toggle" aria-label="Switch language" lang="ro">RO</button>
+    <div class="lang-picker" id="lang-picker-hero">
+    <button class="btn-ghost lang-picker-btn" id="lang-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Switch language">English</button>
+    <ul class="lang-picker-list" id="lang-list-hero" role="listbox" aria-label="Choose a language" hidden>
+      <li role="option" data-lang="en" aria-selected="true">English</li>
+      <li role="option" data-lang="ro" aria-selected="false">Română</li>
+      <li role="option" data-lang="fr" aria-selected="false">Français</li>
+      <li role="option" data-lang="it" aria-selected="false">Italiano</li>
+      <li role="option" data-lang="es" aria-selected="false">Español</li>
+      <li role="option" data-lang="pt" aria-selected="false">Português</li>
+      <li role="option" data-lang="de" aria-selected="false">Deutsch</li>
+    </ul>
+    </div>
     <button class="btn-ghost" id="theme-toggle" aria-label="Switch to light theme">☀ Light mode</button>
   </div>
 </header>
@@ -624,7 +707,23 @@ footer a{color:var(--ink-dim)}
   <p data-i18n="footerP3">The sections on the nature of the universe and on life beyond Earth present competing explanatory frameworks, not conclusions — some are frontier physics, others philosophy, theology, or fiction turned into a serious subject of debate. The Dark Forest Theory, in particular, originates in a science-fiction novel and is cited here as such.</p>
   <p data-i18n="footerP4">Typography looks slightly different from one device to another, because it uses whichever fonts are already installed on each system, not downloaded ones — a deliberate choice, not an oversight. Language preference isn’t saved between visits, for the same reason nothing else is saved here: no tracking means, in this case too, no memory.</p>
   <p data-i18n="footerP5">If you want to cite something from here in your own material: “Orizonturi. Dincolo de limite” (“Horizons. Beyond Limits”) — an offline interactive map. The rest of the citation details are up to you, depending on context.</p>
+  <div class="footer-credit">
+    <p class="footer-credit-line"><span data-i18n="footerCreditMade">Made by</span> <strong>Alexio</strong></p>
+  </div>
 </footer>
+
+<div class="support-widget" id="support-widget">
+  <button class="support-trigger" id="support-trigger" type="button" aria-expanded="false" aria-label="Support this project">♥</button>
+  <div class="support-panel" id="support-panel" hidden>
+    <button class="support-close" id="support-close" type="button" aria-label="Close">✕</button>
+    <p class="support-made-by"><span data-i18n="footerCreditMade">Made by</span> <strong>Alexio</strong></p>
+    <p class="support-label" data-i18n="supportLabel">Support:</p>
+    <div class="support-links">
+      <a href="https://www.patreon.com/c/alexio_tf" target="_blank" rel="noopener" class="credit-link">Patreon</a>
+      <a href="https://buymeacoffee.com/echo.of.the.strings" target="_blank" rel="noopener" class="credit-link">☕ Coffee</a>
+    </div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -962,6 +1061,41 @@ var BRANCHES = [
 ];
 
 var EN_UI = {
+supportLabel:'Support:',
+supportTriggerAria:'Support this project',
+footerCreditMade:'Made by',
+searchGroupMainMap:'Main Map',
+searchGroupBranches:'Alternate Branches',
+searchGroupUniverse:'Nature of the Universe',
+searchGroupParadoxes:'Paradoxes',
+searchGroupNhi:'Life Beyond Earth',
+searchNothingFound:'Nothing found in any section. Try a different keyword or clear the search.',
+kindNonTag:'NON-SCENARIO',
+kindImposibilTag:'IMPOSSIBILITY',
+copyCardLabel:'Copy this card',
+emptyStateFilters:'No results with the current filters for this era.',
+readingTimeSuffix:'minutes of reading, if you go through everything',
+filterActiveSuffix:'filters active · clear all',
+searchResultsFor:'Results for “',
+searchResultsForEnd:'”',
+searchingWholeApp:'searching the whole app — main map, branches, scenarios, paradoxes',
+kindAntiTag:'ANTI-SCENARIO',
+convergesWith:'converges with',
+convergesWithAny:'converges with any event on the map',
+fromMainBranch:'from the main branch',
+achievementUnlocked:'Achievement unlocked',
+pageTitle:'Horizons',
+pageSubtitle:'Beyond Limits',
+ariaSwitchLanguage:'Switch language',
+ariaSelectEra:'Select a time era',
+ariaSearchPrediction:'Search a prediction',
+ariaFilterDomain:'Filter by domain',
+stickySearchPlaceholder:'Search…',
+backToTopAria:'Back to top',
+switchToLightTheme:'Switch to light theme',
+switchToDarkTheme:'Switch to dark theme',
+lightModeLabel:'☀ Light mode',
+darkModeLabel:'☾ Dark mode',
 eyebrow:'A map of time <span>·</span> from the Big Bang to its very end',
 thesis:'From humanity\u2019s first cities until today, roughly <strong>ten thousand years</strong> have passed. That same span, repeated half a million times, separates us from the death of the Sun. What follows is only the beginning of the map below.',
 orientNote:'If you only have two minutes: pick an era below, tap a card, and stop right there \u2014 the rest will keep for another time.',
@@ -1012,6 +1146,79 @@ footerP4:'Typography looks slightly different from one device to another, becaus
 footerP5:'If you want to cite something from here in your own material: \u201cOrizonturi. Dincolo de limite\u201d (\u201cHorizons. Beyond Limits\u201d) \u2014 an offline interactive map. The rest of the citation details are up to you, depending on context.'
 };
 
+var LANG_ERAS = {
+fr:{
+p1:{label:'L’origine', range:'Big Bang → 380 000 ans', blurb:'D’un état extrêmement chaud et dense, l’espace, le temps et les premiers éléments commencent à exister.'},
+p2:{label:'Formation des structures', range:'380 000 ans → 4,6 mds d’ans', blurb:'Les premières étoiles et galaxies s’allument dans l’obscurité ; les éléments lourds se forgent en leur sein ; le Système solaire naît.'},
+p3:{label:'La vie sur Terre', range:'4 mds d’ans → 300 000 ans', blurb:'Des premières molécules auto-réplicantes à l’apparition de notre espèce — quatre milliards d’années d’évolution.'},
+p4:{label:'La civilisation humaine', range:'70 000 ans → aujourd’hui', blurb:'De la sortie d’Afrique à l’écriture, à internet — l’histoire condensée de la seule espèce qui ait, pour l’instant, posé la question « et après ? »'},
+e1:{label:'Le seuil immédiat', range:'2026–2035', blurb:'Les années à venir : des technologies déjà en développement deviennent une réalité quotidienne.'},
+e2:{label:'Les décennies proches', range:'2035–2060', blurb:'Un horizon d’une génération : première base lunaire, premiers pas sur Mars, un monde toujours plus automatisé.'},
+e3:{label:'Le siècle charnière', range:'2060–2100', blurb:'Le siècle où l’humanité devient, véritablement, une espèce multi-planétaire.'},
+e4:{label:'Les siècles suivants', range:'2100–2300', blurb:'La civilisation s’étend au-delà de Mars, et la frontière entre biologique et technologique commence à s’estomper.'},
+e5:{label:'Les millénaires de l’humanité', range:'2300 – an 100 000', blurb:'L’échelle du temps dépasse l’histoire écrite : des millénaires de civilisation possible, parmi les étoiles.'},
+e6:{label:'Le temps géologique', range:'100 000 – 1 million d’ans', blurb:'Les continents se déplacent, les espèces évoluent, et la mémoire de la civilisation actuelle devient archéologie profonde.'},
+e7:{label:'L’ère stellaire', range:'1 million – 100 mds d’ans', blurb:'Le temps des étoiles : naissances et morts de systèmes solaires, collisions galactiques, fin de la vie sur Terre.'},
+e8:{label:'Au-delà du temps', range:'plus de 100 mds d’ans', blurb:'Au-delà des dernières étoiles : la physique pure d’un univers qui s’éteint, particule par particule.'}
+},
+it:{
+p1:{label:'L’origine', range:'Big Bang → 380.000 anni', blurb:'Da uno stato estremamente caldo e denso, lo spazio, il tempo e i primi elementi iniziano a esistere.'},
+p2:{label:'Formazione delle strutture', range:'380.000 anni → 4,6 mld. anni', blurb:'Le prime stelle e galassie si accendono nel buio; gli elementi pesanti si forgiano al loro interno; nasce il Sistema Solare.'},
+p3:{label:'La vita sulla Terra', range:'4 mld. anni → 300.000 anni', blurb:'Dalle prime molecole autoreplicanti alla comparsa della nostra specie — quattro miliardi di anni di evoluzione.'},
+p4:{label:'La civiltà umana', range:'70.000 anni → oggi', blurb:'Dall’uscita dall’Africa, alla scrittura, a internet — la storia condensata dell’unica specie che, finora, si è posta la domanda «e poi?»'},
+e1:{label:'La soglia immediata', range:'2026–2035', blurb:'Gli anni a venire: tecnologie già in sviluppo diventano realtà quotidiana.'},
+e2:{label:'I decenni vicini', range:'2035–2060', blurb:'Un orizzonte di una generazione: prima base lunare, primi passi su Marte, un mondo sempre più automatizzato.'},
+e3:{label:'Il secolo della svolta', range:'2060–2100', blurb:'Il secolo in cui l’umanità diventa, davvero, una specie multiplanetaria.'},
+e4:{label:'I secoli successivi', range:'2100–2300', blurb:'La civiltà si espande oltre Marte, e il confine tra biologico e tecnologico inizia a sfumare.'},
+e5:{label:'I millenni dell’umanità', range:'2300 – anno 100.000', blurb:'La scala del tempo supera la storia scritta: millenni di civiltà possibile, tra le stelle.'},
+e6:{label:'Il tempo geologico', range:'100.000 – 1 mil. anni', blurb:'I continenti si spostano, le specie evolvono, e la memoria della civiltà attuale diventa archeologia profonda.'},
+e7:{label:'L’era stellare', range:'1 mil. – 100 mld. anni', blurb:'Il tempo delle stelle: nascite e morti di sistemi solari, collisioni galattiche, fine della vita sulla Terra.'},
+e8:{label:'Oltre il tempo', range:'oltre 100 mld. anni', blurb:'Oltre le ultime stelle: la fisica pura di un universo che si spegne, particella dopo particella.'}
+},
+es:{
+p1:{label:'El origen', range:'Big Bang → 380.000 años', blurb:'Desde un estado extremadamente caliente y denso, el espacio, el tiempo y los primeros elementos comienzan a existir.'},
+p2:{label:'Formación de estructuras', range:'380.000 años → 4600 millones de años', blurb:'Las primeras estrellas y galaxias se encienden en la oscuridad; los elementos pesados se forjan en su interior; nace el Sistema Solar.'},
+p3:{label:'La vida en la Tierra', range:'4000 millones de años → 300.000 años', blurb:'Desde las primeras moléculas autorreplicantes hasta la aparición de nuestra especie — cuatro mil millones de años de evolución.'},
+p4:{label:'La civilización humana', range:'70.000 años → hoy', blurb:'Desde la salida de África, hasta la escritura, hasta internet — la historia condensada de la única especie que, por ahora, se ha hecho la pregunta «¿y después?»'},
+e1:{label:'El umbral inmediato', range:'2026–2035', blurb:'Los años venideros: tecnologías ya en desarrollo se convierten en realidad cotidiana.'},
+e2:{label:'Las décadas cercanas', range:'2035–2060', blurb:'Un horizonte de una generación: primera base lunar, primeros pasos en Marte, un mundo cada vez más automatizado.'},
+e3:{label:'El siglo del giro', range:'2060–2100', blurb:'El siglo en que la humanidad se convierte, verdaderamente, en una especie multiplanetaria.'},
+e4:{label:'Los siglos siguientes', range:'2100–2300', blurb:'La civilización se expande más allá de Marte, y la frontera entre lo biológico y lo tecnológico comienza a difuminarse.'},
+e5:{label:'Los milenios de la humanidad', range:'2300 – año 100.000', blurb:'La escala del tiempo supera la historia escrita: milenios de civilización posible, entre las estrellas.'},
+e6:{label:'El tiempo geológico', range:'100.000 – 1 millón de años', blurb:'Los continentes se mueven, las especies evolucionan, y la memoria de la civilización actual se convierte en arqueología profunda.'},
+e7:{label:'La era estelar', range:'1 millón – 100 000 millones de años', blurb:'El tiempo de las estrellas: nacimientos y muertes de sistemas solares, colisiones galácticas, fin de la vida en la Tierra.'},
+e8:{label:'Más allá del tiempo', range:'más de 100 000 millones de años', blurb:'Más allá de las últimas estrellas: la física pura de un universo que se apaga, partícula a partícula.'}
+},
+pt:{
+p1:{label:'A origem', range:'Big Bang → 380.000 anos', blurb:'A partir de um estado extremamente quente e denso, o espaço, o tempo e os primeiros elementos começam a existir.'},
+p2:{label:'Formação de estruturas', range:'380.000 anos → 4,6 bi de anos', blurb:'As primeiras estrelas e galáxias se acendem na escuridão; os elementos pesados se forjam em seu interior; nasce o Sistema Solar.'},
+p3:{label:'A vida na Terra', range:'4 bi de anos → 300.000 anos', blurb:'Das primeiras moléculas autorreplicantes até o surgimento de nossa espécie — quatro bilhões de anos de evolução.'},
+p4:{label:'A civilização humana', range:'70.000 anos → hoje', blurb:'Da saída da África, à escrita, à internet — a história condensada da única espécie que, por enquanto, fez a pergunta “e depois?”'},
+e1:{label:'O limiar imediato', range:'2026–2035', blurb:'Os anos vindouros: tecnologias já em desenvolvimento se tornam realidade cotidiana.'},
+e2:{label:'As décadas próximas', range:'2035–2060', blurb:'Um horizonte de uma geração: primeira base lunar, primeiros passos em Marte, um mundo cada vez mais automatizado.'},
+e3:{label:'O século da virada', range:'2060–2100', blurb:'O século em que a humanidade se torna, verdadeiramente, uma espécie multiplanetária.'},
+e4:{label:'Os séculos seguintes', range:'2100–2300', blurb:'A civilização se expande além de Marte, e a fronteira entre o biológico e o tecnológico começa a se esbater.'},
+e5:{label:'Os milênios da humanidade', range:'2300 – ano 100.000', blurb:'A escala do tempo ultrapassa a história escrita: milênios de civilização possível, entre as estrelas.'},
+e6:{label:'O tempo geológico', range:'100.000 – 1 milhão de anos', blurb:'Os continentes se movem, as espécies evoluem, e a memória da civilização atual se torna arqueologia profunda.'},
+e7:{label:'A era estelar', range:'1 milhão – 100 bi de anos', blurb:'O tempo das estrelas: nascimentos e mortes de sistemas solares, colisões galácticas, fim da vida na Terra.'},
+e8:{label:'Além do tempo', range:'mais de 100 bi de anos', blurb:'Além das últimas estrelas: a física pura de um universo que se apaga, partícula por partícula.'}
+},
+de:{
+p1:{label:'Der Ursprung', range:'Urknall → 380.000 Jahre', blurb:'Aus einem extrem heißen und dichten Zustand beginnen Raum, Zeit und die ersten Elemente zu existieren.'},
+p2:{label:'Strukturbildung', range:'380.000 Jahre → 4,6 Mrd. Jahre', blurb:'Die ersten Sterne und Galaxien entzünden sich in der Dunkelheit; schwere Elemente werden in ihrem Inneren geschmiedet; das Sonnensystem entsteht.'},
+p3:{label:'Das Leben auf der Erde', range:'4 Mrd. Jahre → 300.000 Jahre', blurb:'Von den ersten selbstreplizierenden Molekülen bis zum Auftreten unserer Spezies — vier Milliarden Jahre Evolution.'},
+p4:{label:'Die menschliche Zivilisation', range:'70.000 Jahre → heute', blurb:'Vom Auszug aus Afrika über die Schrift bis zum Internet — die verdichtete Geschichte der einzigen Spezies, die bisher die Frage »und was dann?« gestellt hat.'},
+e1:{label:'Die unmittelbare Schwelle', range:'2026–2035', blurb:'Die kommenden Jahre: bereits in Entwicklung befindliche Technologien werden zum Alltag.'},
+e2:{label:'Die nahen Jahrzehnte', range:'2035–2060', blurb:'Ein Horizont von einer Generation: erste Mondbasis, erste Schritte auf dem Mars, eine zunehmend automatisierte Welt.'},
+e3:{label:'Das Jahrhundert der Wende', range:'2060–2100', blurb:'Das Jahrhundert, in dem die Menschheit wirklich zu einer multiplanetaren Spezies wird.'},
+e4:{label:'Die folgenden Jahrhunderte', range:'2100–2300', blurb:'Die Zivilisation dehnt sich über den Mars hinaus aus, und die Grenze zwischen Biologischem und Technologischem beginnt zu verschwimmen.'},
+e5:{label:'Die Jahrtausende der Menschheit', range:'2300 – Jahr 100.000', blurb:'Die Zeitskala übersteigt die geschriebene Geschichte: Jahrtausende möglicher Zivilisation zwischen den Sternen.'},
+e6:{label:'Die geologische Zeit', range:'100.000 – 1 Mio. Jahre', blurb:'Kontinente verschieben sich, Arten entwickeln sich weiter, und die Erinnerung an die heutige Zivilisation wird zu tiefer Archäologie.'},
+e7:{label:'Das Sternenzeitalter', range:'1 Mio. – 100 Mrd. Jahre', blurb:'Die Zeit der Sterne: Geburten und Tode von Sonnensystemen, galaktische Kollisionen, das Ende des Lebens auf der Erde.'},
+e8:{label:'Jenseits der Zeit', range:'über 100 Mrd. Jahre', blurb:'Jenseits der letzten Sterne: die reine Physik eines Universums, das Teilchen für Teilchen erlischt.'}
+}
+};
+
 var EN_ERAS = {
 p1:{label:'Origins', range:'Big Bang \u2192 380,000 years', blurb:'From an extremely hot, dense state, space, time and the first elements begin to exist.'},
 p2:{label:'Structure Formation', range:'380,000 yrs \u2192 4.6 bn yrs', blurb:'The first stars and galaxies ignite in the dark; heavy elements are forged inside them; the Solar System is born.'},
@@ -1027,6 +1234,30 @@ e7:{label:'The Stellar Era', range:'1 mn \u2013 100 bn yrs', blurb:'The time of 
 e8:{label:'Beyond Time', range:'past 100 bn yrs', blurb:'Beyond the last stars: the pure physics of a universe going out, particle by particle.'}
 };
 
+var LANG_CATEGORIES = {
+fr:{tech:'Technologie et IA', space:'Espace et exploration', bio:'Médecine et biologie', climate:'Environnement et climat', society:'Société et civilisation', energy:'Énergie', mind:'Esprit et conscience', physics:'Physique et cosmologie'},
+it:{tech:'Tecnologia e IA', space:'Spazio ed esplorazione', bio:'Medicina e biologia', climate:'Ambiente e clima', society:'Società e civiltà', energy:'Energia', mind:'Mente e coscienza', physics:'Fisica e cosmologia'},
+es:{tech:'Tecnología e IA', space:'Espacio y exploración', bio:'Medicina y biología', climate:'Medio ambiente y clima', society:'Sociedad y civilización', energy:'Energía', mind:'Mente y conciencia', physics:'Física y cosmología'},
+pt:{tech:'Tecnologia e IA', space:'Espaço e exploração', bio:'Medicina e biologia', climate:'Meio ambiente e clima', society:'Sociedade e civilização', energy:'Energia', mind:'Mente e consciência', physics:'Física e cosmologia'},
+de:{tech:'Technologie und KI', space:'Raumfahrt und Erkundung', bio:'Medizin und Biologie', climate:'Umwelt und Klima', society:'Gesellschaft und Zivilisation', energy:'Energie', mind:'Geist und Bewusstsein', physics:'Physik und Kosmologie'}
+};
+
+var LANG_CONFIDENCE = {
+fr:{confirmed:'Confirmé par observation', establishedfact:'Fait bien établi', trend:'Tendance actuelle', probable:'Extrapolation probable', grounded:'Spéculation fondée', astro:'Physique établie', theoretical:'Spéculation théorique'},
+it:{confirmed:'Confermato osservativamente', establishedfact:'Fatto consolidato', trend:'Tendenza attuale', probable:'Estrapolazione probabile', grounded:'Speculazione fondata', astro:'Fisica consolidata', theoretical:'Speculazione teorica'},
+es:{confirmed:'Confirmado observacionalmente', establishedfact:'Hecho bien establecido', trend:'Tendencia actual', probable:'Extrapolación probable', grounded:'Especulación fundamentada', astro:'Física establecida', theoretical:'Especulación teórica'},
+pt:{confirmed:'Confirmado observacionalmente', establishedfact:'Fato bem estabelecido', trend:'Tendência atual', probable:'Extrapolação provável', grounded:'Especulação fundamentada', astro:'Física estabelecida', theoretical:'Especulação teórica'},
+de:{confirmed:'Beobachtungsbestätigt', establishedfact:'Gut etablierte Tatsache', trend:'Aktueller Trend', probable:'Wahrscheinliche Extrapolation', grounded:'Fundierte Spekulation', astro:'Etablierte Physik', theoretical:'Theoretische Spekulation'}
+};
+
+var LANG_CONNECTORS = {
+fr:['de fractions de seconde, à des centaines de millions d’années', 'de la matière, à la vie', 'de l’évolution biologique, à l’histoire écrite', 'maintenant', '+9 ans', '+25 ans', 'des années, aux siècles', 'des siècles, aux millénaires', 'des millénaires, à des centaines de milliers d’années', 'de centaines de milliers, à des milliards d’années', 'au-delà de toute échelle connue'],
+it:['da frazioni di secondo, a centinaia di milioni di anni', 'dalla materia, alla vita', 'dall’evoluzione biologica, alla storia scritta', 'proprio ora', '+9 anni', '+25 anni', 'dagli anni, ai secoli', 'dai secoli, ai millenni', 'dai millenni, a centinaia di migliaia di anni', 'da centinaia di migliaia, a miliardi di anni', 'oltre ogni scala conosciuta'],
+es:['de fracciones de segundo, a cientos de millones de años', 'de la materia, a la vida', 'de la evolución biológica, a la historia escrita', 'justo ahora', '+9 años', '+25 años', 'de los años, a los siglos', 'de los siglos, a los milenios', 'de los milenios, a cientos de miles de años', 'de cientos de miles, a miles de millones de años', 'más allá de cualquier escala conocida'],
+pt:['de frações de segundo, a centenas de milhões de anos', 'da matéria, à vida', 'da evolução biológica, à história escrita', 'agora mesmo', '+9 anos', '+25 anos', 'dos anos, aos séculos', 'dos séculos, aos milênios', 'dos milênios, a centenas de milhares de anos', 'de centenas de milhares, a bilhões de anos', 'além de qualquer escala conhecida'],
+de:['von Sekundenbruchteilen bis zu Hunderten Millionen Jahren', 'von Materie zu Leben', 'von biologischer Evolution zur geschriebenen Geschichte', 'genau jetzt', '+9 Jahre', '+25 Jahre', 'von Jahren zu Jahrhunderten', 'von Jahrhunderten zu Jahrtausenden', 'von Jahrtausenden zu Hunderttausenden Jahren', 'von Hunderttausenden zu Milliarden Jahren', 'jenseits jeder bekannten Skala']
+};
+
 var EN_CATEGORIES = {
 tech:'Technology & AI', space:'Space & Exploration', bio:'Medicine & Biology', climate:'Environment & Climate',
 society:'Society & Civilization', energy:'Energy', mind:'Mind & Consciousness', physics:'Physics & Cosmology'
@@ -1040,6 +1271,10 @@ probable:'Probable extrapolation', grounded:'Grounded speculation', astro:'Estab
 var EN_CONNECTORS = ['from fractions of a second, to hundreds of millions of years','from matter, to life','from biological evolution, to written history','right now','+9 years','+25 years','from years, to centuries','from centuries, to millennia','from millennia, to hundreds of thousands of years','from hundreds of thousands, to billions of years','beyond any known scale'];
 
 var state = { era:'e1', activeCats:new Set(), query:'', lang:'en', lightMode:false };
+(function(){
+  var hashLang = location.hash.replace('#','').toLowerCase();
+  if(['ro','en','fr','it','es','pt','de'].indexOf(hashLang)!==-1){ state.lang = hashLang; }
+})();
 var EXPLORE_TOTALS = {event:91, universe:32, paradox:10, nhi:19, branch:9, glossary:18};
 var seen = {event:new Set(), universe:new Set(), paradox:new Set(), nhi:new Set(), branch:new Set(), glossary:new Set()};
 var unlockedAchievements = new Set();
@@ -1307,7 +1542,9 @@ function buildLadder(){
       '<span class="era-node-label">'+eraLabel(e)+'</span><span class="era-node-range">'+eraRange(e)+'</span></button>';
     if(i<ERAS.length-1){
       var nowClass = CONNECTORS[i]==='chiar acum' ? ' now' : '';
-      var connText = state.lang==='en' ? EN_CONNECTORS[i] : CONNECTORS[i];
+      var connText = CONNECTORS[i];
+      if(state.lang==='en'){ connText = EN_CONNECTORS[i]; }
+      else if(state.lang!=='ro'){ var cd = LANG_CONNECTORS[state.lang]; connText = (cd && cd[i]!==undefined) ? cd[i] : connText; }
       html += '<span class="era-connector'+nowClass+'"><span>'+connText+'</span></span>';
     }
   }
@@ -1357,8 +1594,9 @@ function estimateReadingTime(){
   countArr(NHI_SCENARIOS, 'desc');
   countArr(GLOSSARY, 'def');
   var minutes = Math.max(1, Math.round(words/200));
-  var L = state.lang==='en';
-  el.innerHTML = L ? ('<b>~'+minutes+'</b> minutes of reading, if you go through everything') : ('<b>~'+minutes+'</b> minut'+(minutes===1?'':'e')+' de citit, dacă parcurgi tot');
+  var suffix = uiText('readingTimeSuffix');
+  if(state.lang==='ro'){ suffix = 'minut'+(minutes===1?'':'e')+' '+suffix; }
+  el.innerHTML = '<b>~'+minutes+'</b> ' + suffix;
 }
 
 function updateFilterClearUI(){
@@ -1366,9 +1604,8 @@ function updateFilterClearUI(){
   if(!btn) return;
   var n = state.activeCats.size;
   if(n===0){ btn.hidden = true; return; }
-  var L = state.lang==='en';
   btn.hidden = false;
-  btn.textContent = L ? (n+' filter'+(n>1?'s':'')+' active \u00b7 clear all') : (n+' '+(n>1?'filtre active':'filtru activ')+' · șterge tot');
+  btn.textContent = n+' '+uiText('filterActiveSuffix');
 }
 
 function toggleCat(el){
@@ -1407,11 +1644,28 @@ function matchesFilters(ev){
   return true;
 }
 
-function eraLabel(e){ return (state.lang==='en' && EN_ERAS[e.id]) ? EN_ERAS[e.id].label : e.label; }
-function eraRange(e){ return (state.lang==='en' && EN_ERAS[e.id]) ? EN_ERAS[e.id].range : e.range; }
-function eraBlurb(e){ return (state.lang==='en' && EN_ERAS[e.id]) ? EN_ERAS[e.id].blurb : e.blurb; }
-function catLabel(c){ var lbl = (state.lang==='en' && EN_CATEGORIES[c.id]) ? EN_CATEGORIES[c.id] : c.label; return c.icon+' '+lbl; }
-function confLabel(key){ var c=CONFIDENCE[key]; return (state.lang==='en' && EN_CONFIDENCE[key]) ? EN_CONFIDENCE[key] : c.label; }
+function langEraField(e, field){
+  if(state.lang==='ro') return e[field];
+  if(state.lang==='en') return (EN_ERAS[e.id] && EN_ERAS[e.id][field]!==undefined) ? EN_ERAS[e.id][field] : e[field];
+  var d = LANG_ERAS[state.lang];
+  return (d && d[e.id] && d[e.id][field]!==undefined) ? d[e.id][field] : e[field];
+}
+function eraLabel(e){ return langEraField(e, 'label'); }
+function eraRange(e){ return langEraField(e, 'range'); }
+function eraBlurb(e){ return langEraField(e, 'blurb'); }
+function catLabel(c){
+  var lbl = c.label;
+  if(state.lang==='en'){ lbl = EN_CATEGORIES[c.id] || lbl; }
+  else if(state.lang!=='ro'){ var d = LANG_CATEGORIES[state.lang]; lbl = (d && d[c.id]) || lbl; }
+  return c.icon+' '+lbl;
+}
+function confLabel(key){
+  var c=CONFIDENCE[key];
+  var lbl = c.label;
+  if(state.lang==='en'){ lbl = EN_CONFIDENCE[key] || lbl; }
+  else if(state.lang!=='ro'){ var d = LANG_CONFIDENCE[state.lang]; lbl = (d && d[key]) || lbl; }
+  return lbl;
+}
 function escAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function cTitle(t){ return (state.lang==='en' && EN_CONTENT[t]) ? EN_CONTENT[t].title : t; }
 function cDesc(t,d){ return (state.lang==='en' && EN_CONTENT[t]) ? EN_CONTENT[t].desc : d; }
@@ -1428,7 +1682,7 @@ function cardHTML(ev, showEra){
     '<div class="event-meta"><span class="event-year">'+ev.year+'</span>'+eraTag+
     '<span class="event-cat">'+catLabel(cat)+'</span>'+
     '<span class="event-conf" style="color:'+themeColor(conf.color)+'">'+confLabel(ev.conf)+'</span>'+
-    '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(d)+'" data-copy-slug="'+slugify(ev.title)+'" aria-label="'+(state.lang==='en'?'Copy this card':'Copiază acest card')+'">⧉</button></div>'+
+    '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(d)+'" data-copy-slug="'+slugify(ev.title)+'" aria-label="'+uiText('copyCardLabel')+'">⧉</button></div>'+
     '<div class="event-title">'+t+'</div>'+
     '<div class="event-desc">'+d+'</div>'+
   '</div>';
@@ -1446,7 +1700,7 @@ function render(){
   for(var m=0;m<EVENTS.length;m++){ if(EVENTS[m].era===state.era && matchesFilters(EVENTS[m])) list.push(EVENTS[m]); }
   var out = '<div class="era-header"><h3>'+eraLabel(era)+'</h3><span class="era-range">'+eraRange(era)+'</span><p>'+eraBlurb(era)+'</p></div><div class="timeline">';
   if(!list.length){
-    out += '<p class="empty-state">'+(state.lang==='en'?'No results with the current filters for this era.':'Niciun rezultat cu filtrele curente pentru această eră.')+'</p>';
+    out += '<p class="empty-state">'+uiText('emptyStateFilters')+'</p>';
   } else {
     for(var n=0;n<list.length;n++){ out += cardHTML(list[n], false); }
   }
@@ -1616,14 +1870,13 @@ function textMatch(a, b, q){ return stripDiacritics((a+' '+b).toLowerCase()).ind
 
 function renderUniversalSearch(q){
   var total = 0;
-  var L = state.lang==='en';
-  var html = '<div class="era-header"><h3>'+(L?'Results for \u201c':'Rezultate pentru „')+state.query+(L?'\u201d':'”')+'</h3><p>'+(L?'searching the whole app \u2014 main map, branches, scenarios, paradoxes':'căutare în toată aplicația — harta principală, ramuri, scenarii, paradoxuri')+'</p></div>';
+  var html = '<div class="era-header"><h3>'+uiText('searchResultsFor')+state.query+uiText('searchResultsForEnd')+'</h3><p>'+uiText('searchingWholeApp')+'</p></div>';
 
   var evMatches = [];
   for(var i=0;i<EVENTS.length;i++){ if(matchesFilters(EVENTS[i]) && textMatch(EVENTS[i].title, EVENTS[i].desc, q)) evMatches.push(EVENTS[i]); }
   if(evMatches.length){
     total += evMatches.length;
-    html += '<h4 class="search-group">'+(L?'Main Map':'Harta principală')+' ('+evMatches.length+')</h4><div class="timeline">';
+    html += '<h4 class="search-group">'+uiText('searchGroupMainMap')+' ('+evMatches.length+')</h4><div class="timeline">';
     for(var a=0;a<evMatches.length;a++){ html += cardHTML(evMatches[a], true); }
     html += '</div>';
   }
@@ -1637,25 +1890,25 @@ function renderUniversalSearch(q){
   }
   if(branchMatches.length){
     total += branchMatches.length;
-    html += '<h4 class="search-group">'+(L?'Alternate Branches':'Ramuri alternative')+' ('+branchMatches.length+')</h4><div class="branch-timeline">';
+    html += '<h4 class="search-group">'+uiText('searchGroupBranches')+' ('+branchMatches.length+')</h4><div class="branch-timeline">';
     for(var b2=0;b2<branchMatches.length;b2++){ html += branchEventHTML(branchMatches[b2]); }
     html += '</div>';
   }
 
-  function matchList(arr, labelRo, labelEn, catId){
+  function matchList(arr, groupKey, catId){
     var m = [];
     for(var x=0;x<arr.length;x++){ if(textMatch(arr[x].title, arr[x].desc, q)) m.push(arr[x]); }
     if(m.length){
       total += m.length;
-      html += '<h4 class="search-group">'+(L?labelEn:labelRo)+' ('+m.length+')</h4>';
+      html += '<h4 class="search-group">'+uiText(groupKey)+' ('+m.length+')</h4>';
       for(var y=0;y<m.length;y++){ html += scenarioCardHTML(m[y], catId); }
     }
   }
-  matchList(UNIVERSE_SCENARIOS, 'Natura Universului', 'Nature of the Universe', 'universe');
-  matchList(PARADOXES, 'Paradoxuri', 'Paradoxes', 'paradox');
-  matchList(NHI_SCENARIOS, 'Viață dincolo de Pământ', 'Life Beyond Earth', 'nhi');
+  matchList(UNIVERSE_SCENARIOS, 'searchGroupUniverse', 'universe');
+  matchList(PARADOXES, 'searchGroupParadoxes', 'paradox');
+  matchList(NHI_SCENARIOS, 'searchGroupNhi', 'nhi');
 
-  if(!total){ html += '<p class="empty-state">'+(L?'Nothing found in any section. Try a different keyword or clear the search.':'Nimic găsit în nicio secțiune. Încearcă alt cuvânt cheie sau șterge căutarea.')+'</p>'; }
+  if(!total){ html += '<p class="empty-state">'+uiText('searchNothingFound')+'</p>'; }
   contentEl.innerHTML = html;
 }
 
@@ -1665,15 +1918,15 @@ function scenarioCardHTML(s, catId){
   var leadClass = s.lead ? ' lead' : '';
   var L = state.lang==='en';
   var kindHTML = '';
-  if(s.kind==='anti'){ kindHTML = '<span class="kind-tag" style="color:'+themeColor('#c9756b')+';border-color:'+themeColor('#c9756b')+'">'+(L?'ANTI-SCENARIO':'ANTI-SCENARIU')+'</span><br>'; }
-  else if(s.kind==='non'){ kindHTML = '<span class="kind-tag" style="color:'+themeColor('#7a95b8')+';border-color:'+themeColor('#7a95b8')+'">'+(L?'NON-SCENARIO':'NON-SCENARIU')+'</span><br>'; }
-  else if(s.kind==='imposibil'){ kindHTML = '<span class="kind-tag" style="color:'+themeColor('#8a7590')+';border-color:'+themeColor('#8a7590')+'">'+(L?'IMPOSSIBILITY':'IMPOSIBILITATE')+'</span><br>'; }
+  if(s.kind==='anti'){ kindHTML = '<span class="kind-tag" style="color:'+themeColor('#c9756b')+';border-color:'+themeColor('#c9756b')+'">'+uiText('kindAntiTag')+'</span><br>'; }
+  else if(s.kind==='non'){ kindHTML = '<span class="kind-tag" style="color:'+themeColor('#7a95b8')+';border-color:'+themeColor('#7a95b8')+'">'+uiText('kindNonTag')+'</span><br>'; }
+  else if(s.kind==='imposibil'){ kindHTML = '<span class="kind-tag" style="color:'+themeColor('#8a7590')+';border-color:'+themeColor('#8a7590')+'">'+uiText('kindImposibilTag')+'</span><br>'; }
   var t = sTitle(s.title), d = sDesc(s.title, s.desc);
   var trackAttr = catId ? ' data-track="'+catId+':'+slugify(s.title)+'"' : '';
   return '<div class="scenario-card'+leadClass+'"'+trackAttr+'>'+kindHTML+'<div class="scenario-meta">'+
     '<span class="scenario-title">'+t+'</span>'+
     '<span class="scenario-status">'+sStatus(s.title, s.status)+'</span>'+
-    '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(stripHTML(d))+'" data-copy-slug="'+slugify(s.title)+'" aria-label="'+(state.lang==='en'?'Copy this card':'Copiază acest card')+'">⧉</button></div>'+
+    '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(stripHTML(d))+'" data-copy-slug="'+slugify(s.title)+'" aria-label="'+uiText('copyCardLabel')+'">⧉</button></div>'+
     '<p>'+d+'</p></div>';
 }
 
@@ -1707,19 +1960,18 @@ if(kindFilterEl){
 
 function branchEventHTML(ev){
   var interClass = ev.intersect ? ' intersect' : '';
-  var L = state.lang==='en';
   var note = '';
   if(ev.intersect){
     if(ev.intersect==='oricare eveniment de pe hartă'){
-      note = '<div class="b-intersect-note">\u22c8 '+(L?'converges with any event on the map':'converge cu oricare eveniment de pe hartă')+'</div>';
+      note = '<div class="b-intersect-note">\u22c8 '+uiText('convergesWithAny')+'</div>';
     } else {
       var targetTxt = cTitle(ev.intersect);
-      note = '<div class="b-intersect-note">\u22c8 '+(L?'converges with':'converge cu')+' <a href="#" class="jump-link" role="button" data-jtype="event" data-jtarget="'+escAttr(ev.intersect)+'">\u201c'+targetTxt+'\u201d</a> '+(L?'from the main branch':'din ramura principală')+'</div>';
+      note = '<div class="b-intersect-note">\u22c8 '+uiText('convergesWith')+' <a href="#" class="jump-link" role="button" data-jtype="event" data-jtarget="'+escAttr(ev.intersect)+'">\u201c'+targetTxt+'\u201d</a> '+uiText('fromMainBranch')+'</div>';
     }
   }
   var t = cTitle(ev.title), d = cDesc(ev.title, ev.desc);
   return '<div class="branch-event'+interClass+'"><span class="b-year">'+ev.year+'</span>'+
-    '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(d)+'" data-copy-slug="'+slugify(ev.title)+'" aria-label="'+(state.lang==='en'?'Copy this card':'Copiază acest card')+'">⧉</button>'+
+    '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(d)+'" data-copy-slug="'+slugify(ev.title)+'" aria-label="'+uiText('copyCardLabel')+'">⧉</button>'+
     '<div class="b-title">'+t+'</div><div class="b-desc">'+d+'</div>'+note+'</div>';
 }
 
@@ -1779,6 +2031,7 @@ function jumpTo(containerId, titleText, cardClass, titleClass){
 function resolvePermalink(){
   var hash = location.hash.replace('#','');
   if(!hash) return;
+  if(SUPPORTED_LANGS.indexOf(hash.toLowerCase())!==-1) return;
   for(var i=0;i<EVENTS.length;i++){ if(slugify(EVENTS[i].title)===hash){ jumpToEvent(EVENTS[i].title); return; } }
   for(var bi=0;bi<BRANCHES.length;bi++){
     for(var bj=0;bj<BRANCHES[bi].events.length;bj++){
@@ -2176,15 +2429,16 @@ searchEl.addEventListener('input', function(){
 
 document.getElementById('random-btn').addEventListener('click', function(){
   var pool = [];
-  EVENTS.forEach(function(e){ pool.push({type:'event', title:e.title}); });
-  UNIVERSE_SCENARIOS.forEach(function(e){ pool.push({type:'universe', title:e.title}); });
-  PARADOXES.forEach(function(e){ pool.push({type:'paradox', title:e.title}); });
-  NHI_SCENARIOS.forEach(function(e){ pool.push({type:'nhi', title:e.title}); });
+  var pastEras = {p1:true, p2:true, p3:true, p4:true};
+  EVENTS.forEach(function(e){ if(!pastEras[e.era]){ pool.push({type:'event', title:e.title}); } });
+  BRANCHES.forEach(function(b){ b.events.forEach(function(e){ pool.push({type:'branch', title:e.title}); }); });
   var pick = pool[Math.floor(Math.random()*pool.length)];
-  if(pick.type==='event') jumpToEvent(pick.title);
-  else if(pick.type==='universe') jumpToUniverse(pick.title);
-  else if(pick.type==='paradox') jumpTo('paradoxes-list', pick.title, 'scenario-card');
-  else if(pick.type==='nhi') jumpTo('nhi-scenarios', pick.title, 'scenario-card');
+  if(pick.type==='event'){ jumpToEvent(pick.title); }
+  else if(pick.type==='branch'){
+    var branchesSection = document.getElementById('branches-section');
+    if(branchesSection && branchesSection.scrollIntoView){ branchesSection.scrollIntoView({behavior:'smooth'}); }
+    setTimeout(function(){ jumpTo('branches-list', pick.title, 'branch-block'); }, 350);
+  }
 });
 
 document.getElementById('scroll-btn').addEventListener('click', function(){
@@ -2192,7 +2446,490 @@ document.getElementById('scroll-btn').addEventListener('click', function(){
   if(target.scrollIntoView){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
 });
 
+var LANG_UI = {
+fr:{
+supportLabel:'Soutenir :',
+supportTriggerAria:'Soutenir ce projet',
+footerCreditMade:'Créé par',
+searchGroupMainMap:'Carte principale',
+searchGroupBranches:'Branches alternatives',
+searchGroupUniverse:'Nature de l’Univers',
+searchGroupParadoxes:'Paradoxes',
+searchGroupNhi:'Vie au-delà de la Terre',
+searchNothingFound:'Rien trouvé dans aucune section. Essaie un autre mot-clé ou efface la recherche.',
+kindNonTag:'NON-SCÉNARIO',
+kindImposibilTag:'IMPOSSIBILITÉ',
+copyCardLabel:'Copier cette carte',
+emptyStateFilters:'Aucun résultat avec les filtres actuels pour cette ère.',
+readingTimeSuffix:'minutes de lecture, si tu parcours tout',
+filterActiveSuffix:'filtres actifs · tout effacer',
+searchResultsFor:'Résultats pour « ',
+searchResultsForEnd:' »',
+searchingWholeApp:'recherche dans toute l’application — carte principale, branches, scénarios, paradoxes',
+kindAntiTag:'ANTI-SCÉNARIO',
+convergesWith:'converge avec',
+convergesWithAny:'converge avec n’importe quel événement de la carte',
+fromMainBranch:'de la branche principale',
+achievementUnlocked:'Succès débloqué',
+pageTitle:'Horizons',
+pageSubtitle:'Au-delà des limites',
+ariaSwitchLanguage:'Changer de langue',
+ariaSelectEra:'Sélectionner une ère temporelle',
+ariaSearchPrediction:'Rechercher une prédiction',
+ariaFilterDomain:'Filtrer par domaine',
+stickySearchPlaceholder:'Rechercher…',
+backToTopAria:'Retour en haut',
+switchToLightTheme:'Passer au thème clair',
+switchToDarkTheme:'Passer au thème sombre',
+lightModeLabel:'☀ Mode clair',
+darkModeLabel:'☾ Mode sombre',
+eyebrow:'Une carte du temps <span>·</span> du Big Bang jusqu’à sa toute fin',
+thesis:'Depuis les premières villes de l’humanité jusqu’à aujourd’hui, environ <strong>dix mille ans</strong> se sont écoulés. Cette même durée, répétée un demi-million de fois, nous sépare de la mort du Soleil. Ce qui suit n’est que le début de la carte ci-dessous.',
+orientNote:'Si tu n’as que deux minutes : choisis une ère ci-dessous, touche une carte, et arrête-toi là — le reste attendra une autre fois.',
+reflectUniverse:'Si tu devais choisir l’une des cartes ci-dessus comme la plus probable — laquelle, et pourquoi ?',
+reflectNhi:'Si nous recevions demain un signal confirmé venant d’un autre système stellaire, voudrais-tu que nous répondions, ou que nous restions silencieux ?',
+randomBtn:'🎲 Montre-moi un futur au hasard',
+scrollBtn:'Explorer la carte ↓',
+themeToggle:'☀ Mode clair',
+aboutTitle:'Pourquoi ce projet existe',
+aboutP1:'Horizons suit à la fois le temps connu et le temps possible — du Big Bang aux dernières particules d’un univers éteint. La carte ci-dessous combine ce que nous savons avec une certitude raisonnable sur le passé et des prédictions sur l’avenir, chacune portant son propre niveau de confiance : certaines sont des faits confirmés par l’observation, d’autres des extrapolations raisonnables, et les plus lointaines relèvent soit d’une physique bien établie — le mouvement des étoiles n’est pas une supposition — soit d’une spéculation théorique fondée sur des lois encore non confirmées.',
+aboutP2:'Au-delà de la carte, trois autres sections abordent des questions auxquelles la physique seule ne peut répondre complètement : ce qu’EST vraiment l’univers, quels paradoxes logiques émergent de sa structure — et si nous sommes seuls. Elles sont présentées comme des scénarios concurrents, non comme des réponses. Quelques branches alternatives montrent, en plus, à quoi auraient pu ressembler des trajectoires du futur entièrement différentes — et où, parfois, elles rejoignent la carte principale. À la fin, quelques parcours thématiques relient des fragments de toute l’application autour d’une seule idée, et un glossaire explique brièvement les noms et concepts qui reviennent souvent.',
+aboutP3:'Le modèle déclaré est <a href="https://futuretimeline.net" target="_blank" rel="noopener">futuretimeline.net</a>, un projet similaire, en anglais. Le contenu ici est original, pensé et écrit à partir de zéro, en tant qu’application hors ligne, sans connexions externes ni suivi.',
+statsLine:'<b id="stat-count">–</b> événements sur la carte · <b>8</b> domaines · <b>12</b> ères · du Big Bang jusqu’au-delà de 10<sup>100</sup> ans',
+navLadder:'→ Chronologie',
+navBranches:'→ Branches alternatives',
+navSpiral:'→ Spirale 3D',
+spiralTitle:'La spirale du temps',
+spiralIntro:'La même carte principale, cette fois disposée dans l’espace : le fil central grimpe en spirale à travers le temps. La vue 2D est la plus claire et la plus accessible — tout est visible d’un coup, sans avoir besoin de faire glisser quoi que ce soit. La vue 3D ajoute les branches, qui gravitent autour de la même spirale et la retouchent exactement là où elles convergent. Le même contenu, sous forme de liste, est disponible dans la carte ci-dessus et dans la section des branches.',
+spiralView2D:'2D',
+spiralView3D:'3D',
+spiralHint2D:'touche un nœud pour voir les détails',
+spiralHint:'glisser · zoom · toucher un nœud',
+spiralReset:'Réinitialiser la vue',
+navUniverse:'→ Nature de l’Univers',
+navParadox:'→ Paradoxes',
+navNhi:'→ Vie au-delà de la Terre',
+navTrails:'→ Parcours thématiques',
+navGlossary:'→ Glossaire',
+ladderHeading:'L’échelle du temps — choisis une ère',
+searchPlaceholder:'Chercher dans le temps… (ex : Mars, fusion, conscience)',
+kindAll:'Tous',
+kindScenario:'Scénarios',
+kindAnti:'Anti-scénarios',
+kindNon:'Non-scénarios',
+kindImposibil:'Impossibilités',
+universeTitle:'La nature et le but de l’Univers',
+universeIntro:'La cosmologie moderne explique, avec une grande précision, COMMENT l’univers s’est comporté depuis des fractions de seconde après le Big Bang. La question de savoir POURQUOI quelque chose existe, et si cela a un but, dépasse ce que la méthode scientifique peut tester — la physique, la philosophie et la religion offrent donc, aujourd’hui, des réponses différentes. Aucun des scénarios ci-dessous n’est la « position » de cette application ; ce sont la carte des idées en circulation. Quelques cartes sont marquées distinctement : un anti-scénario contredit directement l’idée à côté de laquelle il se trouve, un non-scénario rejette la question elle-même comme mal posée, et une impossibilité montre ce qui peut être exclu avec (presque) certitude.',
+branchesTitle:'Branches alternatives',
+branchesIntro:'La carte principale suit un seul fil — celui considéré aujourd’hui comme le plus plausible. Mais l’histoire n’est pas linéaire : des choix différents, des découvertes inattendues ou des catastrophes pourraient ouvrir des trajectoires entièrement différentes. Les branches ci-dessous sont des exercices d’imagination contrefactuelle, non des prévisions alternatives. Certaines se reconnectent, de temps en temps, avec des événements de la carte principale — marquées distinctement, avec un cadre plein au lieu d’une ligne pointillée.',
+paradoxTitle:'Paradoxes',
+paradoxIntro:'Chaque section ci-dessus touche, au moins une fois, à une contradiction logique apparente — un endroit où l’intuition quotidienne se heurte aux mathématiques ou à la physique réelle. Les paradoxes ci-dessous ne sont pas des « erreurs » de l’univers, mais des signaux utiles : chacun montre exactement où se brise l’intuition sur le temps, l’infini ou l’identité.',
+nhiTitle:'La vie au-delà de la Terre et les civilisations avancées',
+nhiIntro:'En 1950, le physicien Enrico Fermi a posé une question simple : si l’univers est si vaste et si ancien, « où sont-ils tous ? » L’équation de Drake (1961) a structuré le problème en un produit de probabilités, sans en résoudre le cœur. Les scénarios ci-dessous — certains scientifiques, d’autres spéculatifs — tentent d’expliquer pourquoi le ciel semble silencieux, et ce que chaque variante signifierait pour la façon dont l’humanité réagirait à un contact réel.',
+trailsTitle:'Parcours thématiques',
+trailsIntro:'Chaque parcours relie, en un seul clic, des fragments de toute l’application — la carte principale, les branches, les scénarios, les paradoxes — autour d’une seule idée.',
+glossaryTitle:'Glossaire',
+glossaryIntro:'Noms et concepts qui apparaissent tout au long de la carte, brièvement expliqués.',
+footerP1:'Réalisé comme application HTML autonome : un seul fichier, fonctionnant hors ligne, sans télémétrie, sans bibliothèques externes.',
+footerP2:'Les prédictions pour les prochaines décennies sont des extrapolations raisonnables des tendances actuelles ; celles des millénaires et ères lointaines sont des spéculations — certaines fondées sur une physique établie, d’autres sur des théories encore non confirmées. Aucune prédiction ici ne doit être lue comme une certitude.',
+footerP3:'Les sections sur la nature de l’univers et sur la vie au-delà de la Terre présentent des cadres explicatifs concurrents, non des conclusions — certains relèvent de la physique de pointe, d’autres de la philosophie, de la théologie ou de la fiction devenue sujet sérieux de débat. La théorie de la Forêt sombre, en particulier, trouve son origine dans un roman de science-fiction et est citée ici comme telle.',
+footerP4:'La typographie diffère légèrement d’un appareil à l’autre, car elle utilise les polices déjà installées sur chaque système, et non des polices téléchargées — un choix délibéré, pas un oubli. La préférence de langue n’est pas enregistrée entre les visites, pour la même raison que rien d’autre ne l’est ici : pas de suivi signifie, là aussi, pas de mémoire.',
+footerP5:'Si tu veux citer quelque chose d’ici dans ton propre travail : « Orizonturi. Dincolo de limite » (« Horizons. Beyond Limits ») — une carte interactive hors ligne. Le reste des détails de citation dépend de toi, selon le contexte.'
+},
+it:{
+supportLabel:'Sostieni:',
+supportTriggerAria:'Sostieni questo progetto',
+footerCreditMade:'Realizzato da',
+searchGroupMainMap:'Mappa principale',
+searchGroupBranches:'Rami alternativi',
+searchGroupUniverse:'Natura dell’Universo',
+searchGroupParadoxes:'Paradossi',
+searchGroupNhi:'Vita oltre la Terra',
+searchNothingFound:'Nessun risultato in nessuna sezione. Prova un’altra parola chiave o cancella la ricerca.',
+kindNonTag:'NON-SCENARIO',
+kindImposibilTag:'IMPOSSIBILITÀ',
+copyCardLabel:'Copia questa scheda',
+emptyStateFilters:'Nessun risultato con i filtri attuali per questa era.',
+readingTimeSuffix:'minuti di lettura, se leggi tutto',
+filterActiveSuffix:'filtri attivi · cancella tutto',
+searchResultsFor:'Risultati per «',
+searchResultsForEnd:'»',
+searchingWholeApp:'ricerca in tutta l’app — mappa principale, rami, scenari, paradossi',
+kindAntiTag:'ANTI-SCENARIO',
+convergesWith:'converge con',
+convergesWithAny:'converge con qualsiasi evento sulla mappa',
+fromMainBranch:'dal ramo principale',
+achievementUnlocked:'Obiettivo sbloccato',
+pageTitle:'Orizzonti',
+pageSubtitle:'Oltre i limiti',
+ariaSwitchLanguage:'Cambia lingua',
+ariaSelectEra:'Seleziona un’era temporale',
+ariaSearchPrediction:'Cerca una previsione',
+ariaFilterDomain:'Filtra per ambito',
+stickySearchPlaceholder:'Cerca…',
+backToTopAria:'Torna in cima',
+switchToLightTheme:'Passa al tema chiaro',
+switchToDarkTheme:'Passa al tema scuro',
+lightModeLabel:'☀ Modalità chiara',
+darkModeLabel:'☾ Modalità scura',
+eyebrow:'Una mappa del tempo <span>·</span> dal Big Bang fino alla sua fine',
+thesis:'Dalle prime città dell’umanità fino a oggi sono passati circa <strong>diecimila anni</strong>. Quello stesso intervallo, ripetuto mezzo milione di volte, ci separa dalla morte del Sole. Quel che segue è solo l’inizio della mappa qui sotto.',
+orientNote:'Se hai solo due minuti: scegli un’era qui sotto, tocca una scheda e fermati lì — il resto aspetterà un’altra volta.',
+reflectUniverse:'Se dovessi scegliere una delle schede sopra come la più probabile — quale, e perché?',
+reflectNhi:'Se domani ricevessimo un segnale confermato da un altro sistema stellare, vorresti che rispondessimo, o che restassimo in silenzio?',
+randomBtn:'🎲 Mostrami un futuro a caso',
+scrollBtn:'Esplora la mappa ↓',
+themeToggle:'☀ Modalità chiara',
+aboutTitle:'Perché questo progetto esiste',
+aboutP1:'Horizons segue sia il tempo conosciuto sia il tempo possibile — dal Big Bang alle ultime particelle di un universo spento. La mappa qui sotto unisce ciò che sappiamo con ragionevole certezza sul passato con previsioni sul futuro, ciascuna con il proprio livello di affidabilità: alcune sono fatti confermati osservativamente, altre estrapolazioni ragionevoli, e le più lontane sono o fisica ben consolidata — il moto delle stelle non è un’ipotesi a caso — o speculazione teorica costruita su leggi ancora non confermate.',
+aboutP2:'Oltre alla mappa, altre tre sezioni affrontano domande a cui la sola fisica non può rispondere del tutto: cosa È, in realtà, l’universo, quali paradossi logici emergono dalla sua struttura — e se siamo soli. Sono presentate come scenari concorrenti, non come risposte. Alcuni rami alternativi mostrano, inoltre, come avrebbero potuto apparire traiettorie del futuro completamente diverse — e dove, a volte, si ricongiungono alla mappa principale. Alla fine, alcuni percorsi tematici collegano frammenti dell’intera app attorno a un’unica idea, e un glossario spiega brevemente i nomi e i concetti che ricorrono.',
+aboutP3:'Il modello dichiarato è <a href="https://futuretimeline.net" target="_blank" rel="noopener">futuretimeline.net</a>, un progetto simile, in inglese. Il contenuto qui è originale, pensato e scritto da zero, come app offline, senza connessioni esterne né tracciamento.',
+statsLine:'<b id="stat-count">–</b> eventi sulla mappa · <b>8</b> ambiti · <b>12</b> ere · dal Big Bang fino a oltre 10<sup>100</sup> anni',
+navLadder:'→ Cronologia',
+navBranches:'→ Rami alternativi',
+navSpiral:'→ Spirale 3D',
+spiralTitle:'La spirale del tempo',
+spiralIntro:'La stessa mappa principale, questa volta disposta nello spazio: il filo centrale sale a spirale attraverso il tempo. La vista 2D è il modo più chiaro e accessibile per vederla — tutto visibile in una sola volta, senza bisogno di trascinare nulla. La vista 3D aggiunge i rami, che orbitano attorno alla stessa spirale e la toccano di nuovo esattamente dove convergono. Lo stesso contenuto, in forma di elenco, è disponibile nella mappa qui sopra e nella sezione dei rami.',
+spiralView2D:'2D',
+spiralView3D:'3D',
+spiralHint2D:'tocca un nodo per i dettagli',
+spiralHint:'trascina · zoom · tocca un nodo',
+spiralReset:'Reimposta vista',
+navUniverse:'→ Natura dell’Universo',
+navParadox:'→ Paradossi',
+navNhi:'→ Vita oltre la Terra',
+navTrails:'→ Percorsi tematici',
+navGlossary:'→ Glossario',
+ladderHeading:'La scala del tempo — scegli un’era',
+searchPlaceholder:'Cerca nel tempo… (es. Marte, fusione, coscienza)',
+kindAll:'Tutti',
+kindScenario:'Scenari',
+kindAnti:'Anti-scenari',
+kindNon:'Non-scenari',
+kindImposibil:'Impossibilità',
+universeTitle:'La natura e lo scopo dell’Universo',
+universeIntro:'La cosmologia moderna spiega, con grande precisione, COME si è comportato l’universo sin da frazioni di secondo dopo il Big Bang. La domanda sul PERCHÉ esista qualcosa, e se abbia uno scopo, va oltre ciò che il metodo scientifico può verificare — così fisica, filosofia e religione offrono, oggi, risposte diverse. Nessuno degli scenari qui sotto è la «posizione» di questa applicazione; sono la mappa delle idee in circolazione. Alcune schede sono contrassegnate distintamente: un anti-scenario contraddice direttamente l’idea accanto a cui si trova, un non-scenario respinge la domanda stessa come mal posta, e un’impossibilità mostra ciò che può essere escluso con (quasi) certezza.',
+branchesTitle:'Rami alternativi',
+branchesIntro:'La mappa principale segue un unico filo — quello oggi considerato più plausibile. Ma la storia non è lineare: scelte diverse, scoperte inaspettate o catastrofi potrebbero aprire traiettorie completamente diverse. I rami qui sotto sono esercizi di immaginazione controfattuale, non previsioni alternative. Alcuni si ricollegano, di tanto in tanto, a eventi della mappa principale — contrassegnati distintamente, con un bordo pieno invece che tratteggiato.',
+paradoxTitle:'Paradossi',
+paradoxIntro:'Ogni sezione qui sopra tocca, almeno una volta, una contraddizione logica apparente — un punto in cui l’intuizione quotidiana si scontra con la matematica o la fisica reale. I paradossi qui sotto non sono «errori» dell’universo, ma segnali utili: ciascuno mostra esattamente dove si rompe l’intuizione su tempo, infinito o identità.',
+nhiTitle:'La vita oltre la Terra e le civiltà avanzate',
+nhiIntro:'Nel 1950, il fisico Enrico Fermi pose una domanda semplice: se l’universo è così vasto e antico, «dove sono tutti?» L’equazione di Drake (1961) ha strutturato il problema in un prodotto di probabilità, senza risolverne il nocciolo. Gli scenari qui sotto — alcuni scientifici, altri speculativi — cercano di spiegare perché il cielo sembri silenzioso, e cosa significherebbe ciascuna variante per il modo in cui l’umanità reagirebbe a un contatto reale.',
+trailsTitle:'Percorsi tematici',
+trailsIntro:'Ogni percorso collega, con un solo clic, frammenti dell’intera app — la mappa principale, i rami, gli scenari, i paradossi — attorno a un’unica idea.',
+glossaryTitle:'Glossario',
+glossaryIntro:'Nomi e concetti che compaiono lungo tutta la mappa, spiegati brevemente.',
+footerP1:'Realizzata come app HTML autonoma: un unico file, funzionante offline, senza telemetria, senza librerie esterne.',
+footerP2:'Le previsioni per i prossimi decenni sono estrapolazioni ragionevoli dalle tendenze attuali; quelle dei millenni ed ere lontane sono speculazioni — alcune fondate su fisica consolidata, altre su teorie ancora non confermate. Nessuna previsione qui deve essere letta come una certezza.',
+footerP3:'Le sezioni sulla natura dell’universo e sulla vita oltre la Terra presentano quadri esplicativi concorrenti, non conclusioni — alcuni sono fisica di frontiera, altri filosofia, teologia o narrativa diventata argomento serio di dibattito. La Teoria della Foresta Oscura, in particolare, ha origine in un romanzo di fantascienza ed è citata qui come tale.',
+footerP4:'La tipografia appare leggermente diversa da un dispositivo all’altro, perché utilizza i font già installati su ciascun sistema, non font scaricati — una scelta consapevole, non una dimenticanza. La preferenza di lingua non viene salvata tra le visite, per lo stesso motivo per cui nient’altro viene salvato qui: nessun tracciamento significa, anche in questo caso, nessuna memoria.',
+footerP5:'Se vuoi citare qualcosa da qui nel tuo materiale: «Orizonturi. Dincolo de limite» («Horizons. Beyond Limits») — una mappa interattiva offline. Il resto dei dettagli di citazione dipende da te, a seconda del contesto.'
+},
+es:{
+supportLabel:'Apoyar:',
+supportTriggerAria:'Apoyar este proyecto',
+footerCreditMade:'Creado por',
+searchGroupMainMap:'Mapa principal',
+searchGroupBranches:'Ramas alternativas',
+searchGroupUniverse:'Naturaleza del Universo',
+searchGroupParadoxes:'Paradojas',
+searchGroupNhi:'Vida más allá de la Tierra',
+searchNothingFound:'No se encontró nada en ninguna sección. Prueba otra palabra clave o borra la búsqueda.',
+kindNonTag:'NO-ESCENARIO',
+kindImposibilTag:'IMPOSIBILIDAD',
+copyCardLabel:'Copiar esta tarjeta',
+emptyStateFilters:'Sin resultados con los filtros actuales para esta era.',
+readingTimeSuffix:'minutos de lectura, si lo recorres todo',
+filterActiveSuffix:'filtros activos · borrar todo',
+searchResultsFor:'Resultados para «',
+searchResultsForEnd:'»',
+searchingWholeApp:'búsqueda en toda la aplicación — mapa principal, ramas, escenarios, paradojas',
+kindAntiTag:'ANTIESCENARIO',
+convergesWith:'converge con',
+convergesWithAny:'converge con cualquier evento del mapa',
+fromMainBranch:'de la rama principal',
+achievementUnlocked:'Logro desbloqueado',
+pageTitle:'Horizontes',
+pageSubtitle:'Más allá de los límites',
+ariaSwitchLanguage:'Cambiar idioma',
+ariaSelectEra:'Selecciona una era temporal',
+ariaSearchPrediction:'Buscar una predicción',
+ariaFilterDomain:'Filtrar por ámbito',
+stickySearchPlaceholder:'Buscar…',
+backToTopAria:'Volver arriba',
+switchToLightTheme:'Cambiar al tema claro',
+switchToDarkTheme:'Cambiar al tema oscuro',
+lightModeLabel:'☀ Modo claro',
+darkModeLabel:'☾ Modo oscuro',
+eyebrow:'Un mapa del tiempo <span>·</span> desde el Big Bang hasta su fin',
+thesis:'Desde las primeras ciudades de la humanidad hasta hoy han pasado aproximadamente <strong>diez mil años</strong>. Ese mismo lapso, repetido medio millón de veces, nos separa de la muerte del Sol. Lo que sigue es solo el comienzo del mapa de abajo.',
+orientNote:'Si solo tienes dos minutos: elige una era abajo, toca una tarjeta y deténte ahí — el resto esperará para otra vez.',
+reflectUniverse:'Si tuvieras que elegir una de las tarjetas de arriba como la más probable, ¿cuál sería, y por qué?',
+reflectNhi:'Si mañana recibiéramos una señal confirmada de otro sistema estelar, ¿querrías que respondiéramos, o que guardáramos silencio?',
+randomBtn:'🎲 Muéstrame un futuro al azar',
+scrollBtn:'Explorar el mapa ↓',
+themeToggle:'☀ Modo claro',
+aboutTitle:'Por qué existe este proyecto',
+aboutP1:'Horizons sigue tanto el tiempo conocido como el tiempo posible — desde el Big Bang hasta las últimas partículas de un universo apagado. El mapa de abajo combina lo que sabemos con razonable certeza sobre el pasado con predicciones sobre el futuro, cada una con su propio nivel de confianza: algunas son hechos confirmados observacionalmente, otras extrapolaciones razonables, y las más lejanas son física bien establecida — el movimiento de las estrellas no es una suposición — o especulación teórica basada en leyes aún no confirmadas.',
+aboutP2:'Más allá del mapa, otras tres secciones abordan preguntas que la física sola no puede responder por completo: qué ES, en realidad, el universo, qué paradojas lógicas surgen de su estructura — y si estamos solos. Se presentan como escenarios en competencia, no como respuestas. Algunas ramas alternativas muestran, además, cómo podrían haber sido trayectorias del futuro completamente distintas — y dónde, a veces, se reencuentran con el mapa principal. Al final, algunos recorridos temáticos conectan fragmentos de toda la aplicación en torno a una sola idea, y un glosario explica brevemente los nombres y conceptos que se repiten.',
+aboutP3:'El modelo declarado es <a href="https://futuretimeline.net" target="_blank" rel="noopener">futuretimeline.net</a>, un proyecto similar, en inglés. El contenido aquí es original, pensado y escrito desde cero, como aplicación sin conexión, sin conexiones externas ni seguimiento.',
+statsLine:'<b id="stat-count">–</b> eventos en el mapa · <b>8</b> ámbitos · <b>12</b> eras · desde el Big Bang hasta más allá de 10<sup>100</sup> años',
+navLadder:'→ Cronología',
+navBranches:'→ Ramas alternativas',
+navSpiral:'→ Espiral 3D',
+spiralTitle:'La espiral del tiempo',
+spiralIntro:'El mismo mapa principal, esta vez dispuesto en el espacio: el hilo central asciende en espiral a través del tiempo. La vista 2D es la forma más clara y accesible de verla — todo visible de una vez, sin necesidad de arrastrar nada. La vista 3D añade las ramas, que orbitan alrededor de la misma espiral y la tocan de nuevo justo donde convergen. El mismo contenido, en forma de lista, está disponible en el mapa de arriba y en la sección de ramas.',
+spiralView2D:'2D',
+spiralView3D:'3D',
+spiralHint2D:'toca un nodo para ver los detalles',
+spiralHint:'arrastra · zoom · toca un nodo',
+spiralReset:'Restablecer vista',
+navUniverse:'→ Naturaleza del Universo',
+navParadox:'→ Paradojas',
+navNhi:'→ Vida más allá de la Tierra',
+navTrails:'→ Recorridos temáticos',
+navGlossary:'→ Glosario',
+ladderHeading:'La escala del tiempo — elige una era',
+searchPlaceholder:'Buscar en el tiempo… (ej. Marte, fusión, conciencia)',
+kindAll:'Todos',
+kindScenario:'Escenarios',
+kindAnti:'Antiescenarios',
+kindNon:'No-escenarios',
+kindImposibil:'Imposibilidades',
+universeTitle:'La naturaleza y el propósito del Universo',
+universeIntro:'La cosmología moderna explica, con gran precisión, CÓMO se ha comportado el universo desde fracciones de segundo después del Big Bang. La pregunta de POR QUÉ existe algo, y si tiene algún propósito, va más allá de lo que el método científico puede comprobar — así que la física, la filosofía y la religión ofrecen, hoy, respuestas distintas. Ninguno de los escenarios de abajo es la «posición» de esta aplicación; son el mapa de las ideas en circulación. Algunas tarjetas están marcadas de forma distinta: un antiescenario contradice directamente la idea junto a la que está, un no-escenario rechaza la pregunta misma por estar mal planteada, y una imposibilidad muestra qué puede excluirse con (casi) certeza.',
+branchesTitle:'Ramas alternativas',
+branchesIntro:'El mapa principal sigue un único hilo — el considerado hoy como más plausible. Pero la historia no es lineal: decisiones distintas, descubrimientos inesperados o catástrofes podrían abrir trayectorias completamente diferentes. Las ramas de abajo son ejercicios de imaginación contrafactual, no predicciones alternativas. Algunas se reconectan, de vez en cuando, con eventos del mapa principal — marcadas de forma distinta, con un borde sólido en lugar de uno punteado.',
+paradoxTitle:'Paradojas',
+paradoxIntro:'Cada sección anterior toca, al menos una vez, una contradicción lógica aparente — un lugar donde la intuición cotidiana choca con las matemáticas o la física real. Las paradojas de abajo no son «errores» del universo, sino señales útiles: cada una muestra exactamente dónde se rompe la intuición sobre el tiempo, el infinito o la identidad.',
+nhiTitle:'La vida más allá de la Tierra y las civilizaciones avanzadas',
+nhiIntro:'En 1950, el físico Enrico Fermi hizo una pregunta sencilla: si el universo es tan vasto y antiguo, ¿dónde están todos? La ecuación de Drake (1961) estructuró el problema como un producto de probabilidades, sin resolver su núcleo. Los escenarios de abajo — algunos científicos, otros especulativos — intentan explicar por qué el cielo parece silencioso, y qué significaría cada variante para cómo reaccionaría la humanidad ante un contacto real.',
+trailsTitle:'Recorridos temáticos',
+trailsIntro:'Cada recorrido conecta, con un solo clic, fragmentos de toda la aplicación — el mapa principal, las ramas, los escenarios, las paradojas — en torno a una sola idea.',
+glossaryTitle:'Glosario',
+glossaryIntro:'Nombres y conceptos que aparecen a lo largo del mapa, explicados brevemente.',
+footerP1:'Creada como aplicación HTML autónoma: un solo archivo, que funciona sin conexión, sin telemetría, sin bibliotecas externas.',
+footerP2:'Las predicciones para las próximas décadas son extrapolaciones razonables de las tendencias actuales; las de los milenios y eras lejanas son especulaciones — algunas basadas en física establecida, otras en teorías aún no confirmadas. Ninguna predicción aquí debe leerse como una certeza.',
+footerP3:'Las secciones sobre la naturaleza del universo y sobre la vida más allá de la Tierra presentan marcos explicativos en competencia, no conclusiones — algunos son física de frontera, otros filosofía, teología o ficción convertida en tema serio de debate. La Teoría del Bosque Oscuro, en particular, tiene su origen en una novela de ciencia ficción y se cita aquí como tal.',
+footerP4:'La tipografía se ve ligeramente distinta de un dispositivo a otro, porque usa las fuentes ya instaladas en cada sistema, no fuentes descargadas — una elección deliberada, no un descuido. La preferencia de idioma no se guarda entre visitas, por la misma razón por la que nada más se guarda aquí: sin seguimiento significa, también aquí, sin memoria.',
+footerP5:'Si quieres citar algo de aquí en tu propio material: «Orizonturi. Dincolo de limite» («Horizons. Beyond Limits») — un mapa interactivo sin conexión. El resto de los detalles de la cita dependen de ti, según el contexto.'
+},
+pt:{
+supportLabel:'Apoiar:',
+supportTriggerAria:'Apoiar este projeto',
+footerCreditMade:'Feito por',
+searchGroupMainMap:'Mapa principal',
+searchGroupBranches:'Ramificações alternativas',
+searchGroupUniverse:'Natureza do Universo',
+searchGroupParadoxes:'Paradoxos',
+searchGroupNhi:'Vida além da Terra',
+searchNothingFound:'Nada encontrado em nenhuma seção. Tente outra palavra-chave ou limpe a busca.',
+kindNonTag:'NÃO-CENÁRIO',
+kindImposibilTag:'IMPOSSIBILIDADE',
+copyCardLabel:'Copiar este cartão',
+emptyStateFilters:'Nenhum resultado com os filtros atuais para esta era.',
+readingTimeSuffix:'minutos de leitura, se você passar por tudo',
+filterActiveSuffix:'filtros ativos · limpar tudo',
+searchResultsFor:'Resultados para “',
+searchResultsForEnd:'”',
+searchingWholeApp:'busca em todo o aplicativo — mapa principal, ramificações, cenários, paradoxos',
+kindAntiTag:'ANTICÉNÁRIO',
+convergesWith:'converge com',
+convergesWithAny:'converge com qualquer evento do mapa',
+fromMainBranch:'da ramificação principal',
+achievementUnlocked:'Conquista desbloqueada',
+pageTitle:'Horizontes',
+pageSubtitle:'Além dos limites',
+ariaSwitchLanguage:'Mudar idioma',
+ariaSelectEra:'Selecione uma era temporal',
+ariaSearchPrediction:'Buscar uma previsão',
+ariaFilterDomain:'Filtrar por domínio',
+stickySearchPlaceholder:'Buscar…',
+backToTopAria:'Voltar ao topo',
+switchToLightTheme:'Mudar para o tema claro',
+switchToDarkTheme:'Mudar para o tema escuro',
+lightModeLabel:'☀ Modo claro',
+darkModeLabel:'☾ Modo escuro',
+eyebrow:'Um mapa do tempo <span>·</span> do Big Bang até o seu fim',
+thesis:'Desde as primeiras cidades da humanidade até hoje, passaram-se aproximadamente <strong>dez mil anos</strong>. Esse mesmo intervalo, repetido meio milhão de vezes, separa-nos da morte do Sol. O que se segue é apenas o início do mapa abaixo.',
+orientNote:'Se você só tem dois minutos: escolha uma era abaixo, toque em um cartão e pare por aí — o resto fica para outra hora.',
+reflectUniverse:'Se você tivesse que escolher um dos cartões acima como o mais provável — qual seria, e por quê?',
+reflectNhi:'Se amanhã recebêssemos um sinal confirmado de outro sistema estelar, você gostaria que respondêssemos, ou que ficássemos em silêncio?',
+randomBtn:'🎲 Mostre-me um futuro aleatório',
+scrollBtn:'Explorar o mapa ↓',
+themeToggle:'☀ Modo claro',
+aboutTitle:'Por que este projeto existe',
+aboutP1:'O Horizons acompanha tanto o tempo conhecido quanto o tempo possível — do Big Bang até as últimas partículas de um universo apagado. O mapa abaixo combina o que sabemos com razoável certeza sobre o passado com previsões sobre o futuro, cada uma com seu próprio nível de confiança: algumas são fatos confirmados observacionalmente, outras extrapolações razoáveis, e as mais distantes são física bem estabelecida — o movimento das estrelas não é um palpite — ou especulação teórica construída sobre leis ainda não confirmadas.',
+aboutP2:'Além do mapa, outras três seções abordam questões que a física sozinha não consegue responder por completo: o que É, de fato, o universo, quais paradoxos lógicos surgem da sua estrutura — e se estamos sozinhos. São apresentadas como cenários concorrentes, não como respostas. Algumas ramificações alternativas mostram, além disso, como trajetórias do futuro completamente diferentes poderiam ter sido — e onde, às vezes, se reencontram com o mapa principal. No final, alguns trajetos temáticos ligam fragmentos de todo o aplicativo em torno de uma única ideia, e um glossário explica brevemente os nomes e conceitos que se repetem.',
+aboutP3:'O modelo declarado é o <a href="https://futuretimeline.net" target="_blank" rel="noopener">futuretimeline.net</a>, um projeto semelhante, em inglês. O conteúdo aqui é original, pensado e escrito do zero, como aplicativo offline, sem conexões externas nem rastreamento.',
+statsLine:'<b id="stat-count">–</b> eventos no mapa · <b>8</b> domínios · <b>12</b> eras · do Big Bang até além de 10<sup>100</sup> anos',
+navLadder:'→ Linha do tempo',
+navBranches:'→ Ramificações alternativas',
+navSpiral:'→ Espiral 3D',
+spiralTitle:'A espiral do tempo',
+spiralIntro:'O mesmo mapa principal, desta vez disposto no espaço: o fio central sobe em espiral através do tempo. A visão 2D é a forma mais clara e acessível de vê-la — tudo visível de uma vez, sem precisar arrastar nada. A visão 3D adiciona as ramificações, que orbitam a mesma espiral e a tocam novamente exatamente onde convergem. O mesmo conteúdo, em forma de lista, está disponível no mapa acima e na seção de ramificações.',
+spiralView2D:'2D',
+spiralView3D:'3D',
+spiralHint2D:'toque em um nó para ver detalhes',
+spiralHint:'arraste · zoom · toque em um nó',
+spiralReset:'Redefinir visão',
+navUniverse:'→ Natureza do Universo',
+navParadox:'→ Paradoxos',
+navNhi:'→ Vida além da Terra',
+navTrails:'→ Trajetos temáticos',
+navGlossary:'→ Glossário',
+ladderHeading:'A escala do tempo — escolha uma era',
+searchPlaceholder:'Buscar no tempo… (ex.: Marte, fusão, consciência)',
+kindAll:'Todos',
+kindScenario:'Cenários',
+kindAnti:'Anticénários',
+kindNon:'Não-cenários',
+kindImposibil:'Impossibilidades',
+universeTitle:'A natureza e o propósito do Universo',
+universeIntro:'A cosmologia moderna explica, com grande precisão, COMO o universo se comportou desde frações de segundo após o Big Bang. A pergunta sobre POR QUE algo existe, e se isso tem algum propósito, vai além do que o método científico pode testar — por isso a física, a filosofia e a religião oferecem, hoje, respostas diferentes. Nenhum dos cenários abaixo é a “posição” deste aplicativo; são o mapa das ideias em circulação. Alguns cartões estão marcados de forma distinta: um anticénário contradiz diretamente a ideia ao lado da qual se encontra, um não-cenário rejeita a própria pergunta como mal formulada, e uma impossibilidade mostra o que pode ser excluído com (quase) certeza.',
+branchesTitle:'Ramificações alternativas',
+branchesIntro:'O mapa principal segue um único fio — o considerado hoje o mais plausível. Mas a história não é linear: escolhas diferentes, descobertas inesperadas ou catastrofes poderiam abrir trajetórias completamente diferentes. As ramificações abaixo são exercícios de imaginação contrafactual, não previsões alternativas. Algumas se reconectam, de vez em quando, com eventos do mapa principal — marcadas de forma distinta, com uma borda sólida em vez de pontilhada.',
+paradoxTitle:'Paradoxos',
+paradoxIntro:'Cada seção acima toca, pelo menos uma vez, em uma contradição lógica aparente — um lugar onde a intuição cotidiana esbarra na matemática ou na física real. Os paradoxos abaixo não são “erros” do universo, mas sinais úteis: cada um mostra exatamente onde a intuição sobre tempo, infinito ou identidade se rompe.',
+nhiTitle:'A vida além da Terra e as civilizações avançadas',
+nhiIntro:'Em 1950, o físico Enrico Fermi fez uma pergunta simples: se o universo é tão vasto e antigo, “onstruction onde estão todos?” A equação de Drake (1961) estruturou o problema como um produto de probabilidades, sem resolver o seu núcleo. Os cenários abaixo — alguns científicos, outros especulativos — tentam explicar por que o céu parece silencioso, e o que cada variante significaria para a forma como a humanidade reagiria a um contato real.',
+trailsTitle:'Trajetos temáticos',
+trailsIntro:'Cada trajeto liga, com um único clique, fragmentos de todo o aplicativo — o mapa principal, as ramificações, os cenários, os paradoxos — em torno de uma única ideia.',
+glossaryTitle:'Glossário',
+glossaryIntro:'Nomes e conceitos que aparecem ao longo do mapa, brevemente explicados.',
+footerP1:'Criado como aplicativo HTML autônomo: um único arquivo, funcionando offline, sem telemetria, sem bibliotecas externas.',
+footerP2:'As previsões para as próximas décadas são extrapolações razoáveis das tendências atuais; as dos milênios e eras distantes são especulações — algumas baseadas em física estabelecida, outras em teorias ainda não confirmadas. Nenhuma previsão aqui deve ser lida como uma certeza.',
+footerP3:'As seções sobre a natureza do universo e sobre a vida além da Terra apresentam estruturas explicativas concorrentes, não conclusões — algumas são física de fronteira, outras filosofia, teologia ou ficção transformada em tema sério de debate. A Teoria da Floresta Sombria, em particular, tem origem em um romance de ficção científica e é citada aqui como tal.',
+footerP4:'A tipografia parece ligeiramente diferente de um dispositivo para outro, porque usa as fontes já instaladas em cada sistema, não fontes baixadas — uma escolha deliberada, não um descuido. A preferência de idioma não é salva entre visitas, pelo mesmo motivo que mais nada é salvo aqui: sem rastreamento significa, também aqui, sem memória.',
+footerP5:'Se você quiser citar algo daqui em seu próprio material: “Orizonturi. Dincolo de limite” (“Horizons. Beyond Limits”) — um mapa interativo offline. O resto dos detalhes da citação fica a seu critério, dependendo do contexto.'
+},
+de:{
+supportLabel:'Unterstützen:',
+supportTriggerAria:'Dieses Projekt unterstützen',
+footerCreditMade:'Erstellt von',
+searchGroupMainMap:'Hauptkarte',
+searchGroupBranches:'Alternative Zweige',
+searchGroupUniverse:'Natur des Universums',
+searchGroupParadoxes:'Paradoxien',
+searchGroupNhi:'Leben jenseits der Erde',
+searchNothingFound:'In keinem Abschnitt etwas gefunden. Versuch ein anderes Stichwort oder lösche die Suche.',
+kindNonTag:'NICHT-SZENARIO',
+kindImposibilTag:'UNMÖGLICHKEIT',
+copyCardLabel:'Diese Karte kopieren',
+emptyStateFilters:'Keine Ergebnisse mit den aktuellen Filtern für diese Epoche.',
+readingTimeSuffix:'Minuten Lesezeit, wenn man alles durchgeht',
+filterActiveSuffix:'aktive Filter · alle löschen',
+searchResultsFor:'Ergebnisse für »',
+searchResultsForEnd:'«',
+searchingWholeApp:'Suche in der gesamten App — Hauptkarte, Zweige, Szenarien, Paradoxien',
+kindAntiTag:'ANTI-SZENARIO',
+convergesWith:'trifft zusammen mit',
+convergesWithAny:'trifft mit jedem Ereignis auf der Karte zusammen',
+fromMainBranch:'aus dem Hauptzweig',
+achievementUnlocked:'Erfolg freigeschaltet',
+pageTitle:'Horizonte',
+pageSubtitle:'Jenseits der Grenzen',
+ariaSwitchLanguage:'Sprache wechseln',
+ariaSelectEra:'Zeitepoche auswählen',
+ariaSearchPrediction:'Eine Vorhersage suchen',
+ariaFilterDomain:'Nach Bereich filtern',
+stickySearchPlaceholder:'Suchen…',
+backToTopAria:'Nach oben',
+switchToLightTheme:'Zu hellem Design wechseln',
+switchToDarkTheme:'Zu dunklem Design wechseln',
+lightModeLabel:'☀ Heller Modus',
+darkModeLabel:'☾ Dunkler Modus',
+eyebrow:'Eine Karte der Zeit <span>·</span> vom Urknall bis zu seinem Ende',
+thesis:'Von den ersten Städten der Menschheit bis heute sind ungefähr <strong>zehntausend Jahre</strong> vergangen. Dieselbe Zeitspanne, eine halbe Million Mal wiederholt, trennt uns vom Tod der Sonne. Was folgt, ist nur der Anfang der Karte unten.',
+orientNote:'Wenn du nur zwei Minuten hast: Wähle unten eine Epoche, tippe auf eine Karte und halte genau dort an — der Rest wartet auf ein andermal.',
+reflectUniverse:'Wenn du eine der obigen Karten als die wahrscheinlichste auswählen müsstest — welche wäre es, und warum?',
+reflectNhi:'Wenn wir morgen ein bestätigtes Signal aus einem anderen Sternsystem empfangen würden — möchtest du, dass wir antworten, oder dass wir schweigen?',
+randomBtn:'🎲 Zeig mir eine zufällige Zukunft',
+scrollBtn:'Karte erkunden ↓',
+themeToggle:'☀ Heller Modus',
+aboutTitle:'Warum es dieses Projekt gibt',
+aboutP1:'Horizons folgt sowohl der bekannten als auch der möglichen Zeit — vom Urknall bis zu den letzten Teilchen eines erloschenen Universums. Die Karte unten verbindet das, was wir mit vernünftiger Sicherheit über die Vergangenheit wissen, mit Vorhersagen über die Zukunft, jede mit ihrem eigenen Vertrauensniveau: manche sind beobachtungsbestätigte Fakten, andere vernünftige Extrapolationen, und die entferntesten sind entweder etablierte Physik — die Bewegung der Sterne ist keine Vermutung — oder theoretische Spekulation, aufgebaut auf noch unbestätigten Gesetzen.',
+aboutP2:'Über die Karte hinaus befassen sich drei weitere Abschnitte mit Fragen, die die Physik allein nicht vollständig beantworten kann: was das Universum eigentlich IST, welche logischen Paradoxien sich aus seiner Struktur ergeben — und ob wir allein sind. Sie werden als konkurrierende Szenarien dargestellt, nicht als Antworten. Einige alternative Zweige zeigen zudem, wie völlig andere Zukunftsverläufe hätten aussehen können — und wo sie manchmal wieder auf die Hauptkarte treffen. Am Ende verbinden einige thematische Pfade Fragmente aus der gesamten App rund um eine einzige Idee, und ein Glossar erklärt kurz die wiederkehrenden Namen und Begriffe.',
+aboutP3:'Das erklärte Vorbild ist <a href="https://futuretimeline.net" target="_blank" rel="noopener">futuretimeline.net</a>, ein ähnliches Projekt auf Englisch. Der Inhalt hier ist original, von Grund auf neu durchdacht und geschrieben, als Offline-Anwendung, ohne externe Verbindungen und ohne Tracking.',
+statsLine:'<b id="stat-count">–</b> Ereignisse auf der Karte · <b>8</b> Bereiche · <b>12</b> Epochen · vom Urknall bis über 10<sup>100</sup> Jahre hinaus',
+navLadder:'→ Zeitleiste',
+navBranches:'→ Alternative Zweige',
+navSpiral:'→ 3D-Spirale',
+spiralTitle:'Die Zeitspirale',
+spiralIntro:'Dieselbe Hauptkarte, diesmal räumlich angeordnet: Der zentrale Faden steigt spiralförmig durch die Zeit. Die 2D-Ansicht ist die klarste und zugänglichste Art, sie zu sehen — alles auf einmal sichtbar, ohne dass man etwas ziehen muss. Die 3D-Ansicht fügt die Zweige hinzu, die dieselbe Spirale umkreisen und sie genau dort wieder berühren, wo sie zusammenlaufen. Derselbe Inhalt ist auch als Liste in der obigen Karte und im Abschnitt über die Zweige verfügbar.',
+spiralView2D:'2D',
+spiralView3D:'3D',
+spiralHint2D:'Tippe auf einen Knoten für Details',
+spiralHint:'ziehen · zoomen · Knoten antippen',
+spiralReset:'Ansicht zurücksetzen',
+navUniverse:'→ Natur des Universums',
+navParadox:'→ Paradoxien',
+navNhi:'→ Leben jenseits der Erde',
+navTrails:'→ Themenpfade',
+navGlossary:'→ Glossar',
+ladderHeading:'Die Zeitskala — wähle eine Epoche',
+searchPlaceholder:'Durch die Zeit suchen… (z. B. Mars, Fusion, Bewusstsein)',
+kindAll:'Alle',
+kindScenario:'Szenarien',
+kindAnti:'Anti-Szenarien',
+kindNon:'Nicht-Szenarien',
+kindImposibil:'Unmöglichkeiten',
+universeTitle:'Die Natur und der Zweck des Universums',
+universeIntro:'Die moderne Kosmologie erklärt mit großer Genauigkeit, WIE sich das Universum seit Sekundenbruchteilen nach dem Urknall verhalten hat. Die Frage, WARUM überhaupt etwas existiert und ob es einen Zweck hat, geht über das hinaus, was die wissenschaftliche Methode prüfen kann — daher bieten Physik, Philosophie und Religion heute unterschiedliche Antworten. Keines der folgenden Szenarien ist die »Position« dieser Anwendung; sie sind die Landkarte der im Umlauf befindlichen Ideen. Einige Karten sind besonders gekennzeichnet: Ein Anti-Szenario widerspricht direkt der danebenstehenden Idee, ein Nicht-Szenario weist die Frage selbst als falsch gestellt zurück, und eine Unmöglichkeit zeigt, was mit (fast) Sicherheit ausgeschlossen werden kann.',
+branchesTitle:'Alternative Zweige',
+branchesIntro:'Die Hauptkarte folgt einem einzigen Faden — dem, der heute als am plausibelsten gilt. Aber Geschichte verläuft nicht linear: andere Entscheidungen, unerwartete Entdeckungen oder Katastrophen hätten völlig andere Verläufe eröffnen können. Die folgenden Zweige sind Übungen kontrafaktischer Vorstellungskraft, keine alternativen Vorhersagen. Manche verbinden sich gelegentlich wieder mit Ereignissen der Hauptkarte — gekennzeichnet mit durchgehendem statt gepunktetem Rahmen.',
+paradoxTitle:'Paradoxien',
+paradoxIntro:'Jeder Abschnitt oben berührt mindestens einmal einen scheinbaren logischen Widerspruch — eine Stelle, an der die Alltagsintuition auf echte Mathematik oder Physik trifft. Die folgenden Paradoxien sind keine »Fehler« des Universums, sondern nützliche Signale: Jedes zeigt genau, wo die Intuition über Zeit, Unendlichkeit oder Identität versagt.',
+nhiTitle:'Leben jenseits der Erde und fortgeschrittene Zivilisationen',
+nhiIntro:'1950 stellte der Physiker Enrico Fermi eine einfache Frage: Wenn das Universum so riesig und alt ist, »wo sind dann alle?« Die Drake-Gleichung (1961) strukturierte das Problem als Produkt von Wahrscheinlichkeiten, ohne seinen Kern zu lösen. Die folgenden Szenarien — manche wissenschaftlich, manche spekulativ — versuchen zu erklären, warum der Himmel schweigt, und was jede Variante für die Reaktion der Menschheit auf echten Kontakt bedeuten würde.',
+trailsTitle:'Themenpfade',
+trailsIntro:'Jeder Pfad verbindet mit einem einzigen Klick Fragmente aus der gesamten App — die Hauptkarte, die Zweige, die Szenarien, die Paradoxien — rund um eine einzige Idee.',
+glossaryTitle:'Glossar',
+glossaryIntro:'Namen und Begriffe, die im Verlauf der Karte auftauchen, kurz erklärt.',
+footerP1:'Als eigenständige HTML-Anwendung erstellt: eine einzige Datei, offline funktionsfähig, ohne Telemetrie, ohne externe Bibliotheken.',
+footerP2:'Vorhersagen für die nahen Jahrzehnte sind vernünftige Extrapolationen aktueller Trends; jene für ferne Jahrtausende und Epochen sind Spekulation — manche gestützt auf etablierte Physik, andere auf noch unbestätigte Theorien. Keine Vorhersage hier sollte als Gewissheit gelesen werden.',
+footerP3:'Die Abschnitte über die Natur des Universums und über Leben jenseits der Erde stellen konkurrierende Erklärungsrahmen dar, keine Schlussfolgerungen — manche sind Grenzphysik, andere Philosophie, Theologie oder Fiktion, die zum ernsthaften Diskussionsthema wurde. Die Dark-Forest-Theorie stammt insbesondere aus einem Science-Fiction-Roman und wird hier als solche zitiert.',
+footerP4:'Die Typografie sieht von Gerät zu Gerät leicht unterschiedlich aus, weil sie die bereits auf jedem System installierten Schriftarten verwendet, keine heruntergeladenen — eine bewusste Entscheidung, kein Versäumnis. Die Sprachpräferenz wird nicht zwischen Besuchen gespeichert, aus demselben Grund, aus dem hier sonst nichts gespeichert wird: kein Tracking bedeutet auch hier kein Gedächtnis.',
+footerP5:'Wenn du hier etwas in deinem eigenen Material zitieren möchtest: »Orizonturi. Dincolo de limite« (»Horizons. Beyond Limits«) — eine interaktive Offline-Karte. Die restlichen Zitierdetails liegen bei dir, je nach Kontext.'
+}
+};
+
 var RO_UI = {
+supportLabel:'Sprijină:',
+supportTriggerAria:'Susține acest proiect',
+footerCreditMade:'Realizat de',
+searchGroupMainMap:'Harta principală',
+searchGroupBranches:'Ramuri alternative',
+searchGroupUniverse:'Natura Universului',
+searchGroupParadoxes:'Paradoxuri',
+searchGroupNhi:'Viață dincolo de Pământ',
+searchNothingFound:'Nimic găsit în nicio secțiune. Încearcă alt cuvânt cheie sau șterge căutarea.',
+kindNonTag:'NON-SCENARIU',
+kindImposibilTag:'IMPOSIBILITATE',
+copyCardLabel:'Copiază acest card',
+emptyStateFilters:'Niciun rezultat cu filtrele curente pentru această eră.',
+readingTimeSuffix:'de citit, dacă parcurgi tot',
+filterActiveSuffix:'filtre active · șterge tot',
+searchResultsFor:'Rezultate pentru „',
+searchResultsForEnd:'”',
+searchingWholeApp:'căutare în toată aplicația — harta principală, ramuri, scenarii, paradoxuri',
+kindAntiTag:'ANTI-SCENARIU',
+convergesWith:'converge cu',
+convergesWithAny:'converge cu oricare eveniment de pe hartă',
+fromMainBranch:'din ramura principală',
+achievementUnlocked:'Realizare deblocată',
+pageTitle:'Orizonturi',
+pageSubtitle:'Dincolo de limite',
+ariaSwitchLanguage:'Schimbă limba',
+ariaSelectEra:'Selectează era temporală',
+ariaSearchPrediction:'Caută o previziune',
+ariaFilterDomain:'Filtrează după domeniu',
+stickySearchPlaceholder:'Caută…',
+backToTopAria:'Înapoi sus',
+switchToLightTheme:'Comută la tema deschisă',
+switchToDarkTheme:'Comută la tema întunecată',
+lightModeLabel:'☀ Mod luminos',
+darkModeLabel:'☾ Mod întunecat',
 eyebrow:'O hartă a timpului <span>·</span> de la Big Bang până la sfârșitul lui',
 thesis:'De la primele orașe ale omenirii și până azi au trecut aproximativ <strong>zece mii de ani</strong>. Aceeași durată, repetată de o jumătate de milion de ori, ne separă de moartea Soarelui. Ce urmează e doar începutul hărții de mai jos.',
 orientNote:'Dacă ai doar două minute: alege o eră mai jos, atinge un card și oprește-te acolo — restul rămâne pe loc, pentru altă dată.',
@@ -2249,9 +2986,8 @@ var RO_PLACEHOLDER = 'Caută în timp\u2026 (ex: Marte, fuziune, con\u0219tiin\u
 function updateThemeButtonLabel(){
   var btn = document.getElementById('theme-toggle');
   if(!btn) return;
-  var L = state.lang==='en';
-  btn.textContent = state.lightMode ? (L?'\u263e Dark mode':'\u263e Mod întunecat') : (L?'\u2600 Light mode':'\u2600 Mod luminos');
-  btn.setAttribute('aria-label', state.lightMode ? (L?'Switch to dark theme':'Comută la tema întunecată') : (L?'Switch to light theme':'Comută la tema deschisă'));
+  btn.textContent = state.lightMode ? uiText('darkModeLabel') : uiText('lightModeLabel');
+  btn.setAttribute('aria-label', state.lightMode ? uiText('switchToDarkTheme') : uiText('switchToLightTheme'));
   var stickyBtn = document.getElementById('sticky-theme');
   if(stickyBtn){
     stickyBtn.textContent = state.lightMode ? '\u263e' : '\u2600';
@@ -2277,32 +3013,43 @@ function applyLightMode(){
   renderSpiral2D();
 }
 
+var SUPPORTED_LANGS = ['ro','en','fr','it','es','pt','de'];
+var LANG_NAMES = {ro:'Română', en:'English', fr:'Français', it:'Italiano', es:'Español', pt:'Português', de:'Deutsch'};
+function uiText(key){
+  if(state.lang==='ro') return RO_UI[key];
+  var d = LANG_UI[state.lang];
+  if(d && d[key]!==undefined) return d[key];
+  return RO_UI[key];
+}
+
 function applyLanguage(){
-  var L = state.lang==='en';
-  document.getElementById('page-title-text').textContent = L ? 'Horizons' : 'Orizonturi';
-  document.getElementById('page-subtitle').textContent = L ? 'Beyond Limits' : 'Dincolo de limite';
-  document.title = L ? 'Horizons. Beyond Limits' : 'Orizonturi. Dincolo de limite';
+  document.getElementById('page-title-text').textContent = uiText('pageTitle');
+  document.getElementById('page-subtitle').textContent = uiText('pageSubtitle');
+  document.title = uiText('pageTitle') + '. ' + uiText('pageSubtitle');
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key = el.getAttribute('data-i18n');
-    if(L && EN_UI[key]){ el.innerHTML = EN_UI[key]; }
-    else if(RO_UI[key]){ el.innerHTML = RO_UI[key]; }
+    var val = uiText(key);
+    if(val!==undefined){ el.innerHTML = val; }
   });
-  searchEl.setAttribute('placeholder', L ? EN_UI.searchPlaceholder : RO_PLACEHOLDER);
-  document.documentElement.lang = L ? 'en' : 'ro';
-  document.getElementById('lang-toggle').textContent = L ? 'RO' : 'EN';
-  document.getElementById('lang-toggle').setAttribute('aria-label', L ? 'Switch language' : 'Schimbă limba');
-  ladderEl.setAttribute('aria-label', L ? 'Select a time era' : 'Selectează era temporală');
-  searchEl.setAttribute('aria-label', L ? 'Search a prediction' : 'Caută o previziune');
-  chipsEl.setAttribute('aria-label', L ? 'Filter by domain' : 'Filtrează după domeniu');
+  searchEl.setAttribute('placeholder', uiText('searchPlaceholder'));
+  document.documentElement.lang = state.lang;
+  var langSelectEl = document.getElementById('lang-toggle');
+  if(langSelectEl){ langSelectEl.setAttribute('aria-label', uiText('ariaSwitchLanguage')); }
+  ladderEl.setAttribute('aria-label', uiText('ariaSelectEra'));
+  searchEl.setAttribute('aria-label', uiText('ariaSearchPrediction'));
+  chipsEl.setAttribute('aria-label', uiText('ariaFilterDomain'));
   buildStickyNav();
   var progressPanelL = document.getElementById('progress-panel');
   if(progressPanelL && !progressPanelL.hidden){ renderProgressPanel(); }
   var stickyHomeElL = document.getElementById('sticky-home');
-  if(stickyHomeElL){ stickyHomeElL.textContent = L ? 'Horizons' : 'Orizonturi'; }
+  if(stickyHomeElL){ stickyHomeElL.textContent = uiText('pageTitle'); }
   var stickySearchElL = document.getElementById('sticky-search');
-  if(stickySearchElL){ stickySearchElL.setAttribute('placeholder', L ? 'Search…' : 'Caută…'); stickySearchElL.setAttribute('aria-label', L ? 'Search a prediction' : 'Caută o previziune'); }
+  if(stickySearchElL){ stickySearchElL.setAttribute('placeholder', uiText('stickySearchPlaceholder')); stickySearchElL.setAttribute('aria-label', uiText('ariaSearchPrediction')); }
   var stickyLangElL = document.getElementById('sticky-lang');
-  if(stickyLangElL){ stickyLangElL.textContent = L ? 'RO' : 'EN'; stickyLangElL.setAttribute('aria-label', L ? 'Switch language' : 'Schimbă limba'); }
+  if(stickyLangElL){ stickyLangElL.setAttribute('aria-label', uiText('ariaSwitchLanguage')); }
+  if(typeof syncLangPickers==='function'){ syncLangPickers(); }
+  var supportTriggerEl = document.getElementById('support-trigger');
+  if(supportTriggerEl){ supportTriggerEl.setAttribute('aria-label', uiText('supportTriggerAria')); }
   updateThemeButtonLabel();
   document.getElementById('stat-count').textContent = EVENTS.length;
   buildLadder();
@@ -2322,10 +3069,11 @@ function applyLanguage(){
   estimateReadingTime();
 }
 
-document.getElementById('lang-toggle').addEventListener('click', function(){
-  state.lang = state.lang==='en' ? 'ro' : 'en';
+function setLanguage(lang){
+  if(SUPPORTED_LANGS.indexOf(lang)===-1) return;
+  state.lang = lang;
   applyLanguage();
-});
+}
 
 document.getElementById('theme-toggle').addEventListener('click', function(){
   state.lightMode = !state.lightMode;
@@ -2429,10 +3177,102 @@ if(stickySearchEl){
   });
 }
 
-var stickyLangEl = document.getElementById('sticky-lang');
-if(stickyLangEl){
-  stickyLangEl.addEventListener('click', function(){
-    document.getElementById('lang-toggle').click();
+function setupLangPicker(btnId, listId){
+  var btn = document.getElementById(btnId);
+  var list = document.getElementById(listId);
+  if(!btn || !list) return null;
+  var options = [].slice.call(list.querySelectorAll('li'));
+  options.forEach(function(o){ o.setAttribute('tabindex','-1'); });
+
+  function clearFocusClass(){ options.forEach(function(o){ o.classList.remove('option-focused'); }); }
+  function position(){
+    var r = btn.getBoundingClientRect();
+    list.style.minWidth = Math.max(r.width, 152) + 'px';
+    var top = r.bottom + 6;
+    var left = r.left;
+    var listWidth = list.offsetWidth || 152;
+    if(left + listWidth > window.innerWidth - 8){ left = Math.max(8, window.innerWidth - listWidth - 8); }
+    var listHeight = list.offsetHeight || 0;
+    if(top + listHeight > window.innerHeight - 8 && r.top - listHeight - 6 > 0){ top = r.top - listHeight - 6; }
+    list.style.top = top + 'px';
+    list.style.left = left + 'px';
+  }
+  function open(){
+    list.hidden = false;
+    position();
+    btn.setAttribute('aria-expanded','true');
+    clearFocusClass();
+    var current = list.querySelector('li[aria-selected="true"]') || options[0];
+    if(current){ current.classList.add('option-focused'); }
+    window.addEventListener('scroll', position, true);
+    window.addEventListener('resize', position);
+  }
+  function close(){
+    list.hidden = true;
+    btn.setAttribute('aria-expanded','false');
+    clearFocusClass();
+    window.removeEventListener('scroll', position, true);
+    window.removeEventListener('resize', position);
+  }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(list.hidden){ open(); } else { close(); }
+  });
+  options.forEach(function(opt){
+    opt.addEventListener('click', function(e){
+      e.stopPropagation();
+      setLanguage(this.getAttribute('data-lang'));
+      close();
+      btn.focus();
+    });
+    opt.addEventListener('mouseenter', function(){ clearFocusClass(); this.classList.add('option-focused'); });
+  });
+  list.addEventListener('keydown', function(e){
+    var focused = list.querySelector('.option-focused') || list.querySelector('[aria-selected="true"]');
+    var idx = options.indexOf(focused);
+    if(e.key==='ArrowDown'){ e.preventDefault(); idx = (idx+1)%options.length; clearFocusClass(); options[idx].classList.add('option-focused'); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); idx = (idx-1+options.length)%options.length; clearFocusClass(); options[idx].classList.add('option-focused'); }
+    else if(e.key==='Enter' || e.key===' '){ e.preventDefault(); if(focused){ focused.click(); } }
+    else if(e.key==='Escape'){ e.preventDefault(); close(); btn.focus(); }
+    else if(e.key==='Tab'){ close(); }
+  });
+  btn.addEventListener('keydown', function(e){
+    if(e.key==='ArrowDown' || e.key==='Enter' || e.key===' '){ e.preventDefault(); if(list.hidden){ open(); list.focus(); } }
+    else if(e.key==='Escape'){ close(); }
+  });
+  list.setAttribute('tabindex','-1');
+  return {btn:btn, list:list, close:close};
+}
+
+var langPickers = [setupLangPicker('lang-toggle','lang-list-hero'), setupLangPicker('sticky-lang','lang-list-sticky')];
+
+(function(){
+  var trigger = document.getElementById('support-trigger');
+  var panel = document.getElementById('support-panel');
+  var closeBtn = document.getElementById('support-close');
+  if(!trigger || !panel) return;
+  function open(){ panel.hidden = false; trigger.setAttribute('aria-expanded','true'); }
+  function close(){ panel.hidden = true; trigger.setAttribute('aria-expanded','false'); }
+  trigger.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(panel.hidden){ open(); } else { close(); }
+  });
+  if(closeBtn){ closeBtn.addEventListener('click', function(e){ e.stopPropagation(); close(); }); }
+  panel.addEventListener('click', function(e){ e.stopPropagation(); });
+  document.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ close(); } });
+})();
+document.addEventListener('click', function(){
+  langPickers.forEach(function(p){ if(p) p.close(); });
+});
+
+function syncLangPickers(){
+  langPickers.forEach(function(p){
+    if(!p) return;
+    p.btn.textContent = LANG_NAMES[state.lang];
+    p.list.querySelectorAll('li').forEach(function(li){
+      li.setAttribute('aria-selected', li.getAttribute('data-lang')===state.lang ? 'true' : 'false');
+    });
   });
 }
 var stickyThemeEl = document.getElementById('sticky-theme');
@@ -2566,6 +3406,7 @@ resize();
 requestAnimationFrame(draw);
 if(reduced){ draw(0); }
 
+if(state.lang!=='en'){ applyLanguage(); }
 setTimeout(resolvePermalink, 200);
 
 })();
