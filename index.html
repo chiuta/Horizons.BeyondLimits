@@ -1868,11 +1868,18 @@ function stripDiacritics(s){
 function slugify(s){
   return stripDiacritics(s.toLowerCase()).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 }
-function textMatch(a, b, q){ return stripDiacritics((a+' '+b).toLowerCase()).indexOf(stripDiacritics(q))!==-1; }
+/* normalizare doar pentru căutare (slugify rămâne neschimbat, ca permalink-urile existente să nu se rupă) */
+function searchNorm(s){ return stripDiacritics(String(s).toLowerCase()).normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function textMatch(a, b, q){
+  var hay = a+' '+b;
+  /* în engleză se afișează textul EN, dar se căuta doar în sursa românească (ex. „Mars", „fusion", „consciousness" dădeau 0 rezultate) */
+  if(state.lang==='en'){ var en = EN_CONTENT[a] || EN_SCENARIOS[a]; if(en) hay += ' '+(en.title||'')+' '+(en.desc||''); }
+  return searchNorm(hay).indexOf(searchNorm(q))!==-1;
+}
 
 function renderUniversalSearch(q){
   var total = 0;
-  var html = '<div class="era-header"><h3>'+uiText('searchResultsFor')+state.query+uiText('searchResultsForEnd')+'</h3><p>'+uiText('searchingWholeApp')+'</p></div>';
+  var html = '<div class="era-header"><h3>'+uiText('searchResultsFor')+escAttr(state.query)+uiText('searchResultsForEnd')+'</h3><p>'+uiText('searchingWholeApp')+'</p></div>';
 
   var evMatches = [];
   for(var i=0;i<EVENTS.length;i++){ if(matchesFilters(EVENTS[i]) && textMatch(EVENTS[i].title, EVENTS[i].desc, q)) evMatches.push(EVENTS[i]); }
@@ -2984,6 +2991,7 @@ footerP4:'Tipografia arată ușor diferit de la un dispozitiv la altul, pentru c
 footerP5:'Dacă vrei să citezi ceva de aici într-un material propriu: „Orizonturi. Dincolo de limite" — hartă interactivă offline. Restul detaliilor de citare rămân la latitudinea ta, în funcție de context.'
 };
 var RO_PLACEHOLDER = 'Caută în timp\u2026 (ex: Marte, fuziune, con\u0219tiin\u021b\u0103)';
+RO_UI.searchPlaceholder = RO_PLACEHOLDER; /* lipsea: placeholder-ul căutării afișa literal „undefined" în română */
 
 function updateThemeButtonLabel(){
   var btn = document.getElementById('theme-toggle');
@@ -3019,6 +3027,8 @@ var SUPPORTED_LANGS = ['ro','en','fr','it','es','pt','de'];
 var LANG_NAMES = {ro:'Română', en:'English', fr:'Français', it:'Italiano', es:'Español', pt:'Português', de:'Deutsch'};
 function uiText(key){
   if(state.lang==='ro') return RO_UI[key];
+  /* EN_UI era definit dar nefolosit: la revenirea ro/fr/... -> en interfața rămânea în română (titlu, texte, placeholder) */
+  if(state.lang==='en') return (EN_UI[key]!==undefined) ? EN_UI[key] : RO_UI[key];
   var d = LANG_UI[state.lang];
   if(d && d[key]!==undefined) return d[key];
   return RO_UI[key];
@@ -3034,6 +3044,26 @@ function applyLanguage(){
     if(val!==undefined){ el.innerHTML = val; }
   });
   searchEl.setAttribute('placeholder', uiText('searchPlaceholder'));
+  /* FR/IT/ES/PT/DE: interfața e tradusă, dar cele 91 de evenimente, scenariile și glosarul există doar în RO/EN —
+     fără o notă, utilizatorul vedea conținut românesc sub interfață tradusă, fără nicio explicație */
+  (function(){
+    var NOTE = {
+      fr:'Remarque : l\u2019interface est traduite, mais le contenu de la carte (\u00e9v\u00e9nements, sc\u00e9narios, glossaire) n\u2019existe pour l\u2019instant qu\u2019en roumain et en anglais \u2014 passe en English pour le lire.',
+      it:'Nota: l\u2019interfaccia \u00e8 tradotta, ma i contenuti della mappa (eventi, scenari, glossario) esistono per ora solo in rumeno e inglese \u2014 passa a English per leggerli.',
+      es:'Nota: la interfaz est\u00e1 traducida, pero el contenido del mapa (eventos, escenarios, glosario) por ahora solo existe en rumano e ingl\u00e9s \u2014 cambia a English para leerlo.',
+      pt:'Nota: a interface est\u00e1 traduzida, mas o conte\u00fado do mapa (eventos, cen\u00e1rios, gloss\u00e1rio) por enquanto s\u00f3 existe em romeno e ingl\u00eas \u2014 mude para English para l\u00ea-lo.',
+      de:'Hinweis: Die Oberfl\u00e4che ist \u00fcbersetzt, die Inhalte der Karte (Ereignisse, Szenarien, Glossar) gibt es vorerst nur auf Rum\u00e4nisch und Englisch \u2014 wechsle zu English, um sie zu lesen.'
+    };
+    var n = document.getElementById('content-lang-note'), txt = NOTE[state.lang];
+    if(!txt){ if(n && n.parentNode){ n.parentNode.removeChild(n); } return; }
+    if(!n){
+      var ref = document.querySelector('.orient-note');
+      if(!ref || !ref.parentNode) return;
+      n = document.createElement('p'); n.id = 'content-lang-note'; n.className = 'orient-note';
+      ref.parentNode.insertBefore(n, ref.nextSibling);
+    }
+    n.textContent = txt;
+  })();
   document.documentElement.lang = state.lang;
   var langSelectEl = document.getElementById('lang-toggle');
   if(langSelectEl){ langSelectEl.setAttribute('aria-label', uiText('ariaSwitchLanguage')); }
@@ -3348,6 +3378,7 @@ function resize(){
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
   seedStars();
+  if(reduced && typeof draw==='function'){ draw(0); } /* la redimensionare canvas-ul se golește; fără RAF nu se mai redesena */
 }
 function seedStars(){
   stars = [];
