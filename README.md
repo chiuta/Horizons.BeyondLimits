@@ -37,6 +37,10 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 - Aplicația nu folosește `localStorage`, `sessionStorage` sau IndexedDB și nu face cereri de rețea (fără `fetch`, CDN sau scripturi externe); alegerile de limbă și temă nu se rețin între vizite.
 - Conține doar link-uri, deschise la click, către futuretimeline.net, Patreon și Buy Me a Coffee.
 
+## Avertisment
+
+Ficțiune / speculație: hărțile viitorului sunt extrapolări și speculații, nu predicții validate. Predicțiile pe decenii apropiate extrapolează tendințe actuale; cele pentru milenii și ere îndepărtate sunt speculative, iar secțiunile despre natura Universului și viața dincolo de Pământ prezintă cadre explicative concurente (fizică de frontieră, filozofie, teologie, ficțiune; „Dark Forest” provine dintr-un roman SF). Aceeași precizare apare în subsolul aplicației. Conținut educațional/informativ; nu înlocuiește surse științifice de referință.
+
 ## Rulare locală / offline
 
 Descarcă `index.html` și deschide-l în browser; nu necesită internet. Imaginile `og-image*.png` din repository servesc doar previzualizării la distribuire.
@@ -52,3 +56,7 @@ Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf
 ## English summary
 
 Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to the end of the universe: 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and sections on the nature of the universe, paradoxes and life beyond Earth. 7 UI languages. It stores nothing and makes no network requests; it only links to futuretimeline.net (its stated model), Patreon and Buy Me a Coffee.
+
+## Audit
+
+Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 `fetch`/XHR/WebSocket, 0 `localStorage`; singurele URL-uri sunt linkuri `<a>` și meta OG). Corectat contrastul culorilor, în special în tema luminoasă (accentele erelor, text secundar), verificat cu axe în ambele teme, desktop și mobil. Licența rămâne nedeclarată.
