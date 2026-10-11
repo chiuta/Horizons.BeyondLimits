@@ -20,6 +20,9 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 - „The Time Spiral": spirala timpului în vizualizare 2D sau 3D (tragere, zoom, atingerea unui nod), cu „Reset view".
 - „The Nature and Purpose of the Universe": scenarii, anti-scenarii, non-scenarii și imposibilități, cu filtre.
 - „Paradoxes", „Life Beyond Earth and Advanced Civilizations", „Thematic Trails" și „Glossary".
+- **Export Markdown:** butonul „⬇ Export the map (.md)” (tradus în cele 7 limbi) descarcă toate cele 91 de evenimente, pe ere, în limba curentă și respectând filtrul de domenii activ, cu avertismentul de speculație la final; fișierul se generează local în browser. Conținutul evenimentelor există doar în română și engleză; în celelalte limbi fișierul păstrează textul românesc, ca și harta.
+- **Tipărire:** foi de stil pentru imprimare (fundal alb, text negru, fără bara de navigare, controale sau stele; cardurile nu se rup între pagini). Se tipărește era selectată, plus secțiunile de scenarii, paradoxuri și glosar; pentru toată harta folosește exportul Markdown.
+- Scurtătură: `/` mută focusul în câmpul de căutare.
 - Căutare, temă luminoasă/întunecată (buton ☀) și interfață în 7 limbi: English, Română, Français, Italiano, Español, Português, Deutsch.
 - Navigare cu tastatura în meniul de limbă și în file (săgeți, Home, End, Enter, Spațiu, Esc).
 
@@ -36,7 +39,7 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 
 ## Confidențialitate și rețea
 
-- Pagina are o politică CSP (`default-src 'none'`, script/stil inline, imagini `data:`), fără conexiuni către alte gazde.
+- Pagina are o politică CSP (`default-src 'none'`, script permis doar prin hash `sha256`, fără `'unsafe-inline'` la scripturi; stiluri inline, imagini `data:`), fără conexiuni către alte gazde.
 - Aplicația nu folosește `localStorage`, `sessionStorage` sau IndexedDB și nu face cereri de rețea (fără `fetch`, CDN sau scripturi externe); alegerile de limbă și temă nu se rețin între vizite.
 - Conține doar link-uri, deschise la click, către futuretimeline.net, Patreon și Buy Me a Coffee.
 
@@ -66,5 +69,6 @@ Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 
 
 ## Istoric / Changelog
 
+- **11 octombrie 2026** — export Markdown al hărții (filtrat după domeniu, în limba curentă), foi de stil pentru tipărire, scurtătura `/` pentru căutare, CSP cu hash pentru script (fără `'unsafe-inline'` la `script-src`); testat cu CSP activ (0 erori, axe-core 0 violări la 1280×800 și 360×740).
 - **11 octombrie 2026** — etichetele de dată („acum 4,5 mld. ani”, „1 milion de ani” etc.) sunt acum localizate în toate cele 7 limbi (înainte apăreau în română și în interfața engleză); meniul ☰ se închide după alegerea limbii/temei, la Enter în căutare, la click în afară sau Esc; notificările de realizări sunt mutate deasupra butonului ♥, limitate la două, se închid la click și mai repede; textul „status” al scenariilor nu mai depășește ecranul de 360 px.
 - Accesibilitate și securitate: conținutul este încadrat într-un singur reper `main` (un singur banner), subsolul și panourile auxiliare sunt în repere; a fost adăugat un meta CSP. axe-core: 0 violări la 1280×800 și 360×740. Aplicația nu are număr de versiune.
