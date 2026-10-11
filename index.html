@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-+m7n8mYRwHnYrET7SzpVq6PGYbIUioQ4Aj+WVZYKgPU='; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Hi1y1f8F5bk0xqKs/gmWuzbw1Kbymg75VdnFZFkLnKE='; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
 <title>Horizons. Beyond Limits</title>
 <meta name="description" content="A map of time from the Big Bang to its very end — 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and speculative scenarios about the universe and life beyond Earth. Free, offline, single-file, no tracking.">
 
@@ -238,7 +238,7 @@ input#search:focus-visible{border-color:var(--accent)}
   font-family:var(--mono);font-size:.65rem;color:var(--ink-dimmer);margin-left:auto;
   border-left:1px solid var(--line);padding-left:.55rem;
 }
-.copy-btn{background:none;border:none;color:var(--ink-dimmer);cursor:pointer;font-size:.85rem;padding:0 0 0 .5rem;line-height:1;transition:color .2s ease}
+.copy-btn{background:none;border:none;color:var(--ink-dimmer);cursor:pointer;font-size:.85rem;padding:0;min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center;line-height:1;transition:color .2s ease}
 .copy-btn:hover{color:var(--ink)}
 .copy-btn.copied{color:var(--accent)}
 .branch-event .copy-btn{position:absolute;right:.7rem;top:.6rem}
@@ -300,7 +300,7 @@ body:not(.light-mode) .kind-tag[style*="8a7590"]{color:#9b86a1!important}
 
 /* ---------- 3D SPIRAL ---------- */
 .spiral-legend{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin-bottom:1.1rem}
-.spiral-legend-item{display:flex;align-items:center;gap:.4rem;font-family:var(--sans);font-size:.72rem;color:var(--ink-dim);background:none;border:1px solid transparent;border-radius:6px;padding:.2rem .45rem;cursor:pointer;transition:border-color .2s ease,opacity .2s ease}
+.spiral-legend-item{min-height:28px;display:flex;align-items:center;gap:.4rem;font-family:var(--sans);font-size:.72rem;color:var(--ink-dim);background:none;border:1px solid transparent;border-radius:6px;padding:.2rem .45rem;cursor:pointer;transition:border-color .2s ease,opacity .2s ease}
 .spiral-legend-item:hover{border-color:var(--panel-border)}
 .spiral-legend-item.active{border-color:var(--ink-dim);color:var(--ink)}
 .spiral-legend-item.dimmed{opacity:.45}
@@ -2088,8 +2088,10 @@ function jumpTo(containerId, titleText, cardClass, titleClass){
       var card = titleEls[i].closest('.'+cardClass) || titleEls[i].closest('.branch-block') || titleEls[i];
       if(card.scrollIntoView){ card.scrollIntoView({behavior:'smooth', block:'center'}); }
       var oldShadow = card.style.boxShadow;
-      card.style.boxShadow = '0 0 0 2px var(--accent)';
-      (function(c, prev){ setTimeout(function(){ c.style.boxShadow = prev; }, 1800); })(card, oldShadow);
+      card.style.boxShadow = '0 0 0 3px var(--accent), 0 0 28px rgba(232,140,77,.45)';
+      if(card.getAttribute('tabindex')===null){ card.setAttribute('tabindex','-1'); }
+      try{ card.focus({preventScroll:true}); }catch(err){}
+      (function(c, prev){ setTimeout(function(){ c.style.boxShadow = prev; }, 3600); })(card, oldShadow);
       return true;
     }
   }

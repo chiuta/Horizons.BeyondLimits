@@ -69,6 +69,7 @@ Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 
 
 ## Istoric / Changelog
 
+- **11 octombrie 2026** (runda 7) — butoanele de copiere au zonă de atingere de minimum 28×28 px (înainte 18×14, 104 de ținte sub 24 px la 360 px); „Arată-mi un viitor la întâmplare” (și salturile din linkuri) evidențiază cardul ales mai puternic și mai mult timp (3,6 s) și îi mută focusul; legenda spiralei are înălțime minimă de 28 px; 0 erori, axe 0 violări la 1280×800 și 360×740.
 - **11 octombrie 2026** — export Markdown al hărții (filtrat după domeniu, în limba curentă), foi de stil pentru tipărire, scurtătura `/` pentru căutare, CSP cu hash pentru script (fără `'unsafe-inline'` la `script-src`); testat cu CSP activ (0 erori, axe-core 0 violări la 1280×800 și 360×740).
 - **11 octombrie 2026** — etichetele de dată („acum 4,5 mld. ani”, „1 milion de ani” etc.) sunt acum localizate în toate cele 7 limbi (înainte apăreau în română și în interfața engleză); meniul ☰ se închide după alegerea limbii/temei, la Enter în căutare, la click în afară sau Esc; notificările de realizări sunt mutate deasupra butonului ♥, limitate la două, se închid la click și mai repede; textul „status” al scenariilor nu mai depășește ecranul de 360 px.
 - Accesibilitate și securitate: conținutul este încadrat într-un singur reper `main` (un singur banner), subsolul și panourile auxiliare sunt în repere; a fost adăugat un meta CSP. axe-core: 0 violări la 1280×800 și 360×740. Aplicația nu are număr de versiune.
