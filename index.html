@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
 <title>Horizons. Beyond Limits</title>
 <meta name="description" content="A map of time from the Big Bang to its very end — 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and speculative scenarios about the universe and life beyond Earth. Free, offline, single-file, no tracking.">
 
@@ -212,7 +213,7 @@ input#search:focus-visible{border-color:var(--accent)}
 .chip:focus-visible,button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* ---------- MAIN CONTENT / TIMELINE ---------- */
-main{max-width:800px;margin:0 auto;padding:2.2rem 1.4rem 2rem;position:relative;z-index:1}
+#content{max-width:800px;margin:0 auto;padding:2.2rem 1.4rem 2rem;position:relative;z-index:1}
 .era-header{margin-bottom:1.6rem}
 .era-header h3{font-family:var(--serif);font-size:1.55rem;color:#f2f3fa;margin-bottom:.25rem}
 .era-header .era-range{font-family:var(--mono);font-size:.78rem;color:var(--accent);transition:color 1.2s ease}
@@ -256,7 +257,7 @@ main{max-width:800px;margin:0 auto;padding:2.2rem 1.4rem 2rem;position:relative;
 .scenario-card.lead{border-color:var(--accent)}
 .scenario-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:.4rem .8rem;margin-bottom:.4rem}
 .scenario-title{font-family:var(--serif);font-size:1.05rem;color:#eef0f8;flex:1 1 62%;min-width:0}
-.scenario-status{font-family:var(--mono);font-size:.63rem;color:var(--ink-dimmer);border:1px solid var(--line);border-radius:5px;padding:.15rem .5rem;white-space:nowrap;text-align:right}
+.scenario-status{font-family:var(--mono);font-size:.63rem;color:var(--ink-dimmer);border:1px solid var(--line);border-radius:5px;padding:.15rem .5rem;white-space:normal;max-width:100%;text-align:right}
 .scenario-card p{font-size:.9rem;color:var(--ink-dim);line-height:1.55}
 body:not(.light-mode) .kind-tag[style*="8a7590"]{color:#9b86a1!important}
 .kind-tag{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;border:1px solid;border-radius:4px;padding:.12rem .45rem;margin-bottom:.55rem}
@@ -371,7 +372,7 @@ body.light-mode .sticky-nav{background:rgba(255,255,255,.97);box-shadow:0 4px 20
 
 /* ---------- GAMIFICATION ---------- */
 #sticky-progress{font-family:var(--mono);min-width:2.6rem;text-align:center}
-.achievement-toasts{position:fixed;right:1rem;bottom:1rem;z-index:30;display:flex;flex-direction:column-reverse;gap:.6rem;pointer-events:none;max-width:min(340px,90vw)}
+.achievement-toasts{position:fixed;right:1rem;bottom:4.6rem;z-index:30;display:flex;flex-direction:column-reverse;gap:.6rem;pointer-events:none;max-width:min(340px,90vw)}
 .achievement-toast{
   pointer-events:auto;display:flex;align-items:flex-start;gap:.7rem;background:rgba(10,10,16,.94);
   border:1px solid var(--panel-border);border-left:3px solid var(--accent);border-radius:10px;padding:.8rem .9rem;
@@ -525,7 +526,7 @@ body.light-mode .support-trigger{background:#fff}
   .event-conf{margin-left:0;border-left:none;padding-left:0}
 }
 @media(min-width:900px){
-  .hero,.about,.ladder-heading,.controls,main,.scenario-section,footer{max-width:1120px}
+  .hero,.about,.ladder-heading,.controls,#content,.scenario-section,footer{max-width:1120px}
   #universe-scenarios,#paradoxes-list,#nhi-scenarios{display:grid;grid-template-columns:1fr 1fr;column-gap:1.4rem;align-items:start}
   #universe-scenarios .scenario-card,#paradoxes-list .scenario-card,#nhi-scenarios .scenario-card{margin-bottom:0}
   .scenario-card{height:100%}
@@ -536,11 +537,11 @@ body.light-mode .support-trigger{background:#fff}
   .kind-filter{margin-bottom:1.8rem}
 }
 @media(min-width:1300px){
-  .hero,.about,.ladder-heading,.controls,main,.scenario-section,footer{max-width:1280px;margin-left:auto;margin-right:auto}
+  .hero,.about,.ladder-heading,.controls,#content,.scenario-section,footer{max-width:1280px;margin-left:auto;margin-right:auto}
   #trails-list{column-gap:2.2rem}
 }
 @media(min-width:1800px){
-  .hero,.about,.ladder-heading,.controls,main,.scenario-section,footer{max-width:1520px;margin-left:auto;margin-right:auto}
+  .hero,.about,.ladder-heading,.controls,#content,.scenario-section,footer{max-width:1520px;margin-left:auto;margin-right:auto}
   #universe-scenarios,#paradoxes-list,#nhi-scenarios,#branches-list,#glossary-list{grid-template-columns:1fr 1fr 1fr}
 }
 @media(prefers-reduced-motion:reduce){
@@ -549,7 +550,7 @@ body.light-mode .support-trigger{background:#fff}
 </style>
 </head>
 <body data-era="e1">
-<canvas id="starfield"></canvas>
+<canvas id="starfield" aria-hidden="true"></canvas>
 
 <header class="sticky-nav" id="sticky-nav">
   <a href="#" class="sticky-logo" id="sticky-home" aria-label="Back to top">Horizons</a>
@@ -575,10 +576,9 @@ body.light-mode .support-trigger{background:#fff}
     <button class="sticky-menu-btn" id="sticky-menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
 </header>
-<div class="progress-panel" id="progress-panel" hidden></div>
-<div class="achievement-toasts" id="achievement-toasts" aria-live="polite"></div>
 
-<header class="hero">
+<div role="main" id="main-landmark">
+<div class="hero">
   <p class="eyebrow" data-i18n="eyebrow">A map of time <span>·</span> from the Big Bang to its very end</p>
   <h1 class="title"><span id="page-title-text">Horizons</span><span class="dot">.</span></h1>
   <h2 class="subtitle" id="page-subtitle">Beyond Limits</h2>
@@ -601,7 +601,7 @@ body.light-mode .support-trigger{background:#fff}
     </div>
     <button class="btn-ghost" id="theme-toggle" aria-label="Switch to light theme">☀ Light mode</button>
   </div>
-</header>
+</div>
 
 <section class="about">
   <h3 data-i18n="aboutTitle">Why this project exists</h3>
@@ -637,7 +637,7 @@ body.light-mode .support-trigger{background:#fff}
   <button class="filter-clear" id="filter-clear" hidden></button>
 </div>
 
-<main id="content"></main>
+<div id="content"></div>
 
 <section class="scenario-section" id="branches-section">
   <h3 data-i18n="branchesTitle">Alternate Branches</h3>
@@ -703,6 +703,7 @@ body.light-mode .support-trigger{background:#fff}
   <p class="intro" data-i18n="glossaryIntro">Names and concepts that appear throughout the map, briefly explained.</p>
   <div id="glossary-list"></div>
 </section>
+</div>
 
 <footer>
   <p data-i18n="footerP1">Built as a self-contained HTML app: a single file, working offline, with no telemetry and no external libraries.</p>
@@ -715,6 +716,9 @@ body.light-mode .support-trigger{background:#fff}
   </div>
 </footer>
 
+<aside id="extras" aria-label="Progress, achievements and support">
+<div class="progress-panel" id="progress-panel" hidden></div>
+<div class="achievement-toasts" id="achievement-toasts" aria-live="polite"></div>
 <div class="support-widget" id="support-widget">
   <button class="support-trigger" id="support-trigger" type="button" aria-expanded="false" aria-label="Support this project">♥</button>
   <div class="support-panel" id="support-panel" hidden>
@@ -727,6 +731,7 @@ body.light-mode .support-trigger{background:#fff}
     </div>
   </div>
 </div>
+</aside>
 
 <script>
 (function(){
@@ -1670,6 +1675,45 @@ function confLabel(key){
   return lbl;
 }
 function escAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ---------- localized time labels (event years are authored in Romanian) ---------- */
+var YR_L = {
+  en:{num:[',','.'],ago:['',' ago'],cca:'c. ',peste:'over ',dinc:'beyond ',anul:'year ',anii:'years ',w:' years',wu:' years',M:['million','million'],B:['billion','billion'],T:['trillion','trillion'],
+    x:{'sub 10⁻³² secunde':'under 10⁻³² seconds','primele 3 minute':'first 3 minutes','necunoscut, prezent azi':'unknown, present today','380.000 – 150 mil. ani':'380,000 – 150 million years','prezent, 2026':'present day, 2026','dată imprevizibilă':'unpredictable date','imposibil de datat':'impossible to date','fără adresă fixă':'no fixed address'}},
+  fr:{num:[' ',','],ago:['il y a ',''],cca:'env. ',peste:'plus de ',dinc:'au-delà de ',anul:'l’an ',anii:'les années ',w:' ans',wu:' d’années',M:['million','millions'],B:['milliard','milliards'],T:['billion','billions'],
+    x:{'sub 10⁻³² secunde':'moins de 10⁻³² seconde','primele 3 minute':'les 3 premières minutes','necunoscut, prezent azi':'inconnu, présent aujourd’hui','380.000 – 150 mil. ani':'380 000 – 150 millions d’années','prezent, 2026':'présent, 2026','dată imprevizibilă':'date imprévisible','imposibil de datat':'impossible à dater','fără adresă fixă':'sans adresse fixe'}},
+  it:{num:['.',','],ago:['',' fa'],cca:'circa ',peste:'oltre ',dinc:'oltre ',anul:'anno ',anii:'anni ',w:' anni',wu:' di anni',M:['milione','milioni'],B:['miliardo','miliardi'],T:['bilione','bilioni'],
+    x:{'sub 10⁻³² secunde':'meno di 10⁻³² secondi','primele 3 minute':'primi 3 minuti','necunoscut, prezent azi':'sconosciuto, presente oggi','380.000 – 150 mil. ani':'380.000 – 150 milioni di anni','prezent, 2026':'presente, 2026','dată imprevizibilă':'data imprevedibile','imposibil de datat':'impossibile da datare','fără adresă fixă':'senza indirizzo fisso'}},
+  es:{num:['.',','],ago:['hace ',''],cca:'aprox. ',peste:'más de ',dinc:'más allá de ',anul:'año ',anii:'años ',w:' años',wu:' de años',M:['millón','millones'],B:['mil millones','mil millones'],T:['billón','billones'],
+    x:{'sub 10⁻³² secunde':'menos de 10⁻³² segundos','primele 3 minute':'primeros 3 minutos','necunoscut, prezent azi':'desconocido, presente hoy','380.000 – 150 mil. ani':'380.000 – 150 millones de años','prezent, 2026':'presente, 2026','dată imprevizibilă':'fecha impredecible','imposibil de datat':'imposible de datar','fără adresă fixă':'sin dirección fija'}},
+  pt:{num:['.',','],ago:['há ',''],cca:'cerca de ',peste:'mais de ',dinc:'para além de ',anul:'ano ',anii:'anos ',w:' anos',wu:' de anos',M:['milhão','milhões'],B:['mil milhões','mil milhões'],T:['bilião','biliões'],
+    x:{'sub 10⁻³² secunde':'menos de 10⁻³² segundos','primele 3 minute':'primeiros 3 minutos','necunoscut, prezent azi':'desconhecido, presente hoje','380.000 – 150 mil. ani':'380.000 – 150 milhões de anos','prezent, 2026':'presente, 2026','dată imprevizibilă':'data imprevisível','imposibil de datat':'impossível de datar','fără adresă fixă':'sem endereço fixo'}},
+  de:{num:['.',','],ago:['vor ',''],cca:'ca. ',peste:'über ',dinc:'jenseits von ',anul:'Jahr ',anii:'Jahre ',w:' Jahre',wu:' Jahre',wAgo:' Jahren',M:['Million','Millionen'],B:['Milliarde','Milliarden'],T:['Billion','Billionen'],
+    x:{'sub 10⁻³² secunde':'unter 10⁻³² Sekunden','primele 3 minute':'die ersten 3 Minuten','necunoscut, prezent azi':'unbekannt, heute gegenwärtig','380.000 – 150 mil. ani':'380.000 – 150 Millionen Jahre','prezent, 2026':'Gegenwart, 2026','dată imprevizibilă':'unvorhersehbares Datum','imposibil de datat':'nicht datierbar','fără adresă fixă':'ohne festen Zeitpunkt'}}
+};
+YR_L.pt.x['380.000 – 150 mil. ani']='380.000 – 150 milhões de anos';
+function yl(y){
+  var L = YR_L[state.lang];
+  if(!L || typeof y!=='string') return y;
+  if(L.x[y]) return L.x[y];
+  var m = /^(acum )?(cca |peste |dincolo de )?(anul |anii )?(.*)$/.exec(y);
+  var ago = !!m[1], pre = m[2]||'', yy = m[3]||'', core = m[4], hasYears = false, unit = null;
+  core = core.replace(/\s*(?:de )?ani$/, function(){ hasYears = true; return ''; });
+  core = core.replace(/\s*(mld\.|mil\.|milioane|milion|miliarde|miliard|trilioane|trilion)$/, function(_,u){
+    unit = /^(mld\.|miliard)/.test(u) ? 'B' : (/^tril/.test(u) ? 'T' : 'M'); return '';
+  });
+  core = core.replace(/\d{1,3}(?:\.\d{3})+|\d+,\d+/g, function(n){
+    return n.indexOf(',')>-1 ? n.replace(',', L.num[1]) : n.replace(/\./g, L.num[0]);
+  });
+  var out = core;
+  if(unit){ var u = L[unit][core==='1' ? 0 : 1]; out += ' ' + u; }
+  if(hasYears){ out += (ago && L.wAgo) ? L.wAgo : (unit ? L.wu : L.w); }
+  var p = pre==='cca ' ? L.cca : pre==='peste ' ? L.peste : pre==='dincolo de ' ? L.dinc : '';
+  var yw = yy==='anul ' ? L.anul : yy==='anii ' ? L.anii : '';
+  out = p + yw + out;
+  if(ago){ out = L.ago[0] + out + L.ago[1]; }
+  return out;
+}
 function cTitle(t){ return (state.lang==='en' && EN_CONTENT[t]) ? EN_CONTENT[t].title : t; }
 function cDesc(t,d){ return (state.lang==='en' && EN_CONTENT[t]) ? EN_CONTENT[t].desc : d; }
 function sTitle(t){ return (state.lang==='en' && EN_SCENARIOS[t]) ? EN_SCENARIOS[t].title : t; }
@@ -1682,7 +1726,7 @@ function cardHTML(ev, showEra){
   var eraTag = showEra ? '<span class="event-era-tag">'+eraLabel(eraInfo(ev.era))+'</span>' : '';
   var t = cTitle(ev.title), d = cDesc(ev.title, ev.desc);
   return '<div class="event-card" data-track="event:'+slugify(ev.title)+'" style="--card-accent:'+themeColor(cat.color)+'">'+
-    '<div class="event-meta"><span class="event-year">'+ev.year+'</span>'+eraTag+
+    '<div class="event-meta"><span class="event-year">'+yl(ev.year)+'</span>'+eraTag+
     '<span class="event-cat">'+catLabel(cat)+'</span>'+
     '<span class="event-conf" style="color:'+themeColor(conf.color)+'">'+confLabel(ev.conf)+'</span>'+
     '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(d)+'" data-copy-slug="'+slugify(ev.title)+'" aria-label="'+uiText('copyCardLabel')+'">⧉</button></div>'+
@@ -1737,11 +1781,13 @@ function showAchievementToast(ach){
   var el = document.createElement('div');
   el.className = 'achievement-toast'+(ach.grand?' grand':'');
   el.innerHTML = '<div class="at-icon">'+(ach.grand?'\u2726':'\u25c8')+'</div><div class="at-body"><div class="at-label">'+(L?'Achievement unlocked':'Realizare deblocată')+'</div><div class="at-title">'+(L?ach.en.title:ach.ro.title)+'</div><div class="at-desc">'+(L?ach.en.desc:ach.ro.desc)+'</div></div><button class="at-close" aria-label="'+(L?'Dismiss':'Închide')+'">\u2715</button>';
+  while(wrap.children.length >= 2){ wrap.removeChild(wrap.firstChild); }
   wrap.appendChild(el);
   requestAnimationFrame(function(){ el.classList.add('in'); });
+  el.addEventListener('click', function(){ dismiss(); });
   function dismiss(){ el.classList.remove('in'); setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 350); }
   el.querySelector('.at-close').addEventListener('click', dismiss);
-  setTimeout(dismiss, 5200);
+  setTimeout(dismiss, 4200);
 }
 
 function checkAchievements(){
@@ -1980,7 +2026,7 @@ function branchEventHTML(ev){
     }
   }
   var t = cTitle(ev.title), d = cDesc(ev.title, ev.desc);
-  return '<div class="branch-event'+interClass+'"><span class="b-year">'+ev.year+'</span>'+
+  return '<div class="branch-event'+interClass+'"><span class="b-year">'+yl(ev.year)+'</span>'+
     '<button class="copy-btn" data-copy-title="'+escAttr(t)+'" data-copy-desc="'+escAttr(d)+'" data-copy-slug="'+slugify(ev.title)+'" aria-label="'+uiText('copyCardLabel')+'">⧉</button>'+
     '<div class="b-title">'+t+'</div><div class="b-desc">'+d+'</div>'+note+'</div>';
 }
@@ -2206,7 +2252,7 @@ function showSpiralInfo(ev){
   panel.style.setProperty('--card-accent', themeColor(cat.color));
   var confHTML = ev.conf ? '<span style="color:'+themeColor(CONFIDENCE[ev.conf].color)+'">'+confLabel(ev.conf)+'</span>' : '';
   panel.innerHTML = '<button class="si-close" aria-label="Close">\u2715</button>'+
-    '<div class="si-meta"><span>'+ev.year+'</span><span>'+catLabel(cat)+'</span>'+confHTML+'</div>'+
+    '<div class="si-meta"><span>'+yl(ev.year)+'</span><span>'+catLabel(cat)+'</span>'+confHTML+'</div>'+
     '<div class="si-title">'+cTitle(ev.title)+'</div>'+
     '<div class="si-desc">'+cDesc(ev.title, ev.desc)+'</div>';
   panel.hidden = false;
@@ -2236,7 +2282,7 @@ function renderSpiral2D(){
   spiral2DPositions.forEach(function(p, idx){
     var cat = catInfo(p.ev.cat);
     var color = themeColor(cat.color);
-    html += '<circle class="s2d-node" data-idx="'+idx+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4.5" fill="'+color+'"><title>'+p.ev.year+' \u2014 '+cTitle(p.ev.title)+'</title></circle>';
+    html += '<circle class="s2d-node" data-idx="'+idx+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4.5" fill="'+color+'"><title>'+yl(p.ev.year)+' \u2014 '+cTitle(p.ev.title)+'</title></circle>';
     html += '<circle class="s2d-node-hit" data-idx="'+idx+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="11"></circle>';
   });
   svg.innerHTML = html;
@@ -3208,6 +3254,9 @@ if(stickySearchEl){
     state.query = this.value;
     render();
   });
+  stickySearchEl.addEventListener('keydown', function(e){
+    if(e.key==='Enter'){ closeStickyMenu(); var c = document.getElementById('content'); if(c) c.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
 }
 
 function setupLangPicker(btnId, listId){
@@ -3255,6 +3304,7 @@ function setupLangPicker(btnId, listId){
     opt.addEventListener('click', function(e){
       e.stopPropagation();
       setLanguage(this.getAttribute('data-lang'));
+      closeStickyMenu();
       close();
       btn.focus();
     });
@@ -3309,8 +3359,19 @@ function syncLangPickers(){
   });
 }
 var stickyThemeEl = document.getElementById('sticky-theme');
+document.addEventListener('click', function(e){
+  var nav = document.getElementById('sticky-nav');
+  if(nav && nav.classList.contains('menu-open') && !nav.contains(e.target)) closeStickyMenu();
+});
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){
+    var nav = document.getElementById('sticky-nav');
+    if(nav && nav.classList.contains('menu-open')){ closeStickyMenu(); var mb = document.getElementById('sticky-menu-btn'); if(mb) mb.focus(); }
+  }
+});
 if(stickyThemeEl){
   stickyThemeEl.addEventListener('click', function(){
+    closeStickyMenu();
     document.getElementById('theme-toggle').click();
   });
 }

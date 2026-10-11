@@ -2,6 +2,8 @@
 
 O hartă a timpului, de la Big Bang până la sfârșitul Universului: 91 de evenimente, 8 domenii, 12 ere.
 
+**Ultima actualizare:** 11 octombrie 2026
+
 **Live:** https://chiuta.github.io/Horizons.BeyondLimits/
 
 ![Captura de ecran](screenshot.png)
@@ -34,6 +36,7 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 
 ## Confidențialitate și rețea
 
+- Pagina are o politică CSP (`default-src 'none'`, script/stil inline, imagini `data:`), fără conexiuni către alte gazde.
 - Aplicația nu folosește `localStorage`, `sessionStorage` sau IndexedDB și nu face cereri de rețea (fără `fetch`, CDN sau scripturi externe); alegerile de limbă și temă nu se rețin între vizite.
 - Conține doar link-uri, deschise la click, către futuretimeline.net, Patreon și Buy Me a Coffee.
 
@@ -60,3 +63,8 @@ Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to t
 ## Audit
 
 Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 `fetch`/XHR/WebSocket, 0 `localStorage`; singurele URL-uri sunt linkuri `<a>` și meta OG). Corectat contrastul culorilor, în special în tema luminoasă (accentele erelor, text secundar), verificat cu axe în ambele teme, desktop și mobil. Licența rămâne nedeclarată.
+
+## Istoric / Changelog
+
+- **11 octombrie 2026** — etichetele de dată („acum 4,5 mld. ani”, „1 milion de ani” etc.) sunt acum localizate în toate cele 7 limbi (înainte apăreau în română și în interfața engleză); meniul ☰ se închide după alegerea limbii/temei, la Enter în căutare, la click în afară sau Esc; notificările de realizări sunt mutate deasupra butonului ♥, limitate la două, se închid la click și mai repede; textul „status” al scenariilor nu mai depășește ecranul de 360 px.
+- Accesibilitate și securitate: conținutul este încadrat într-un singur reper `main` (un singur banner), subsolul și panourile auxiliare sunt în repere; a fost adăugat un meta CSP. axe-core: 0 violări la 1280×800 și 360×740. Aplicația nu are număr de versiune.
