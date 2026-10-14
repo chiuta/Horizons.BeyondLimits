@@ -2,7 +2,7 @@
 
 O hartă a timpului, de la Big Bang până la sfârșitul Universului: 91 de evenimente, 8 domenii, 12 ere.
 
-**Versiune:** 1.0.0 · **Ultima actualizare:** 12 octombrie 2026
+**Versiune:** 1.1.0 · **Ultima actualizare:** 14 octombrie 2026
 
 **Live:** https://chiuta.github.io/Horizons.BeyondLimits/
 
@@ -25,6 +25,24 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 - Scurtătură: `/` mută focusul în câmpul de căutare.
 - Căutare, temă luminoasă/întunecată (buton ☀) și interfață în 7 limbi: English, Română, Français, Italiano, Español, Português, Deutsch.
 - Navigare cu tastatura în meniul de limbă și în file (săgeți, Home, End, Enter, Spațiu, Esc).
+
+## Funcții noi (1.1.0)
+
+- **Export CSV** (butonul „⬇ Export the map (.csv)”, lângă exportul Markdown): aceleași evenimente, în aceeași ordine și cu același filtru de domeniu ca exportul Markdown, în limba curentă; coloane: eră, domeniu, dată, încredere, titlu, descriere (antetul e tradus). UTF-8 cu BOM (se deschide corect în Excel/LibreOffice), separator virgulă, celulele care ar începe cu `=`, `+`, `-` sau `@` sunt prefixate cu apostrof (protecție contra formulelor). Conținutul evenimentelor există doar în română și engleză (ca la Markdown).
+- **Cod QR pe carduri** (butonul ▦ de lângă ⧉ la evenimente, ramuri și scenarii): codul conține adresa publică (`https://chiuta.github.io/Horizons.BeyondLimits/`, sau a paginii curente dacă e servită de pe HTTPS) plus legătura permanentă `#titlul-cardului`, pe care aplicația o rezolvă la deschidere (deja existentă). Se poate copia și adresa. Generat local; apare doar cu modulul QR.
+- **Căutare locală tolerantă la greșeli** (fără rețea, modulul `search` din fff-kit): dacă nu există nicio potrivire exactă (căutarea existentă, pe subșir, rămâne neschimbată), se afișează până la 6 potriviri apropiate pe baza cuvintelor și ortografiei (BM25, forme de cuvinte, litere lipsă/schimbate), cu mențiune clară că nu sunt exacte. Ex.: „Big Bangul”, „nucleosynthesys”. Este căutare lexicală, **nu** înțelegere semantică: nu găsește sinonime care nu seamănă ortografic. Indexul se construiește la prima nevoie (RO sau EN după limba curentă; în FR/IT/ES/PT/DE conținutul e tot cel românesc).
+- **Transparență** (apăsând versiunea din subsol): rețea (0 cereri externe), stocare (nicio cheie), fișier cu SHA-256.
+- Tipărirea: butoanele noi sunt ascunse în foaia de stil pentru imprimare.
+
+Textele noi sunt în cele 7 limbi ale aplicației (RO, EN, FR, IT, ES, PT, DE); în FR/IT/ES/PT/DE traducerile sunt automate, **neverificate nativ**. Maghiara nu există în aplicație și nu a fost adăugată parțial.
+
+## Kit „fff-kit”
+
+Module lipite în `index.html`: `core`, `label`, `bundle`, `qr`, `search` (~140 kB peste aplicație). Fără ele aplicația funcționează la fel (testat), dar fără butoanele QR și fără potrivirile apropiate; exportul CSV rămâne.
+
+## Teste
+
+`node tests/fff-r8.test.mjs` (Playwright, rețea blocată; 36 de verificări): CSV comparat rând cu rând cu exportul Markdown existent (titluri, descrieri, ordine, filtru), parser CSV independent, protecție formule, QR decodat înapoi și adresa lui deschisă într-o pagină nouă (cardul apare în ecran), căutare cu greșeli în EN/DE, șir fără sens (fără rezultate false), 7 limbi, axe-core 0 violări (luminos/întunecat, dialog, rezultate apropiate), 360 px, fără kit.
 
 ## Manual de utilizare
 
@@ -69,8 +87,12 @@ Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 
 
 ## Istoric / Changelog
 
+- **14 octombrie 2026 (v1.1.0)** — nou: export CSV, cod QR pe carduri, căutare locală tolerantă la greșeli, fereastra „Transparență” (fff-kit: core, label, bundle, qr, search); `tests/fff-r8.test.mjs`. CSP: hash-ul scriptului recalculat.
+
 - 1.0.0 — 2026-10-12: versiunea și data ultimei actualizări sunt afișate în aplicație
 - **11 octombrie 2026** (runda 7) — butoanele de copiere au zonă de atingere de minimum 28×28 px (înainte 18×14, 104 de ținte sub 24 px la 360 px); „Arată-mi un viitor la întâmplare” (și salturile din linkuri) evidențiază cardul ales mai puternic și mai mult timp (3,6 s) și îi mută focusul; legenda spiralei are înălțime minimă de 28 px; 0 erori, axe 0 violări la 1280×800 și 360×740.
 - **11 octombrie 2026** — export Markdown al hărții (filtrat după domeniu, în limba curentă), foi de stil pentru tipărire, scurtătura `/` pentru căutare, CSP cu hash pentru script (fără `'unsafe-inline'` la `script-src`); testat cu CSP activ (0 erori, axe-core 0 violări la 1280×800 și 360×740).
 - **11 octombrie 2026** — etichetele de dată („acum 4,5 mld. ani”, „1 milion de ani” etc.) sunt acum localizate în toate cele 7 limbi (înainte apăreau în română și în interfața engleză); meniul ☰ se închide după alegerea limbii/temei, la Enter în căutare, la click în afară sau Esc; notificările de realizări sunt mutate deasupra butonului ♥, limitate la două, se închid la click și mai repede; textul „status” al scenariilor nu mai depășește ecranul de 360 px.
 - Accesibilitate și securitate: conținutul este încadrat într-un singur reper `main` (un singur banner), subsolul și panourile auxiliare sunt în repere; a fost adăugat un meta CSP. axe-core: 0 violări la 1280×800 și 360×740. Aplicația nu are număr de versiune.
+
+New in 1.1.0: CSV export of the timeline (same filters as the Markdown export), a QR code on each card pointing to its permalink, a local typo-tolerant "close matches" search shown only when the exact search finds nothing (lexical, not semantic), and the "Transparency" dialog. Machine-translated strings in FR/IT/ES/PT/DE are not native-checked.
