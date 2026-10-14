@@ -71,7 +71,7 @@ Descarcă `index.html` și deschide-l în browser; nu necesită internet. Imagin
 
 ## Licență
 
-Licența nu este încă declarată explicit în acest repository; vezi nota din aplicație. Aplicația se descrie ca „Free, offline, single-file, no tracking" și nu declară o licență anume.
+MIT — vezi fișierul `LICENSE`. © 2026 Alexandru-Ionuț Chiuță (Alexio). Eventualele biblioteci terțe incluse în fișier își păstrează licențele proprii.
 
 ## Autor
 
