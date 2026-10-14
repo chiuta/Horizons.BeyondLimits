@@ -78,7 +78,7 @@ t('toate cele 7 limbi au textele noi, distincte', Object.values(lab).every(a => 
 await setLang('ro'); const cro = await dl(p, '#export-csv'); t('CSV în română: antet „eră|domeniu|…” și nume .ro.csv', parseCsv(cro.txt)[0].join('|') === 'eră|domeniu|dată|încredere|titlu|descriere' && cro.name === 'horizons-timeline-ro.csv', cro.name);
 await setLang('de'); await p.fill('#search', 'Big Bangul'); await p.waitForTimeout(500); t('căutare apropiată în germană: textele traduse', /nahe treffer/i.test(await p.evaluate(() => document.getElementById('content').innerText)) && /Kein exakter Treffer/.test(await p.evaluate(() => document.getElementById('content').innerText)));
 await p.fill('#search', ''); await setLang('en');
-for (const dark of [true, false]) { if (!dark) { await p.evaluate(() => window.scrollTo(0, 0)); await p.click('#theme-toggle'); } await p.waitForTimeout(900); t('axe 0 violări pagina principală (' + (dark ? 'întunecat' : 'luminos') + ')', (await runAxe(p)).length === 0, await runAxe(p)); }
+for (const dark of [true, false]) { if (!dark) { await p.evaluate(() => window.scrollTo(0, 0)); await p.click('#theme-toggle'); } await p.waitForTimeout(1800); /* tranziția de culoare la schimbarea temei depășește 900 ms */ t('axe 0 violări pagina principală (' + (dark ? 'întunecat' : 'luminos') + ')', (await runAxe(p)).length === 0, await runAxe(p)); }
 t('fără erori pe parcurs', errs.length === 0, errs); t('0 cereri de rețea pe parcurs', net.length === 0, net);
 await p.evaluate(() => window.scrollTo(0, 0)); await p.click('#app-version').catch(() => {}); await p.waitForTimeout(300);
 await ctx.close();
@@ -88,7 +88,7 @@ await ctx.close();
   await m.p.click('.qr-btn >> nth=0'); await m.p.waitForTimeout(300); t('360: dialog QR încape', await m.p.evaluate(() => { const r = document.getElementById('qr-dialog').getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth; }));
   t('360: axe 0 violări (luminos, dialog)', (await runAxe(m.p)).length === 0, await runAxe(m.p)); t('360: fără erori', m.errs.length === 0, m.errs); await m.ctx.close(); }
 { const html = fs.readFileSync(path.join(HERE, '..', 'index.html'), 'utf8').replace(/<!--fff:kit:start[\s\S]*?<!--fff:kit:end-->/, '');
-  const tmp = path.join(HERE, '_nokit.tmp.html'); fs.writeFileSync(tmp, html); const m = await mk(1280, 800, 'dark', '#en', 'file://' + tmp);
+  const tmp = path.join(HERE, '..', '_nokit.tmp.html'); /* în directorul aplicației, ca manifestul și iconițele relative să existe */ fs.writeFileSync(tmp, html); const m = await mk(1280, 800, 'dark', '#en', 'file://' + tmp);
   await m.p.fill('#search', 'Big Bangul'); await m.p.waitForTimeout(400);
   const csv = await dl(m.p, '#export-csv');
   t('fără kit: fără erori, fără butoane QR, fără bloc „Close matches”, CSV funcționează', m.errs.length === 0 && (await m.p.locator('.qr-btn').count()) === 0 && !/close matches/i.test(await m.p.evaluate(() => document.getElementById('content').innerText)) && parseCsv(csv.txt).length >= 1, m.errs); await m.ctx.close(); fs.unlinkSync(tmp); }
