@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "slug": "horizons.beyondlimits",
+  "slug": "horizons-beyondlimits",
   "name": "Horizons. Beyond Limits",
   "version": "1.1.0",
   "updated": "2026-10-14",
@@ -11,8 +11,8 @@
     "serviceWorker"
   ],
   "storageKeys": [],
-  "sizeBytes": 534104,
-  "sha256": "ff42565babc2b07d0754b952f04f2214fca30619f2b51a36caabd4ef87daa6b0",
+  "sizeBytes": 535590,
+  "sha256": "d82450d9d561416a810568c1b92cd81e1faa4534debf08871608ba7b474b5f66",
   "csp": {
     "present": true,
     "directives": {

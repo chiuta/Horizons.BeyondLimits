@@ -59,7 +59,7 @@ Module lipite în `index.html`: `core`, `label`, `bundle`, `qr`, `search` (~140 
 
 - Pagina are o politică CSP (`default-src 'none'`, script permis doar prin hash `sha256`, fără `'unsafe-inline'` la scripturi; stiluri inline, imagini `data:`), fără conexiuni către alte gazde.
 - Aplicația nu folosește `localStorage`, `sessionStorage` sau IndexedDB și nu face cereri de rețea (fără `fetch`, CDN sau scripturi externe); alegerile de limbă și temă nu se rețin între vizite.
-- Conține doar link-uri, deschise la click, către futuretimeline.net, Patreon și Buy Me a Coffee.
+- Conține doar link-uri, deschise la click, către futuretimeline.net, Buy Me a Coffee.
 
 ## Avertisment
 
@@ -79,7 +79,7 @@ Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf
 
 ## English summary
 
-Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to the end of the universe: 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and sections on the nature of the universe, paradoxes and life beyond Earth. 7 UI languages. It stores nothing and makes no network requests; it only links to futuretimeline.net (its stated model), Patreon and Buy Me a Coffee.
+Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to the end of the universe: 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and sections on the nature of the universe, paradoxes and life beyond Earth. 7 UI languages. It stores nothing and makes no network requests; it only links to futuretimeline.net (its stated model), Buy Me a Coffee.
 
 ## Audit
 
