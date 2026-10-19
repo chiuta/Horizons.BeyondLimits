@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.0 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.3.0 · **Utolsó frissítés:** 2026-10-19
+
+A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 Az idő térképe az ősrobbanástól az Univerzum végéig: 91 esemény, 8 terület, 12 korszak.
 
@@ -22,10 +24,10 @@ A Horizons. Beyond Limits egyfájlos HTML-alkalmazás, amely egyesíti azt, amit
 - „The Time Spiral”: az időspirál 2D vagy 3D nézetben (húzás, nagyítás, egy csomópont megérintése), „Reset view” gombbal.
 - „The Nature and Purpose of the Universe”: forgatókönyvek, anti-forgatókönyvek, nem-forgatókönyvek és lehetetlenségek, szűrőkkel.
 - „Paradoxes”, „Life Beyond Earth and Advanced Civilizations”, „Thematic Trails” és „Glossary”.
-- **Markdown-export:** a „⬇ Export the map (.md)” gomb (a 7 nyelvre lefordítva) letölti mind a 91 eseményt korszakok szerint, az aktuális nyelven, az aktív területszűrőt tiszteletben tartva, a végén a spekulációra figyelmeztető megjegyzéssel; a fájl helyben, a böngészőben jön létre. Az események tartalma csak románul és angolul létezik; a többi nyelven a fájl a román szöveget tartja meg, akárcsak a térkép.
+- **Markdown-export:** a „⬇ Export the map (.md)” gomb (a 8 nyelvre lefordítva) letölti mind a 91 eseményt korszakok szerint, az aktuális nyelven, az aktív területszűrőt tiszteletben tartva, a végén a spekulációra figyelmeztető megjegyzéssel; a fájl helyben, a böngészőben jön létre. Az események tartalma csak románul és angolul létezik; a többi nyelven a fájl a román szöveget tartja meg, akárcsak a térkép.
 - **Nyomtatás:** nyomtatási stíluslapok (fehér háttér, fekete szöveg, navigációs sáv, vezérlők és csillagok nélkül; a kártyák nem törnek oldalak között). A kiválasztott korszak nyomtatódik, valamint a forgatókönyvek, paradoxonok és szószedet szakaszai; a teljes térképhez használd a Markdown-exportot.
 - Gyorsbillentyű: a `/` a keresőmezőre viszi a fókuszt.
-- Keresés, világos/sötét téma (☀ gomb) és 7 nyelvű felület: English, Română, Français, Italiano, Español, Português, Deutsch.
+- Keresés, világos/sötét téma (☀ gomb) és 8 nyelvű felület: English, Română, Français, Italiano, Español, Português, Deutsch, Magyar.
 - Billentyűzetes navigáció a nyelvmenüben és a lapokon (nyilak, Home, End, Enter, Szóköz, Esc).
 
 ## Újdonságok (1.1.0)
@@ -36,7 +38,7 @@ A Horizons. Beyond Limits egyfájlos HTML-alkalmazás, amely egyesíti azt, amit
 - **Átláthatóság** (a láblécben a verzióra nyomva): hálózat (0 külső kérés), tárolás (nincs kulcs), fájl SHA-256-tal.
 - Nyomtatás: az új gombok el vannak rejtve a nyomtatási stíluslapon.
 
-Az új szövegek az alkalmazás 7 nyelvén vannak (RO, EN, FR, IT, ES, PT, DE); FR/IT/ES/PT/DE nyelven a fordítások gépiek, **anyanyelvi beszélők nem ellenőrizték őket**. A magyar nyelv nincs az alkalmazásban, és részlegesen sem lett hozzáadva.
+Az új szövegek az alkalmazás 8 nyelvén vannak (RO, EN, FR, IT, ES, PT, DE, HU); FR/IT/ES/PT/DE/HU nyelven a fordítások gépiek, **anyanyelvi beszélők nem ellenőrizték őket**.
 
 ## „fff-kit” kit
 
@@ -44,7 +46,7 @@ Az `index.html`-be illesztett modulok: `core`, `label`, `bundle`, `qr`, `search`
 
 ## Tesztek
 
-`node tests/fff-r8.test.mjs` (Playwright, letiltott hálózat; 36 ellenőrzés): a CSV soronként összevetve a meglévő Markdown-exporttal (címek, leírások, sorrend, szűrő), független CSV-értelmező, képletvédelem, visszafejtett QR és a címének megnyitása új oldalon (a kártya megjelenik a képernyőn), keresés elírásokkal EN/DE nyelven, értelmetlen karakterlánc (nincs hamis találat), 7 nyelv, axe-core 0 szabálysértés (világos/sötét, párbeszédablak, közeli találatok), 360 px, kit nélkül.
+`node tests/fff-r8.test.mjs` (Playwright, letiltott hálózat; 36 ellenőrzés): a CSV soronként összevetve a meglévő Markdown-exporttal (címek, leírások, sorrend, szűrő), független CSV-értelmező, képletvédelem, visszafejtett QR és a címének megnyitása új oldalon (a kártya megjelenik a képernyőn), keresés elírásokkal EN/DE nyelven, értelmetlen karakterlánc (nincs hamis találat), 8 nyelv, axe-core 0 szabálysértés (világos/sötét, párbeszédablak, közeli találatok), 360 px, kit nélkül.
 
 ## Használati útmutató
 
@@ -81,7 +83,7 @@ Alexio — Alexandru-Ionuț Chiuță, elérhetőség: alexio@trom.tf
 
 ## Összefoglaló
 
-A Horizons. Beyond Limits egyfájlos HTML-időtérkép az ősrobbanástól az univerzum végéig: 91 esemény, 8 terület, 12 korszak, alternatív ágak, 2D/3D időspirál, valamint az univerzum természetéről, a paradoxonokról és a Földön túli életről szóló szakaszok. 7 felületi nyelv. Nem tárol semmit és nem indít hálózati kéréseket; csak a futuretimeline.net (deklarált mintája) és a Buy Me a Coffee felé tartalmaz hivatkozásokat.
+A Horizons. Beyond Limits egyfájlos HTML-időtérkép az ősrobbanástól az univerzum végéig: 91 esemény, 8 terület, 12 korszak, alternatív ágak, 2D/3D időspirál, valamint az univerzum természetéről, a paradoxonokról és a Földön túli életről szóló szakaszok. 8 felületi nyelv. Nem tárol semmit és nem indít hálózati kéréseket; csak a futuretimeline.net (deklarált mintája) és a Buy Me a Coffee felé tartalmaz hivatkozásokat.
 
 ## Audit
 

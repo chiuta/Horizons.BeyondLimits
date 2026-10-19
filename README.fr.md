@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.2.0 · **Dernière mise à jour :** 2026-10-19
+**Version :** 1.3.0 · **Dernière mise à jour :** 2026-10-19
+
+Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 Une carte du temps, du Big Bang à la fin de l'Univers : 91 événements, 8 domaines, 12 ères.
 
@@ -22,10 +24,10 @@ Horizons. Beyond Limits est une application HTML en un seul fichier qui associe 
 - « The Time Spiral » : la spirale du temps en vue 2D ou 3D (glisser, zoom, toucher un nœud), avec « Reset view ».
 - « The Nature and Purpose of the Universe » : scénarios, anti-scénarios, non-scénarios et impossibilités, avec filtres.
 - « Paradoxes », « Life Beyond Earth and Advanced Civilizations », « Thematic Trails » et « Glossary ».
-- **Export Markdown :** le bouton « ⬇ Export the map (.md) » (traduit dans les 7 langues) télécharge les 91 événements, par ère, dans la langue courante et en respectant le filtre de domaines actif, avec l'avertissement de spéculation à la fin ; le fichier est généré localement dans le navigateur. Le contenu des événements n'existe qu'en roumain et en anglais ; dans les autres langues, le fichier conserve le texte roumain, comme la carte.
+- **Export Markdown :** le bouton « ⬇ Export the map (.md) » (traduit dans les 8 langues) télécharge les 91 événements, par ère, dans la langue courante et en respectant le filtre de domaines actif, avec l'avertissement de spéculation à la fin ; le fichier est généré localement dans le navigateur. Le contenu des événements n'existe qu'en roumain et en anglais ; dans les autres langues, le fichier conserve le texte roumain, comme la carte.
 - **Impression :** feuilles de style d'impression (fond blanc, texte noir, sans barre de navigation, commandes ni étoiles ; les cartes ne se coupent pas entre les pages). L'ère sélectionnée est imprimée, ainsi que les sections de scénarios, de paradoxes et de glossaire ; pour toute la carte, utilisez l'export Markdown.
 - Raccourci : `/` place le focus dans le champ de recherche.
-- Recherche, thème clair/sombre (bouton ☀) et interface en 7 langues : English, Română, Français, Italiano, Español, Português, Deutsch.
+- Recherche, thème clair/sombre (bouton ☀) et interface en 8 langues : English, Română, Français, Italiano, Español, Português, Deutsch, Magyar.
 - Navigation au clavier dans le menu des langues et dans les onglets (flèches, Début, Fin, Entrée, Espace, Échap).
 
 ## Nouveautés (1.1.0)
@@ -36,7 +38,7 @@ Horizons. Beyond Limits est une application HTML en un seul fichier qui associe 
 - **Transparence** (en appuyant sur la version dans le pied de page) : réseau (0 requête externe), stockage (aucune clé), fichier avec SHA-256.
 - Impression : les nouveaux boutons sont masqués dans la feuille de style d'impression.
 
-Les nouveaux textes sont dans les 7 langues de l'application (RO, EN, FR, IT, ES, PT, DE) ; en FR/IT/ES/PT/DE, les traductions sont automatiques, **non vérifiées par des locuteurs natifs**. Le hongrois n'existe pas dans l'application et n'a pas été ajouté partiellement.
+Les nouveaux textes sont dans les 8 langues de l'application (RO, EN, FR, IT, ES, PT, DE, HU) ; en FR/IT/ES/PT/DE/HU, les traductions sont automatiques, **non vérifiées par des locuteurs natifs**.
 
 ## Kit « fff-kit »
 
@@ -44,7 +46,7 @@ Modules collés dans `index.html` : `core`, `label`, `bundle`, `qr`, `search` (~
 
 ## Tests
 
-`node tests/fff-r8.test.mjs` (Playwright, réseau bloqué ; 36 vérifications) : CSV comparé ligne à ligne avec l'export Markdown existant (titres, descriptions, ordre, filtre), analyseur CSV indépendant, protection contre les formules, QR décodé en retour et son adresse ouverte dans une nouvelle page (la carte apparaît à l'écran), recherche avec fautes en EN/DE, chaîne dénuée de sens (aucun faux résultat), 7 langues, axe-core 0 violation (clair/sombre, boîte de dialogue, résultats proches), 360 px, sans le kit.
+`node tests/fff-r8.test.mjs` (Playwright, réseau bloqué ; 36 vérifications) : CSV comparé ligne à ligne avec l'export Markdown existant (titres, descriptions, ordre, filtre), analyseur CSV indépendant, protection contre les formules, QR décodé en retour et son adresse ouverte dans une nouvelle page (la carte apparaît à l'écran), recherche avec fautes en EN/DE, chaîne dénuée de sens (aucun faux résultat), 8 langues, axe-core 0 violation (clair/sombre, boîte de dialogue, résultats proches), 360 px, sans le kit.
 
 ## Mode d'emploi
 
@@ -81,7 +83,7 @@ Alexio — Alexandru-Ionuț Chiuță, contact : alexio@trom.tf
 
 ## Résumé
 
-Horizons. Beyond Limits est une carte du temps en HTML, en un seul fichier, du Big Bang à la fin de l'univers : 91 événements, 8 domaines, 12 ères, des branches alternatives, une spirale du temps 2D/3D, et des sections sur la nature de l'univers, les paradoxes et la vie au-delà de la Terre. Interface en 7 langues. Elle ne stocke rien et ne fait aucune requête réseau ; elle ne comporte que des liens vers futuretimeline.net (son modèle déclaré) et Buy Me a Coffee.
+Horizons. Beyond Limits est une carte du temps en HTML, en un seul fichier, du Big Bang à la fin de l'univers : 91 événements, 8 domaines, 12 ères, des branches alternatives, une spirale du temps 2D/3D, et des sections sur la nature de l'univers, les paradoxes et la vie au-delà de la Terre. Interface en 8 langues. Elle ne stocke rien et ne fait aucune requête réseau ; elle ne comporte que des liens vers futuretimeline.net (son modèle déclaré) et Buy Me a Coffee.
 
 ## Audit
 
