@@ -81,9 +81,9 @@ MIT — vezi fișierul `LICENSE`. © 2026 Alexandru-Ionuț Chiuță (Alexio). Ev
 
 Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf
 
-## English summary
+## Rezumat
 
-Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to the end of the universe: 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and sections on the nature of the universe, paradoxes and life beyond Earth. 8 UI languages. It stores nothing and makes no network requests; it only links to futuretimeline.net (its stated model), Buy Me a Coffee.
+Horizons. Beyond Limits este o hartă a timpului într-un singur fișier HTML, de la Big Bang până la sfârșitul universului: 91 de evenimente, 8 domenii, 12 ere, ramuri alternative, o spirală temporală 2D/3D și secțiuni despre natura universului, paradoxuri și viața dincolo de Pământ. 8 limbi de interfață. Nu stochează nimic și nu face cereri de rețea; trimite doar linkuri către futuretimeline.net (modelul declarat al acestuia) și Buy Me a Coffee.
 
 ## Audit
 
