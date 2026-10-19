@@ -2,7 +2,7 @@
 
 O hartă a timpului, de la Big Bang până la sfârșitul Universului: 91 de evenimente, 8 domenii, 12 ere.
 
-**Versiune:** 1.1.0 · **Ultima actualizare:** 14 octombrie 2026
+**Versiune:** 1.2.0 · **Ultima actualizare:** 19 octombrie 2026
 
 **Live:** https://chiuta.github.io/Horizons.BeyondLimits/
 
@@ -86,6 +86,8 @@ Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to t
 Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 `fetch`/XHR/WebSocket, 0 `localStorage`; singurele URL-uri sunt linkuri `<a>` și meta OG). Corectat contrastul culorilor, în special în tema luminoasă (accentele erelor, text secundar), verificat cu axe în ambele teme, desktop și mobil. Licența rămâne nedeclarată.
 
 ## Istoric / Changelog
+
+- **19 octombrie 2026 (v1.2.0)** — nou: pe cardul „Primii oameni pe Lună” (Apollo 11), legătura „↗ TerRa” deschide harta 2D a Pământului la 20 iulie 1969, 20:17:40 UTC (7 limbi).
 
 - **14 octombrie 2026 (v1.1.0)** — nou: export CSV, cod QR pe carduri, căutare locală tolerantă la greșeli, fereastra „Transparență” (fff-kit: core, label, bundle, qr, search); `tests/fff-r8.test.mjs`. CSP: hash-ul scriptului recalculat.
 
