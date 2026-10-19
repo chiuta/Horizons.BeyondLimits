@@ -10,7 +10,7 @@ Une carte du temps, du Big Bang à la fin de l'Univers : 91 événements, 8 doma
 
 **En ligne :** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Capture d'écran](screenshot.png)
+![Capture d'écran](screenshot.fr.png)
 
 ## De quoi s'agit-il
 

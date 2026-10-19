@@ -10,7 +10,7 @@ Un mapa del tiempo, desde el Big Bang hasta el fin del Universo: 91 eventos, 8 �
 
 **En línea:** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Captura de pantalla](screenshot.png)
+![Captura de pantalla](screenshot.es.png)
 
 ## Qué es
 

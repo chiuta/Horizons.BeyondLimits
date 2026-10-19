@@ -10,7 +10,7 @@ A map of time, from the Big Bang to the end of the Universe: 91 events, 8 domain
 
 **Live:** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.en.png)
 
 ## What it is
 

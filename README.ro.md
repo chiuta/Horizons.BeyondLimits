@@ -10,7 +10,7 @@ O hartă a timpului, de la Big Bang până la sfârșitul Universului: 91 de eve
 
 **Live:** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Captura de ecran](screenshot.png)
+![Captura de ecran](screenshot.ro.png)
 
 ## Ce este
 

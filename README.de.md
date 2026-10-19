@@ -10,7 +10,7 @@ Eine Karte der Zeit, vom Urknall bis zum Ende des Universums: 91 Ereignisse, 8 B
 
 **Live:** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.de.png)
 
 ## Was es ist
 

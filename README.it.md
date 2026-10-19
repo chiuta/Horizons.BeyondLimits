@@ -10,7 +10,7 @@ Una mappa del tempo, dal Big Bang alla fine dell'Universo: 91 eventi, 8 ambiti, 
 
 **Online:** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Schermata](screenshot.png)
+![Schermata](screenshot.it.png)
 
 ## Che cos'è
 

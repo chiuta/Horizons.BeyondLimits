@@ -10,7 +10,7 @@ Az idő térképe az ősrobbanástól az Univerzum végéig: 91 esemény, 8 ter�
 
 **Élő verzió:** https://chiuta.github.io/Horizons.BeyondLimits/
 
-![Képernyőkép](screenshot.png)
+![Képernyőkép](screenshot.hu.png)
 
 ## Mi ez
 
