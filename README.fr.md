@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.3.3 · **Dernière mise à jour :** 2026-10-22
+**Version :** 1.3.4 · **Dernière mise à jour :** 2026-10-22
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,10 @@ Horizons. Beyond Limits est une carte du temps en HTML, en un seul fichier, du B
 Audit : 2026-10-10 — l'affirmation « sans réseau / sans stockage » a été vérifiée (0 `fetch`/XHR/WebSocket, 0 `localStorage` ; les seules URL sont des liens `<a>` et des métadonnées OG). Contraste des couleurs corrigé, en particulier dans le thème clair (accents des ères, texte secondaire), vérifié avec axe dans les deux thèmes, sur ordinateur et mobile. La licence reste non déclarée.
 
 ## Historique / Changelog
+
+### 1.3.4 — 2026-10-22
+
+fff-kit 1.1.4 : cibles tactiles et taille de texte minimale. Cibles tactiles/texte corrigés dans l’application.
 
 ### 1.3.3 — 2026-10-22
 
