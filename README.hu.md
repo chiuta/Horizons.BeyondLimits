@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.3.5 · **Utolsó frissítés:** 2026-10-23
+**Verzió:** 1.3.6 · **Utolsó frissítés:** 2026-10-23
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,10 @@ A Horizons. Beyond Limits egyfájlos HTML-időtérkép az ősrobbanástól az un
 Audit: 2026-10-10 — a „nincs hálózat / nincs tárolás” állítás ellenőrizve (0 `fetch`/XHR/WebSocket, 0 `localStorage`; az egyetlen URL-ek `<a>` hivatkozások és OG-metaadatok). A színkontraszt javítva, különösen a világos témában (a korszakok kiemelőszínei, másodlagos szöveg), axe-szel ellenőrizve mindkét témában, asztali gépen és mobilon. A licenc továbbra is deklarálatlan.
 
 ## Előzmények / Changelog
+
+### 1.3.6 — 2026-10-23
+
+- fff-kit 1.2.0 audit: az i18n-paritás figyelmeztetés téves riasztás (a kulcsok futásidőben egészülnek ki); indokolt kivételként dokumentálva az `fff.config.json` fájlban. Funkcionális változás nincs.
 
 ### 1.3.4 — 2026-10-22
 

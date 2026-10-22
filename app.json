@@ -2,7 +2,7 @@
   "schema": 1,
   "slug": "horizons-beyondlimits",
   "name": "Horizons. Beyond Limits",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "updated": "2026-10-23",
   "description": "A map of time from the Big Bang to its very end — 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and speculative scenarios about the universe and life beyond Earth. Free, offline, single-file, no tracking.",
   "egress": [],
@@ -11,8 +11,8 @@
     "serviceWorker"
   ],
   "storageKeys": [],
-  "sizeBytes": 1097324,
-  "sha256": "f2bb9935c6b5d065c12040065d70ce1ceb2892fb2668f52c8ca94e2837a193e4",
+  "sizeBytes": 1097537,
+  "sha256": "caaa46ffa9debe9c9ae96c0a3cd1d14600723293be6a6ef9d4b3b77f8386b60f",
   "csp": {
     "present": true,
     "directives": {
@@ -67,5 +67,11 @@
       "search"
     ]
   },
-  "selfSerializing": false
+  "selfSerializing": false,
+  "exceptions": [
+    {
+      "rule": "i18n-parity",
+      "reason": "wAgo e o cheie opțională (forma flexionată «vor … Jahren» / «… évvel») doar pentru de și hu; celelalte limbi cad pe w/wu în cod (L.wAgo ? … : …)."
+    }
+  ]
 }

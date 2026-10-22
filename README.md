@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.3.5 · **Last updated:** 2026-10-23
+**Version:** 1.3.6 · **Last updated:** 2026-10-23
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,10 @@ Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to t
 Audit: 2026-10-10 — the "no network / no storage" claim verified (0 `fetch`/XHR/WebSocket, 0 `localStorage`; the only URLs are `<a>` links and OG meta). Fixed colour contrast, especially in the light theme (era accents, secondary text), verified with axe in both themes, desktop and mobile. The license remains undeclared.
 
 ## History / Changelog
+
+### 1.3.6 — 2026-10-23
+
+- fff-kit 1.2.0 audit: the i18n-parity warning is a false positive (the keys are completed at run time); documented as a justified exception in `fff.config.json`. No functional change.
 
 ### 1.3.4 — 2026-10-22
 

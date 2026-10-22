@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.3.5 · **Zuletzt aktualisiert:** 2026-10-23
+**Version:** 1.3.6 · **Zuletzt aktualisiert:** 2026-10-23
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,10 @@ Horizons. Beyond Limits ist eine HTML-Zeitkarte in einer einzigen Datei, vom Urk
 Audit: 2026-10-10 — die Aussage „kein Netzwerk / kein Speicher“ wurde überprüft (0 `fetch`/XHR/WebSocket, 0 `localStorage`; die einzigen URLs sind `<a>`-Links und OG-Meta). Der Farbkontrast wurde korrigiert, besonders im hellen Design (Akzente der Zeitalter, Sekundärtext), mit axe in beiden Designs geprüft, am Desktop und mobil. Die Lizenz bleibt nicht deklariert.
 
 ## Verlauf / Changelog
+
+### 1.3.6 — 2026-10-23
+
+- fff-kit-1.2.0-Audit: Die i18n-Paritätswarnung ist ein Fehlalarm (die Schlüssel werden zur Laufzeit ergänzt); als begründete Ausnahme in `fff.config.json` dokumentiert. Keine funktionale Änderung.
 
 ### 1.3.4 — 2026-10-22
 
