@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.3.1 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.3.2 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,9 @@ A Horizons. Beyond Limits egyfájlos HTML-időtérkép az ősrobbanástól az un
 Audit: 2026-10-10 — a „nincs hálózat / nincs tárolás” állítás ellenőrizve (0 `fetch`/XHR/WebSocket, 0 `localStorage`; az egyetlen URL-ek `<a>` hivatkozások és OG-metaadatok). A színkontraszt javítva, különösen a világos témában (a korszakok kiemelőszínei, másodlagos szöveg), axe-szel ellenőrizve mindkét témában, asztali gépen és mobilon. A licenc továbbra is deklarálatlan.
 
 ## Előzmények / Changelog
+
+### 1.3.2 — 2026-10-22
+- Mobil: a szöveg legalább 12 px, a gombok és mezők érintési felülete pedig nagyobb keskeny képernyőn.
 
 - **2026. október 19. (v1.2.0)** — új: az „Első emberek a Holdon” (Apollo 11) kártyán a „↗ TerRa” hivatkozás megnyitja a Föld 2D térképét 1969. július 20-án, 20:17:40 UTC-kor (7 nyelven).
 

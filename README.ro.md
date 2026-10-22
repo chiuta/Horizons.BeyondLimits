@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.3.1 · **Ultima actualizare:** 2026-10-19
+**Versiune:** 1.3.2 · **Ultima actualizare:** 2026-10-22
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,9 @@ Horizons. Beyond Limits este o hartă a timpului într-un singur fișier HTML, d
 Audit: 2026-10-10 — claimul „fără rețea / fără storage” verificat (0 `fetch`/XHR/WebSocket, 0 `localStorage`; singurele URL-uri sunt linkuri `<a>` și meta OG). Corectat contrastul culorilor, în special în tema luminoasă (accentele erelor, text secundar), verificat cu axe în ambele teme, desktop și mobil. Licența rămâne nedeclarată.
 
 ## Istoric / Changelog
+
+### 1.3.2 — 2026-10-22
+- Mobil: textul are cel puțin 12 px, iar butoanele și câmpurile au ținte tactile mai mari pe ecrane înguste.
 
 - **19 octombrie 2026 (v1.2.0)** — nou: pe cardul „Primii oameni pe Lună” (Apollo 11), legătura „↗ TerRa” deschide harta 2D a Pământului la 20 iulie 1969, 20:17:40 UTC (7 limbi).
 

@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 1.3.1 · **Última actualización:** 2026-10-19
+**Versión:** 1.3.2 · **Última actualización:** 2026-10-22
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,9 @@ Horizons. Beyond Limits es un mapa del tiempo en HTML de un solo archivo, desde 
 Auditoría: 2026-10-10 — la afirmación «sin red / sin almacenamiento» se verificó (0 `fetch`/XHR/WebSocket, 0 `localStorage`; las únicas URL son enlaces `<a>` y metadatos OG). Se corrigió el contraste de colores, en especial en el tema claro (acentos de las eras, texto secundario), verificado con axe en ambos temas, en escritorio y móvil. La licencia sigue sin declararse.
 
 ## Historial / Changelog
+
+### 1.3.2 — 2026-10-22
+- Móvil: el texto mide al menos 12 px y los botones y campos tienen áreas táctiles mayores en pantallas estrechas.
 
 - **19 de octubre de 2026 (v1.2.0)** — nuevo: en la tarjeta «Los primeros humanos en la Luna» (Apolo 11), el enlace «↗ TerRa» abre el mapa 2D de la Tierra el 20 de julio de 1969, 20:17:40 UTC (7 idiomas).
 
