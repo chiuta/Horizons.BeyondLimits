@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.3.2 · **Last updated:** 2026-10-22
+**Version:** 1.3.3 · **Last updated:** 2026-10-22
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,10 @@ Horizons. Beyond Limits is a single-file HTML map of time from the Big Bang to t
 Audit: 2026-10-10 — the "no network / no storage" claim verified (0 `fetch`/XHR/WebSocket, 0 `localStorage`; the only URLs are `<a>` links and OG meta). Fixed colour contrast, especially in the light theme (era accents, secondary text), verified with axe in both themes, desktop and mobile. The license remains undeclared.
 
 ## History / Changelog
+
+### 1.3.3 — 2026-10-22
+
+fff-kit 1.1.2: PBKDF2 with 600,000 iterations, anti-clickjacking protection.
 
 ### 1.3.2 — 2026-10-22
 - Mobile: text is at least 12 px and buttons and fields have larger touch targets on narrow screens.

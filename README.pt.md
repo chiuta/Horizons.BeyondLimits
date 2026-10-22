@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.3.2 · **Última atualização:** 2026-10-22
+**Versão:** 1.3.3 · **Última atualização:** 2026-10-22
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -90,6 +90,10 @@ O Horizons. Beyond Limits é um mapa do tempo em HTML de ficheiro único, do Big
 Auditoria: 2026-10-10 — a afirmação «sem rede / sem armazenamento» foi verificada (0 `fetch`/XHR/WebSocket, 0 `localStorage`; os únicos URL são ligações `<a>` e metadados OG). Corrigido o contraste de cores, em especial no tema claro (realces das eras, texto secundário), verificado com o axe nos dois temas, em computador e telemóvel. A licença continua por declarar.
 
 ## Histórico / Changelog
+
+### 1.3.3 — 2026-10-22
+
+fff-kit 1.1.2: PBKDF2 com 600.000 iterações, proteção anti-clickjacking.
 
 ### 1.3.2 — 2026-10-22
 - Móvel: o texto tem pelo menos 12 px e os botões e campos têm áreas táteis maiores em ecrãs estreitos.
