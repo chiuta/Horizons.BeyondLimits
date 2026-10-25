@@ -2,8 +2,8 @@
   "schema": 1,
   "slug": "horizons-beyondlimits",
   "name": "Horizons. Beyond Limits",
-  "version": "1.3.6",
-  "updated": "2026-10-23",
+  "version": "1.3.7",
+  "updated": "2026-10-26",
   "description": "A map of time from the Big Bang to its very end — 91 events, 8 domains, 12 eras, alternate branches, a 2D/3D time spiral, and speculative scenarios about the universe and life beyond Earth. Free, offline, single-file, no tracking.",
   "egress": [],
   "permissions": [
@@ -12,7 +12,7 @@
   ],
   "storageKeys": [],
   "sizeBytes": 1097537,
-  "sha256": "caaa46ffa9debe9c9ae96c0a3cd1d14600723293be6a6ef9d4b3b77f8386b60f",
+  "sha256": "e25056e209fcab70f0d7bc6a4f965498d4a8cd18d1c2a9bc330bd80936f1b633",
   "csp": {
     "present": true,
     "directives": {
