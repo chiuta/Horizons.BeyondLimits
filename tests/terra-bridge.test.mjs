@@ -1,8 +1,10 @@
 // Horizons 1.2.0 — „↗ TerRa” pe cardul Apollo 11. Copiat în Horizons.BeyondLimits/tests/terra-bridge.test.mjs. Rulare: node terra-bridge.test.mjs <dirHorizons> <dirTerRa>
-import {createRequire} from "module"; const require = createRequire("/opt/node-tools/package.json"); const {chromium} = require("playwright");
+import {createRequire} from "module"; const require = createRequire(process.env.PW_ROOT || import.meta.url); const {chromium} = require("playwright");
+import {existsSync as __ex} from "node:fs"; import __pa from "node:path";
+const __dirs = (args, defs) => { const out = defs.map((d, i) => { const c = args[i] ? [args[i]] : (Array.isArray(d) ? d : [d]); return c.map((x) => __pa.resolve(process.cwd(), x)).find((x) => __ex(__pa.join(x, "index.html"))); }); if (out.some((x) => !x)) { console.log("SKIP: testul cere și aplicațiile învecinate (" + defs.map((d) => [].concat(d)[0]).join(", ") + ") lângă depozit; în CI singur se omite"); process.exit(0); } return out; }; // [fff-ci]
 let fails = 0, passes = 0; const check = (n, c, x) => { c ? (passes++, console.log("  ok  " + n)) : (fails++, console.log("FAIL  " + n + (x !== undefined ? "  -> " + JSON.stringify(x) : ""))); };
-const [dH, dT] = process.argv.slice(2);
-const b = await chromium.launch({executablePath: "/opt/pw-browsers/chromium"});
+const [dH, dT] = __dirs(process.argv.slice(2), [".", "../TerRa"]);
+const b = await chromium.launch({executablePath: process.env.CHROMIUM_PATH || undefined});
 const mk = async (loc) => { const ctx = await b.newContext({viewport: {width: 1280, height: 900}, locale: loc || "ro-RO"}); const net = []; await ctx.route(/^https?:/, r => { net.push(r.request().url()); r.abort(); }); const p = await ctx.newPage(); p.errs = []; p.net = net; p.on("pageerror", e => p.errs.push(String(e))); return p; };
 const p = await mk(); await p.goto("file://" + dH + "/index.html#primii-oameni-pe-luna"); await p.waitForTimeout(4200);
 const L = () => p.evaluate(() => [...document.querySelectorAll("a.event-bridge")].map(a => ({h: a.getAttribute("href"), t: a.textContent, rel: a.rel, tg: a.target})));
