@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.3.7 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -18,6 +18,7 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 
 ## Funcții
 
+- **Cronologie comparativă (v2.0.0):** trei scări de timp (cosmică, geologică și a vieții, umană) pe aceeași axă logaritmică, cu zoom continuu, deplasare prin tragere sau tastatură și trei axe: trecut (ani în urmă), de la Big Bang (secunde) și viitor (ani de acum). Pozițiile sunt calculate din datele evenimentelor din hartă (aproximative); export SVG. Colecțiile de evenimente proprii nu sunt incluse în această versiune.
 - Harta timpului: 91 de evenimente, 8 domenii, 12 ere; alegerea unei ere și carduri cu detalii.
 - Buton „🎲 Show me a random future" (un viitor la întâmplare).
 - „Alternate Branches": traiectorii alternative, unele reconectate la harta principală.

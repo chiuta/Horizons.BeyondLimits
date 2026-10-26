@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.3.7 · **Last updated:** 2026-10-26
+**Version:** 2.0.0 · **Last updated:** 2026-10-26
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -18,6 +18,7 @@ Horizons. Beyond Limits is a single-file HTML app that combines what is known wi
 
 ## Features
 
+- **Comparative timeline (v2.0.0):** three time scales (cosmic, geological and life, human) on one logarithmic axis with continuous zoom, drag/keyboard panning and three axes: past (years ago), since the Big Bang (seconds) and future (years from now). Positions are computed from the map's event data (approximate); SVG export. User-defined event collections are not part of this version.
 - The time map: 91 events, 8 domains, 12 eras; era selection and detail cards.
 - A "🎲 Show me a random future" button (a future at random).
 - "Alternate Branches": alternative trajectories, some reconnected to the main map.
