@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Last updated:** 2026-10-26
+**Version:** 2.1.0 (previous: v2.0.0) · **Last updated:** 2026-10-27
+
+**Status:** stable (the sources are being added gradually) · **Offline:** complete (no network needed)
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -18,6 +20,7 @@ Horizons. Beyond Limits is a single-file HTML app that combines what is known wi
 
 ## Features
 
+- **Switchable scale and sources (v2.1.0):** the comparative timeline now offers a **logarithmic ⇄ linear** scale for the “years ago” and “years from now” axes (linear shows how almost all of human history is squeezed next to “now”; zoom in to see it; the “seconds since the Big Bang” axis stays logarithmic, because a linear one would span 50 orders of magnitude). Event cards and the timeline detail show **bibliographic sources**, only where they were checked: **10 of the 26 past events** have one (Planck 2018 for the Big Bang and the CMB, Bouvier & Wadhwa 2010 for the Solar System, Canup & Asphaug 2001 for the Moon-forming impact, Lyons et al. 2014 for the Great Oxidation, the ICS chart for the Cambrian, Renne et al. 2013 for the end-Cretaceous extinction, Hublin et al. 2017 for Homo sapiens, NASA Apollo 11, CERN for the Web). The other 16 past events display “Source not yet added (to be verified)”; the future events are predictions/scenarios and have no source line. The citations are plain text (no links, nothing is fetched).
 - **Comparative timeline (v2.0.0):** three time scales (cosmic, geological and life, human) on one logarithmic axis with continuous zoom, drag/keyboard panning and three axes: past (years ago), since the Big Bang (seconds) and future (years from now). Positions are computed from the map's event data (approximate); SVG export. User-defined event collections are not part of this version.
 - The time map: 91 events, 8 domains, 12 eras; era selection and detail cards.
 - A "🎲 Show me a random future" button (a future at random).

@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.1.0 (anterior: v2.0.0) · **Ultima actualizare:** 2026-10-27
+
+**Stare:** stabil (sursele se adaugă treptat) · **Offline:** complet (nu cere internet)
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -18,6 +20,7 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 
 ## Funcții
 
+- **Scară comutabilă și surse (v2.1.0):** cronologia comparativă oferă acum scară **logaritmică ⇄ liniară** pentru axele „ani în urmă” și „ani de acum” (cea liniară arată cum aproape toată istoria umană se strânge lângă „acum”; mărește pentru a o vedea; axa „secunde de la Big Bang” rămâne logaritmică, fiindcă una liniară ar acoperi 50 de ordine de mărime). Cardurile evenimentelor și detaliul din cronologie arată **surse bibliografice**, doar acolo unde au fost verificate: **10 din cele 26 de evenimente din trecut** au sursă (Planck 2018 pentru Big Bang și radiația fosilă, Bouvier & Wadhwa 2010 pentru Sistemul Solar, Canup & Asphaug 2001 pentru impactul care a format Luna, Lyons et al. 2014 pentru Marea Oxidare, tabelul ICS pentru Cambrian, Renne et al. 2013 pentru extincția de la sfârșitul Cretacicului, Hublin et al. 2017 pentru Homo sapiens, NASA Apollo 11, CERN pentru Web). Celelalte 16 evenimente din trecut afișează „Sursă încă neadăugată (de verificat)”; evenimentele viitoare sunt predicții/scenarii și nu au linie de sursă. Citările sunt text simplu (fără linkuri, nu se încarcă nimic).
 - **Cronologie comparativă (v2.0.0):** trei scări de timp (cosmică, geologică și a vieții, umană) pe aceeași axă logaritmică, cu zoom continuu, deplasare prin tragere sau tastatură și trei axe: trecut (ani în urmă), de la Big Bang (secunde) și viitor (ani de acum). Pozițiile sunt calculate din datele evenimentelor din hartă (aproximative); export SVG. Colecțiile de evenimente proprii nu sunt incluse în această versiune.
 - Harta timpului: 91 de evenimente, 8 domenii, 12 ere; alegerea unei ere și carduri cu detalii.
 - Buton „🎲 Show me a random future" (un viitor la întâmplare).
