@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.1.0 (anterior: v2.0.0) · **Ultima actualizare:** 2026-10-27
+**Versiune:** 2.2.0 (anterior: v2.1.0) · **Ultima actualizare:** 2026-10-27
 
 **Stare:** stabil (sursele se adaugă treptat) · **Offline:** complet (nu cere internet)
 
@@ -33,6 +33,8 @@ Horizons. Beyond Limits este o aplicație HTML dintr-un singur fișier care comb
 - Scurtătură: `/` mută focusul în câmpul de căutare.
 - Căutare, temă luminoasă/întunecată (buton ☀) și interfață în 8 limbi: English, Română, Français, Italiano, Español, Português, Deutsch, Magyar.
 - Navigare cu tastatura în meniul de limbă și în file (săgeți, Home, End, Enter, Spațiu, Esc).
+
+- **Surse extinse (v2.2.0):** 25 din cele 26 de evenimente din trecut au acum sursă bibliografică verificată pe web (Guth 1981, Cyburt et al. 2016, Barkana & Loeb 2001, Rubin & Ford 1970 / Riess et al. 1998, Bromm & Larson 2004, Robertson et al. 2023, Burbidge et al. 1957, Gomes et al. 2005, Dodd et al. 2017, Zaremba-Niedzwiedzka et al. 2017, Mallick et al. 2016, Zeder 2011, Woods 2010, Allen 2009, Waters et al. 2016 + declarația IUGS din 2024); doar „Revoluția științifică” rămâne „Sursă încă neadăugată (de verificat)”.
 
 ## Funcții noi (1.1.0)
 

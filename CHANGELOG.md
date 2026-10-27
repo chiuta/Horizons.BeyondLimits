@@ -1,5 +1,16 @@
 # Jurnal de modificări — Horizons. Beyond Limits
 
+## 2.2.0 — 2026-10-27
+
+Anterior: v2.1.0. Recenzie 2 (2026-10-27).
+
+- Nou: **surse bibliografice pentru încă 15 dintre cele 16 evenimente din trecut** rămase fără sursă (acum 25 din 26 au): Guth 1981 (inflația), Cyburt et al. 2016 (nucleosinteza primordială), Barkana & Loeb 2001 (epoca întunecată), Rubin & Ford 1970 și Riess et al. 1998 (materia/energia întunecată), Bromm & Larson 2004 (primele stele), Robertson et al. 2023 (primele galaxii, JWST), Burbidge et al. 1957 (elementele grele), Gomes et al. 2005 (bombardamentul greu târziu), Dodd et al. 2017 (primele forme de viață), Zaremba-Niedzwiedzka et al. 2017 (celula eucariotă), Mallick et al. 2016 (ieșirea din Africa), Zeder 2011 (agricultura), Woods (ed.) 2010 (scrisul), Allen 2009 (revoluția industrială), Waters et al. 2016 + declarația IUGS din 20.03.2024 (Antropocenul, respins ca epocă formală). Toate verificate pe web (titlu, autori, revistă/an, DOI) la 2026-10-27; text simplu, fără linkuri, nimic nu se încarcă din rețea.
+- Test `scara-surse` actualizat (25 cu sursă, 1 fără).
+
+Nu s-a implementat:
+- Sursă pentru „Revoluția științifică”: nu a putut fi verificată (pagina de referință nu a fost accesibilă), deci rămâne „Sursă încă neadăugată (de verificat)”. Cele 65 de evenimente viitoare sunt predicții/scenarii, fără sursă unică.
+- Sursele sunt referințe generale pentru eveniment; nu au fost confruntate cu fiecare cifră din descrierile cardurilor.
+
 ## 2.1.0 — 2026-10-27
 
 Anterior: v2.0.0. Recenzie 2026-10-27.

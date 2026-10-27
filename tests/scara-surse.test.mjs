@@ -38,12 +38,12 @@ t('revenire la logaritmic: același număr de evenimente ca la început', (await
 // surse
 const src = await p.evaluate(() => { const E = HZ_CMP.events(); return E.map(e => ({era: e.era, t: e.title, has: !!HZ_CMP.sources()[e.title]})); });
 t('sursele există doar pentru evenimente din trecut (era p*) și titlurile se potrivesc', Object.keys(await p.evaluate(() => HZ_CMP.sources())).every(k => src.some(s => s.t === k && /^p\d$/.test(s.era))));
-t('10 evenimente au sursă, restul de 16 din trecut sunt marcate „de verificat”', src.filter(s => s.has).length === 10 && src.filter(s => /^p\d$/.test(s.era) && !s.has).length === 16, [src.filter(s => s.has).length]);
+t('25 de evenimente au sursă, restul de 1 din trecut (Revoluția științifică) e marcat „de verificat”', src.filter(s => s.has).length === 25 && src.filter(s => /^p\d$/.test(s.era) && !s.has).length === 1, [src.filter(s => s.has).length]);
 // afișarea în detaliu din cronologie
 const iBB = await p.evaluate(() => HZ_CMP.events().findIndex(e => e.title === 'Big Bang-ul'));
 await p.click('#cmp-svg .cmp-ev[data-i="' + iBB + '"]').catch(async () => { await p.dispatchEvent('#cmp-svg .cmp-ev[data-i="' + iBB + '"]', 'click'); });
 t('detaliu cronologie: „Sources: … Planck 2018 …”', /Sources:.*Planck 2018/.test(await p.textContent('#cmp-detail')), await p.textContent('#cmp-detail'));
-const iDark = await p.evaluate(() => HZ_CMP.events().findIndex(e => e.title === 'Epoca întunecată'));
+const iDark = await p.evaluate(() => HZ_CMP.events().findIndex(e => e.title === 'Revoluția științifică'));
 await p.dispatchEvent('#cmp-svg .cmp-ev[data-i="' + iDark + '"]', 'click');
 t('detaliu: eveniment fără sursă → „Source not yet added (to be verified)”', /not yet added/.test(await p.textContent('#cmp-detail')), await p.textContent('#cmp-detail'));
 // cardul din hartă
