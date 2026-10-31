@@ -1,5 +1,9 @@
 # Jurnal de modificări — Horizons. Beyond Limits
 
+## 2.2.2 — 2026-10-31
+
+- Compararea cronologică: nodurile SVG de la tastatură au zonă de atingere de 72×36 unități (≥24px pe telefon), fără schimbare vizuală.
+
 ## 2.2.1 — 2026-10-31
 
 Doar interfață (accesibilitate pe telefon, 360×740): casetele de bifare mai mici de 24 px → 24 px (WCAG 2.5.8). Fără alte schimbări de comportament.
