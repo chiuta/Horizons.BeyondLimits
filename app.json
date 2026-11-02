@@ -11,8 +11,8 @@
     "serviceWorker"
   ],
   "storageKeys": [],
-  "sizeBytes": 1146124,
-  "sha256": "92199ba0879cfb125ad99c3ec1fbc83c0d59cb414e7d97794a1a054da1de2b35",
+  "sizeBytes": 1242772,
+  "sha256": "4437e598be0fb4f71e50d7702923407d6fd45ae5727e5a18895bb4420591cbd4",
   "csp": {
     "present": true,
     "directives": {
@@ -52,6 +52,9 @@
       "label",
       "bundle",
       "qr",
+      "p2p",
+      "sync",
+      "history",
       "search"
     ]
   },
@@ -64,6 +67,9 @@
       "label",
       "bundle",
       "qr",
+      "p2p",
+      "sync",
+      "history",
       "search"
     ]
   },
